@@ -4214,16 +4214,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 -->
 
 <h1 id="configuring-your-system">Configuring your system</h1>
+<p>Configuring your local system can help you optimize the runtime environment for your Java application. Options include setting operating system environment variables and configuring system resources so that OpenJ9 can exploit the underlying operating system and hardware capabilities.</p>
 <p>When you install a Java&trade; runtime environment on your system you can set the <strong>PATH</strong> environment variable so that the operating system can find the Java programs and utilities to run your application. To tell your application where to find user classes, you can use the <strong>-cp</strong> option or set the <strong>CLASSPATH</strong> environment variable. However, if you set <strong>CLASSPATH</strong> globally, all invocations of Java are affected. How to set these environment variables is covered in many publications about Java, such as <a href="https://docs.oracle.com/javase/tutorial/essential/environment/paths.html">The Java Tutorials: PATH and CLASSPATH</a>.</p>
 <p>On some systems, a further environment variable might be required if your application requires shared libraries but does not specify their exact location. You can set the following environment variables to specify the directory location of the shared libraries, although setting a global value affects all invocations of Java:</p>
 <ul>
 <li><strong>LIBPATH</strong> (AIX&reg;)</li>
 <li><strong>LD_LIBRARY_PATH</strong> (Linux&reg;)</li>
-<li><strong>DYLD_LIBRARY_PATH</strong> (macOS&reg;)  </li>
+<li><strong>DYLD_LIBRARY_PATH</strong> (macOS&reg;)</li>
+<li><strong>PATH</strong> (Windows&reg;)</li>
 </ul>
-<p><img alt="Start of content that applies to Java 14+" src="../cr/java14plus.png" /> On AIX systems, you must have the <a href="https://www.ibm.com/support/pages/xl-cc-runtime-aix-v16101-fix-pack-december-2018">XL C++ Runtime</a> installed.</p>
+<p><img alt="Start of content that applies to Java 14+" src="../cr/java14plus.png" /> Although most Java applications should run without changing anything on the underlying system, a unique pre-requisite exists for AIX systems on OpenJDK version 14 and later; you must have the <a href="https://www.ibm.com/support/pages/xl-cc-runtime-aix-v16101-fix-pack-december-2018">XL C++ Runtime</a> installed. <img alt="End of content that applies only to Java 14 and later" src="../cr/java_close.png" /></p>
 <h2 id="setting-resource-limits-aix-linux-and-macos">Setting resource limits (AIX, Linux, and macOS)</h2>
-<p>The operating system sets resource limits for a shell and to processes started by the shell to ensure that a single process cannot consume all available resources. However, these limits can affect certain operations that might need to run for a Java application, such as producing a dump file.</p>
+<p>The operating system sets resource limits for a shell, and to processes started by the shell, to ensure that a single process cannot consume all available resources. However, these limits can affect certain operations that might need to run for a Java application, such as producing a dump file.</p>
 <h3 id="setting-ulimit-values">Setting ulimit values</h3>
 <p>Some resource limits are controlled by the <strong>ulimit</strong> command. A <em>soft</em> limit is the value set by the kernel for a resource and a <em>hard</em> limit imposes a maximum value on the soft limit. A privileged process can change either limit, but an unprivileged process can change only its soft limit (between 0 and the hard limit) or irreversibly lower its hard limit. To see the current limits set for a system, run <code>ulimit -a</code>. The output is similar to the following example:</p>
 <pre><code>core file size          (blocks, -c) 0
@@ -4246,10 +4248,11 @@ virtual memory          (kbytes, -v) unlimited
 <p>Another use case for changing resource limits is to ensure that there is sufficient shared memory allocated for class data sharing. By default, the shared classes cache consists of memory-mapped files that are created on disk and <em>persist</em> when the system is restarted. If you choose to use <em>non-persistent</em> caches by setting the <code>-Xshareclasses:nonpersistent</code> option, caches are not retained on startup and are allocated by using the System V IPC shared memory mechanism.</p>
 <ul>
 <li>On AIX systems, the kernel dynamically adjusts the shared memory settings as required. No special configuration is required.</li>
-<li>On Linux systems, the <strong>SHMMAX</strong> setting limits the amount of shared memory that can be allocated, which affects the shared classes cache size. You can find the value of <strong>SHMMAX</strong> for your system in the <code>/proc/sys/kernel/shmmax</code> file. For non-persistent caches, set this value to an appropriate size for your applications. To make these changes permanent, edit <code>/etc/sysctl.conf</code>.</li>
+<li>On Linux systems, the <strong>SHMMAX</strong> setting limits the amount of shared memory that can be allocated, which affects the shared classes cache size. You can find the value of <strong>SHMMAX</strong> for your system in the <code>/proc/sys/kernel/shmmax</code> file. For non-persistent caches, set this value to an appropriate size for your applications. To make these changes permanent, edit <code>/etc/sysctl.conf</code> and reboot your system.</li>
 <li>On macOS systems, you must set <strong>kern.sysv.shmmax</strong> and <strong>kern.sysv.shmall</strong> when using a nonpersistent cache. Modify the settings in your <code>/etc/sysctl.conf</code> file and reboot your system. To check the value, run <code>sysctl kern.sysv.shmmax</code>.</li>
 </ul>
 <p><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <strong>Note:</strong> The virtual address space of a process is shared between the shared classes cache and the Java heap. Increasing the maximum size for the shared classes cache might reduce the size of the Java heap that you can create.</p>
+<p>Shared memory limits are also important when configuring large page memory allocation on Linux systems. For more information, see <a href="#linux-systems">Configuring large page memory allocation: Linux systems</a>.</p>
 <h2 id="setting-resource-limits-zos">Setting resource limits (z/OS)</h2>
 <p>Resource limits imposed by z/OS might affect Java operations. To learn how these resource limits are set, see <a href="https://www.ibm.com/support/knowledgecenter/SSLTBW_2.4.0/com.ibm.zos.v2r4.bpxb200/cusis.htm">Customizing the BPXPRMxx member of SYS1.PARMLIB</a>.</p>
 <p>The OpenJ9 class data sharing feature is implemented by using shared memory segments on z/OS. Special consideration should be given to the following parameters that relate to the shared memory and IPC semaphore settings:</p>

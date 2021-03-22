@@ -4234,14 +4234,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h1 id="getting-started-with-openj9">Getting started with OpenJ9</h1>
 <p>OpenJ9 is a high performance, scalable, Java&trade; virtual machine (VM) implementation that is fully compliant with the <a href="https://docs.oracle.com/javase/specs/index.html">Java Virtual Machine Specification</a>.</p>
 <p>At run time, the VM interprets the Java bytecode that is compiled by the Java compiler. The VM acts as a translator between the language and the underlying operating system and hardware. A Java program requires a specific VM to run on a particular platform, such as Linux&reg;, z/OS&reg;, or Windows&trade;.</p>
-<p>This reference material provides information about the VM configuration and tuning options, together with the default settings.</p>
+<p>This material provides information about the VM configuration and tuning options, together with the default settings. Follow the links provided for more detailed information.</p>
 <h2 id="configuring-your-system">Configuring your system</h2>
-<p>For normal operation, certain environment variables must be set at the operating system level. Depending on your system environment, you might also want to set other configuration options that allow the VM to exploit hardware and operating system features. Read <a href="../configuring/">Configuring your system</a> to learn more about the following options:</p>
+<p>Most Java applications should run on an OpenJDK that contains the OpenJ9 VM without changing anything on the underlying system. However, to get the most out of your system you might want to consider some configuration options. Read <a href="../configuring/">Configuring your system</a> to learn more about the following options:</p>
 <ul>
 <li>Setting operating system environment variables, such as <strong>PATH</strong> and <strong>CLASSPATH</strong>.</li>
-<li>Setting resource limits for running Java applications.</li>
+<li>Increasing resource limits for running Java applications.</li>
 <li>Configuring large page memory allocation.</li>
-<li>Configuring Dynamic LPAR support on AIX systems.</li>
+<li>Configuring Dynamic LPAR support on AIX&reg; systems.</li>
 </ul>
 <h2 id="performance-tuning">Performance tuning</h2>
 <p>OpenJ9 is configured to start with a set of default options that provide the optimal runtime environment for Java applications with typical workloads. However, if your application is atypical, you can improve performance by tuning the OpenJ9 VM. You can also improve performance by enabling hardware features or using specific APIs in your application code.</p>
