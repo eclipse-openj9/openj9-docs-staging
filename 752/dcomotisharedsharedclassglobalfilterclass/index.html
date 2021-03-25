@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xlpcodecache/">
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/dcomotisharedsharedclassglobalfilterclass/">
       
       <link rel="shortcut icon" href="../cr/openj9-logo.svg">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.3">
     
     
       
-        <title>-Xlp:codecache -  </title>
+        <title>Dcomotisharedsharedclassglobalfilterclass -  </title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xlpcodecache" class="md-skip">
+        <a href="#-dcomibmotisharedsharedclassglobalfilterclass" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -Xlp:codecache
+              Dcomotisharedsharedclassglobalfilterclass
             
           </span>
         </div>
@@ -1096,14 +1096,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
       
       <label class="md-nav__link" for="__nav_13">
         Command-line options
@@ -1542,14 +1540,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13_5" type="checkbox" id="__nav_13_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13_5" type="checkbox" id="__nav_13_5" >
       
       <label class="md-nav__link" for="__nav_13_5">
         JVM -X options
@@ -2153,97 +2149,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          -Xlp:codecache
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../xlpcodecache/" class="md-nav__link">
         -Xlp:codecache
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="On this page...">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page...
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#default-values" class="md-nav__link">
-    Default values
-  </a>
-  
-    <nav class="md-nav" aria-label="Default values">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#aix" class="md-nav__link">
-    AIX
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    Linux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#macos" class="md-nav__link">
-    macOS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zos" class="md-nav__link">
-    z/OS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See also
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4077,43 +3987,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-values" class="md-nav__link">
-    Default values
+  <a href="#explanation" class="md-nav__link">
+    Explanation
   </a>
-  
-    <nav class="md-nav" aria-label="Default values">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#aix" class="md-nav__link">
-    AIX
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    Linux
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#macos" class="md-nav__link">
-    macOS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zos" class="md-nav__link">
-    z/OS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -4161,54 +4037,19 @@
 * Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
 -->
 
-<h1 id="-xlpcodecache">-Xlp:codecache</h1>
-<p>Requests the OpenJ9 VM to allocate the JIT code cache by using large page sizes.</p>
-<p>If the requested large page size is not available, the VM starts, but the JIT code cache is allocated by using a platform-defined size. A warning is displayed when the requested page size is not available.</p>
-<p>To find out the large page sizes available and the current setting, use the <code>-verbose:sizes</code> option. Note that the current settings are the requested sizes and not the sizes obtained. For object heap size information, check the <code>-verbose:gc</code> output.</p>
+<h1 id="-dcomibmotisharedsharedclassglobalfilterclass">-Dcom.ibm.oti.shared.SharedClassGlobalFilterClass</h1>
+<p>This system property applies a global filter to all non-bootstrap class loaders that share classes.</p>
 <h2 id="syntax">Syntax</h2>
-<p>AIX&reg;, Linux&reg;, macOS&reg;, and Windows&trade;:</p>
-<pre><code>    -Xlp:codecache:pagesize=&lt;size&gt;
+<pre><code>    -Dcom.ibm.oti.shared.SharedClassGlobalFilterClass=&lt;filter_class_name&gt;
 </code></pre>
-<p>z/OS&reg;:</p>
-<pre><code>    -Xlp:codecache:pagesize=&lt;size&gt;,pageable
-</code></pre>
-<p>See <a href="../x_jvm_commands/">Using -X command-line options</a> for more information about the <code>&lt;size&gt;</code> parameter.</p>
-<h2 id="default-values">Default values</h2>
-<h3 id="aix">AIX</h3>
-<dl>
-<dd>
-<p>The code cache page size is controlled by the <code>DATAPSIZE</code> setting of the <code>LDR_CNTRL</code> environment variable. The page size cannot be controlled by the <code>-Xlp:codecache:pagesize=&lt;size&gt;</code> option. Specifying any other page size results in a warning that the page size is not available. The <code>-verbose:sizes</code> output reflects the current operating system setting.</p>
-<p>For more information about the <code>LDR_CNTRL</code> environment variable, see <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/j9_configure_aix_ldr_cntrl.html">Working with the LDR_CNTRL environment variable</a>.</p>
-</dd>
-</dl>
-<h3 id="linux">Linux</h3>
-<dl>
-<dd>
-<p>The default size for the code cache depends on the architecture:</p>
-<ul>
-<li>Linux on x86 and AMD64/EM64T systems: 2 MB large pages</li>
-<li>Linux on IBM Z&reg;: 1 MB large pages</li>
-<li>Linux on Power Systems&trade;: The code cache page size cannot be controlled by the <code>-Xlp:codecache:pagesize=&lt;size&gt;</code> option. Specifying any other page size results in a warning that the page size is not available. The <code>-verbose:sizes</code> output reflects the current operating system setting.</li>
-<li>On other architectures, the VM uses the default operating system page size.</li>
-</ul>
-</dd>
-</dl>
-<h3 id="macos">macOS</h3>
-<dl>
-<dd>The default size for the code cache is 4 KB large pages.</dd>
-</dl>
-<h3 id="zos">z/OS</h3>
-<dl>
-<dd>
-<p>1 MB pageable pages, when available, are the default size for the code cache.</p>
-<p>The <code>-Xlp:codecache:pagesize=&lt;size&gt;,pageable</code> option supports only a large page size of 1 MB pageable large pages. The use of 1 MB pageable large pages for the JIT code cache can improve the runtime performance of some Java&trade; applications. A page size of 4 KB can also be used.</p>
-</dd>
-</dl>
+<p>This property is not set by default.</p>
+<h2 id="explanation">Explanation</h2>
+<p>A filter can be used to decide which classes are found and stored by a custom class loader in a shared classes cache. The filter is applied to a particular package.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/j9_configure_large_page.html">Configuring large page memory allocation</a>.</li>
+<li><a href="../shrc/#the-java-helper-api">The Java Helper API</a></li>
 </ul>
-<!-- ==== END OF TOPIC ==== xlpcodecache.md ==== -->
+<!-- ==== END OF TOPIC ==== dcomibmotisharedsharedclassglobalfilterclass.md ==== -->
                 
               
               

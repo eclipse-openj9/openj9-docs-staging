@@ -1424,6 +1424,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../dcomibmotisharedsharedclassglobalfilterclass.md" class="md-nav__link">
+        -Dcom.ibm.oti.shared.SharedClassGlobalFilterClass
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dcomibmtoolsattachcommand_timeout/" class="md-nav__link">
         -Dcom.ibm.tools.attach.command_timeout
       </a>
@@ -4266,12 +4278,12 @@ Default behavior includes the following characteristics:</p>
 <li>The cache name is <code>sharedcc_%u</code>, where <code>%u</code> is the current user name.</li>
 <li>If class data sharing fails, the VM still starts without printing any errors.</li>
 </ul>
-<p>Shared class behavior is controlled by specifying the <a href="shareclasses.md">-Xshareclasses</a> option on the command line when you start your application. The default settings are equivalent to specifying the following suboptions:</p>
+<p>Shared class behavior is controlled by specifying the <a href="../xshareclasses/">-Xshareclasses</a> option on the command line when you start your application. The default settings are equivalent to specifying the following suboptions:</p>
 <pre><code>-Xshareclasses:bootClassesOnly,nonFatal,silent
 </code></pre>
 
 <p>You can enable class data sharing for non-bootstrap classes as well as bootstrap classes, by omitting the <code>bootClassesOnly</code> suboption. You can also disable all class data sharing by using the <code>none</code> suboption.</p>
-<p>Further suboptions are available to configure a cache at startup, including name, location, and startup size. You can also use cache utilities to manage a shared classes classes cache after it is initialized and in use.</p>
+<p>Further suboptions are available to configure a cache at startup, including name, location, and startup size. You can also use cache utilities to manage a shared classes cache after it is initialized and in use.</p>
 <p>A shared classes cache can be <em>persistent</em> or <em>non-persistent</em> according to the following definition:</p>
 <ul>
 <li>persistent caches are written to disk and remain in place, even after a system is rebooted.</li>
@@ -4378,49 +4390,49 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 </dl>
 <ol>
 <li>The lowest layer is a Ubuntu Docker image.</li>
-<li>The next layer is an OpenJ9 Docker image that is built on the Ubuntu image. As part of this image, the <code>-Xshareclasses:name=Cache1</code> suboption is used to create a cache called <code>Cache1</code>. The layer number assigned to this cache is <code>0</code>. The <code>listAllCaches</code> suboption shows the cache and the layer number:</li>
-</ol>
+<li>
+<p>The next layer is an OpenJ9 Docker image that is built on the Ubuntu image. As part of this image, the <code>-Xshareclasses:name=Cache1</code> suboption is used to create a cache called <code>Cache1</code>. The layer number assigned to this cache is <code>0</code>. The <code>listAllCaches</code> suboption shows the cache and the layer number:</p>
 <p>```
-  java -Xshareclasses:listAllCaches
-  ...
-  Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
+java -Xshareclasses:listAllCaches
+...
+Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
 <p>Compatible shared caches
-  Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019
-  ```</p>
-<ol start="3">
+Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019
+```</p>
+</li>
 <li>
 <p>The next Docker layer up is an Open Liberty image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=Cache1,layer=1</code> suboption is used to create another cache called <code>Cache1</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>Cache1</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
 </li>
 <li>
 <p>In the same way, another Docker layer is added for an Open Liberty Java application, and another layered cache is created to add to <code>Cache1</code>. The <code>listAllCaches</code> suboption now shows all the caches and their layers:</p>
+<p>```
+java -Xshareclasses:listAllCaches
+...
+Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
+<p>Compatible shared caches
+Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019 <br />
+Cache1                  Java8 64-bit  persistent      cr              1                                         Mon Sep 23 11:46:25 2019
+Cache1                  Java8 64-bit  persistent      cr              2                                         In use
+```  </p>
 </li>
 </ol>
-<p>```
-  java -Xshareclasses:listAllCaches
-  ...
-  Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
-<p>Compatible shared caches
-  Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019 <br />
-  Cache1                  Java8 64-bit  persistent      cr              1                                         Mon Sep 23 11:46:25 2019
-  Cache1                  Java8 64-bit  persistent      cr              2                                         In use
-  ```  </p>
 <p>The caches are created in the same directory.</p>
 <p>When you use the <code>-Xshareclasses:name=Cache1</code> suboption in future Java commands, all the caches are started. The top-layer cache is started in read/write mode, and lower-layer caches are started in read-only mode. Modifying a lower-layer cache would invalidate all the caches in the layers above.</p>
-<p>The following command line options are available for creating, managing, and removing layered caches:</p>
+<p>The following options and cache utilities are available for creating, managing, and removing layered caches:</p>
 <ul>
 <li><a href="../xshareclasses/#createlayer"><code>-Xshareclasses:createLayer</code></a></li>
 <li><a href="../xshareclasses/#layer"><code>-Xshareclasses:layer</code></a></li>
-<li><a href="../xshareclasses/#printtoplayerstats"><code>-Xshareclasses:printTopLayerStats</code></a> For example output, see <a href="../shrc_diag_util/#printtoplayerstats">printTopLayerStats</a>.</li>
+<li><a href="../xshareclasses/#printtoplayerstats"><code>-Xshareclasses:printTopLayerStats</code></a> (for example output, see <a href="../shrc_diag_util/#printtoplayerstats">printTopLayerStats</a>)</li>
 <li><a href="../xshareclasses/#destroyalllayers"><code>-Xshareclasses:destroyAllLayers</code></a></li>
 </ul>
 <h2 id="saving-a-shared-classes-cache">Saving a shared classes cache</h2>
 <p>As described in an earlier section, a shared classes cache can be persistent or non-persistent. Non-persistent caches are stored in shared memory and are removed when a system is rebooted. If you want to save a cache beyond a reboot you might want to consider making your cache persistent or taking a cache snapshot.</p>
 <p>To use a persistent cache, see the <a href="../xshareclasses/#persistent"><code>-Xshareclasses:persistent</code></a> suboption.</p>
-<p>To create a snapshot of a non-persistent shared classes cache, use the <a href="../xshareclasses/#snapshotcache"><code>-Xshareclasses:snapshotCache</code></a> cache utility. The snapshot has the same name and location as the shared cache, as specified by the <code>name</code> and <code>cacheDir</code> suboptions. The shared cache can be in use when the snapshot is taken, but VMs are blocked when they try to write to the shared cache, while the cache data is copied to the file.</p>
-<p>Typically, after a system is reinitialized, the snapshot file is used to restore the copy of the non-persistent cache into shared memory, by using the <a href="../xshareclasses/#restorefromsnapshot"><code>-Xshareclasses:restoreFromSnapshot</code></a> cache utility. Since this process removes all non-persistent caches from shared memory, restoring the cache from the snapshot file can result in better VM startup performance, because the contents of the shared cache, including classes and AOT code, do not have to be re-created.</p>
+<p>To create a snapshot of a non-persistent shared classes cache, use the <a href="../xshareclasses/#snapshotcache"><code>-Xshareclasses:snapshotCache</code></a> cache utility. The snapshot has the same name and location as the shared cache, as specified by the <code>name</code> and <code>cacheDir</code> suboptions. The shared cache can be in use when the snapshot is taken, but VMs are blocked when they try to write to the shared cache while the cache data is copied to the file.</p>
+<p>Typically, after a system is reinitialized, the snapshot file is used to restore the copy of the non-persistent cache into shared memory, by using the <a href="../xshareclasses/#restorefromsnapshot"><code>-Xshareclasses:restoreFromSnapshot</code></a> cache utility. Because this process removes all non-persistent caches from shared memory, restoring the cache from the snapshot file can result in better VM startup performance, because the contents of the shared cache, including classes and AOT code, do not have to be re-created.</p>
 <p>The <a href="../xshareclasses/#listallcaches"><code>-Xshareclasses:listAllCaches</code></a> cache utility can be used to identify snapshots on a system.</p>
-<p>A snapshot can be created only if the user has sufficient permissions to create the destination snapshot file. If a snapshot of the same name exists already, it is overwritten. On platforms that support persistent caches, the nonpersistent suboption must be specified in order to create a snapshot. For information about removing snapshot files, see the destroySnapshot and destroyAllSnapshots suboptions.</p>
-<p><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <strong>Notes:</strong></p>
+<p>A snapshot can be created only if the user has sufficient permissions to create the destination snapshot file. If a snapshot of the same name exists already, it is overwritten. On platforms that support persistent caches, the nonpersistent suboption must be specified in order to create a snapshot. For information about removing snapshot files, see the <code>destroySnapshot</code> and <code>destroyAllSnapshots</code> cache utilities in <a href="#housekeeping">Housekeeping</a>.</p>
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Notes:</strong></p>
 <ul>
 <li>Persistent caches are not supported on z/OS.</li>
 <li>The <code>snapshotCache</code> and <code>restoreFromCache</code> cache utilities cannot be used on Windows systems.</li>
@@ -4428,17 +4440,17 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <h2 id="housekeeping">Housekeeping</h2>
 <p>Caches can be deleted if they contain many stale classes or if the cache is full and you want to create a bigger cache. Use one of the following utilities to remove unwanted caches:</p>
 <ul>
-<li><a href="shareclasses.md#destroy"><code>-Xshareclasses:destroy</code></a>: Removes specific caches when used with the <code>name</code>, <code>cacheDir</code>, and <code>nonpersistent</code> suboptions.</li>
-<li><a href="shareclasses.md#destroyall"><code>-Xshareclasses:destroyAll</code></a>: Removes all the caches that are specified by the <code>cacheDir</code> and <code>nonpersistent</code> suboptions.</li>
-<li><a href="shareclasses.md#destroysnapshot"><code>-Xshareclasses:destroySnapshot</code></a>: Removes a cache snapshot from disk that is specified by <code>name</code> and <code>cacheDir</code> suboptions.</li>
-<li><a href="shareclasses.md#destroyallsnapshots"><code>-Xshareclasses:destroyAllSnapshots</code></a>: Removes all cache snapshots from disk that are found by specifying the <code>cacheDir</code> suboption.</li>
-<li><a href="shareclasses.md#destroyalllayers"><code>-Xshareclasses:destroyAllLayers</code></a>: Removes all shared cache layers that are specified by the <code>name</code> suboption.</li>
+<li><a href="../xshareclasses/#destroy"><code>-Xshareclasses:destroy</code></a>: Removes specific caches when used with the <code>name</code>, <code>cacheDir</code>, and <code>nonpersistent</code> suboptions.</li>
+<li><a href="../xshareclasses/#destroyall"><code>-Xshareclasses:destroyAll</code></a>: Removes all the caches that are specified by the <code>cacheDir</code> and <code>nonpersistent</code> suboptions.</li>
+<li><a href="../xshareclasses/#destroysnapshot"><code>-Xshareclasses:destroySnapshot</code></a>: Removes a cache snapshot from disk that is specified by <code>name</code> and <code>cacheDir</code> suboptions.</li>
+<li><a href="../xshareclasses/#destroyallsnapshots"><code>-Xshareclasses:destroyAllSnapshots</code></a>: Removes all cache snapshots from disk that are found by specifying the <code>cacheDir</code> suboption.</li>
+<li><a href="../xshareclasses/#destroyalllayers"><code>-Xshareclasses:destroyAllLayers</code></a>: Removes all shared cache layers that are specified by the <code>name</code> suboption.</li>
 </ul>
-<p>Caches can also be removed if they are unused for a specified amount of time. To configure time-based housekeeping, use the <a href="shareclasses.md#expire">-Xshareclasses:expire</a> option.</p>
-<p>If you want to remove a cache but allow it to be re-created when the VM restarts, use the <a href="shareclasses.md#reset"><code>-Xshareclasses:reset</code></a> option.</p>
+<p>Caches can also be removed if they are unused for a specified amount of time. To configure time-based housekeeping, use the <a href="../xshareclasses/#expire">-Xshareclasses:expire</a> option.</p>
+<p>If you want to remove a cache but allow it to be re-created when the VM restarts, use the <a href="../xshareclasses/#reset"><code>-Xshareclasses:reset</code></a> option.</p>
 <h2 id="support-for-custom-class-loaders">Support for custom class loaders</h2>
-<p>Classes are shared by the bootstrap class loader internally in the OpenJ9 VM. The OpenJ9 implementation of <code>java.net.URLClassLoader</code> is modified to use <code>SharedClassURLClasspathHelper</code> and any class loaders that extend <code>java.net.URLClassLoader</code> inherit this behavior. If you are using a custom class loader that does not extend <code>java.net.URLClassLoader</code>, you can use the Java Helper API to find and store classes in a shared classes cache.</p>
-<p>If a running application uses its own class loaders, you must grant these class loaders shared class permissions before they can share classes. To grant permission, add shared class permissions to the <code>java.policy</code> file using the <code>ClassLoader</code> class name. Permissions can be set for <code>read</code>, <code>write</code>, or <code>read,write</code>.</p>
+<p>Classes are shared by the bootstrap class loader internally in the VM. The OpenJ9 implementation of <code>java.net.URLClassLoader</code> is modified to use <code>SharedClassURLClasspathHelper</code> and any class loaders that extend <code>java.net.URLClassLoader</code> inherit this behavior. If you are using a custom class loader that does not extend <code>java.net.URLClassLoader</code>, you can use the Java Helper API to find and store classes in a shared classes cache.</p>
+<p>If a running application uses its own class loaders, you must grant these class loaders shared class permissions before they can share classes. To grant permission, add shared class permissions to the <code>java.policy</code> file by specifying the <code>ClassLoader</code> class name. Permissions can be set for <code>read</code>, <code>write</code>, or <code>read,write</code>.</p>
 <p>If a <code>SecurityManager</code> is being used, you must grant all custom class loaders shared class permissions by using the <code>SharedClassesNamedPermission</code> method.</p>
 <h3 id="the-java-helper-api">The Java Helper API</h3>
 <p>The Java Helper API classes can be found in the <a href="../api-overview/#monitoring-and-management"><code>com.ibm.oti.shared</code></a> package.</p>
@@ -4447,7 +4459,7 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <ul>
 <li><code>findSharedClass</code>: Used to check whether a class is already in the cache before looking for the class on the filesystem.</li>
 <li><code>storeSharedClass</code>: Used to store a class in the cache.</li>
-<li><code>setSharingFilter</code>: A filter that can be used to decide which classes are found and stored in the cache. This filter can be applied to a particular package. To apply a filter to all non-bootstrap class loaders that share classes, specify the <code>-Dcom.ibm.oti.shared.SharedClassGlobalFilterClass</code> MISSING! system property on the command line.</li>
+<li><code>setSharingFilter</code>: A filter that can be used to decide which classes are found and stored in the cache. This filter can be applied to a particular package. To apply a filter to all non-bootstrap class loaders that share classes, specify the <code>-Dcom.ibm.oti.shared.SharedClassGlobalFilterClass</code> system property on the command line.</li>
 </ul>
 <p>The following APIs are available for obtaining information about a shared classes cache:</p>
 <ul>
@@ -4460,7 +4472,7 @@ A <code>SharedDataHelperFactory</code> provides an interface that can be used to
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../aot/">AOT compiler</a></li>
-<li><a href="https://www.ibm.com/developerworks/java/library/j-ibmjava4/index.html">Class Sharing article</a></li>
+<li><a href="https://www.ibm.com/developerworks/java/library/j-ibmjava4/index.html">Class sharing article</a></li>
 <li><a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_pd_intro.html">Diagnosing class data sharing problems</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== shrc.md ==== -->
