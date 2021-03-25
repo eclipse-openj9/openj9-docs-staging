@@ -4392,28 +4392,32 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <li>The lowest layer is a Ubuntu Docker image.</li>
 <li>
 <p>The next layer is an OpenJ9 Docker image that is built on the Ubuntu image. As part of this image, the <code>-Xshareclasses:name=Cache1</code> suboption is used to create a cache called <code>Cache1</code>. The layer number assigned to this cache is <code>0</code>. The <code>listAllCaches</code> suboption shows the cache and the layer number:</p>
-<p>```
-  java -Xshareclasses:listAllCaches
-  ...
-  Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
-<p>Compatible shared caches
-  Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019
-  ```</p>
+<pre><code>```
+java -Xshareclasses:listAllCaches
+...
+Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time
+
+Compatible shared caches
+Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019
+```
+</code></pre>
 </li>
 <li>
 <p>The next Docker layer up is an Open Liberty image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=Cache1,layer=1</code> suboption is used to create another cache called <code>Cache1</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>Cache1</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
 </li>
 <li>
 <p>In the same way, another Docker layer is added for an Open Liberty Java application, and another layered cache is created to add to <code>Cache1</code>. The <code>listAllCaches</code> suboption now shows all the caches and their layers:</p>
-<p>```
-  java -Xshareclasses:listAllCaches
-  ...
-  Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time</p>
-<p>Compatible shared caches
-  Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019 <br />
-  Cache1                  Java8 64-bit  persistent      cr              1                                         Mon Sep 23 11:46:25 2019
-  Cache1                  Java8 64-bit  persistent      cr              2                                         In use
-  ```  </p>
+<pre><code>```
+java -Xshareclasses:listAllCaches
+...
+Cache name              level         cache-type      feature         layer       OS shmid       OS semid       last detach time
+
+Compatible shared caches
+Cache1                  Java8 64-bit  persistent      cr              0                                         Mon Sep 23 11:41:04 2019   
+Cache1                  Java8 64-bit  persistent      cr              1                                         Mon Sep 23 11:46:25 2019
+Cache1                  Java8 64-bit  persistent      cr              2                                         In use
+```
+</code></pre>
 </li>
 </ol>
 <p>The caches are created in the same directory.</p>
