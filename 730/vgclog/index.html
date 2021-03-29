@@ -4107,6 +4107,7 @@
 <p>Verbose GC logs, when enabled, begin capturing information as soon as GC is initialized. </p>
 <p>To help you visualize and analyze the GC, you can feed verbose GC log files into various diagnostic tools and interfaces. Examples include tools such as the <a href="https://marketplace.eclipse.org/content/ibm-monitoring-and-diagnostic-tools-garbage-collection-and-memory-visualizer-gcmv">Garbage Collection and Memory Visualizer extension for Eclipse</a>, and online services such as <a href="https://gceasy.io">GCEasy</a>.  </p>
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> You can run one or more GC traces by using the <a href="../xtgc/"><code>-Xtgc</code> option</a> to get more detailed information to help diagnose GC problems or perform finer tuning. </p>
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong>  For examples of log output, including guidance on how to analyze the logs, see <a href="../vgclog_examples/">Log examples</a>.</p>
 <h2 id="how-to-generate-a-verbose-gc-log">How to generate a verbose GC log</h2>
 <p>You can enable verbose GC logs by specifying the <code>-verbose:gc</code> standard option when you start your application. For more information, see <a href="../cmdline_general/">standard command-line options</a>. </p>
 <p>The output of <code>-verbose:gc</code> is printed to STDERR by default. To print the log output to a file, append the <a href="../xverbosegclog/"><code>-Xverbosegclog</code></a> option. You can also use this option to print to a succession of files, where each file logs a specified number of GC cycles.</p>
@@ -4224,12 +4225,14 @@
 <p>You can see this interleaving of the increments in the verbose GC log. The following table illustrates how the interleaving of the <code>gencon</code> policy's partial scavenge and global cycles appears in the logs. Line numbers of an example <code>gencon</code> policy's verbose GC log are displayed, alongside columns that show the status of each cycle that is recorded in the logs. (for clarity, not all GC activities are listed):</p>
 <table style="width:100%" align="center">
 <caption>Table showing how the `gencon` policy's global and partial scavenge cycles, which interleave with each other, are recorded in an example log. </caption>
-
+<thead>
   <tr>
     <th scope="col">Example log line number</th>
     <th align="center" scope="col">`gencon` global GC cycle status recorded in log</th>
     <th align="center"scope="col">`gencon` partial GC cycle status recorded in log</th>
   </tr>
+</thead>
+</tbody>
   <tr>
     <td>1-87</td>
     <td colspan="2" align="center">Initialization section of the logs</th>
@@ -4326,6 +4329,7 @@
     <td align="center"> STW pause ends</td>
     <td align="center">-</td>
   </tr>
+</tbody>
 </table>
 
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> Zero, one, or multiple GC cycles might run between the start and end of a <code>gencon</code> global GC cycle.</p>
