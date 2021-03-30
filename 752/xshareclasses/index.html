@@ -4957,7 +4957,7 @@
 <p>Sets the directory in which cache data is read and written. The following defaults apply:</p>
 <ul>
 <li>On Windows&trade; systems, <code>&lt;directory&gt;</code> is the user's <code>C:\Documents and Settings\&lt;username&gt;\Local Settings\Application Data\javasharedresources</code> directory.</li>
-<li>On other operating systems, <code>&lt;directory&gt;</code> is the user's home directory, unless the <code>groupAccess</code> parameter is specified, in which case it is <code>/tmp/javasharedresources</code>, because some members of the group might not have access to the user's home directory. You must have sufficient permissions in <code>&lt;directory&gt;</code>.</li>
+<li>On other operating systems, <code>&lt;directory&gt;</code> is <code>javasharedresources</code> in the user's home directory, unless the <code>groupAccess</code> parameter is specified, in which case it is <code>/tmp/javasharedresources</code>, because some members of the group might not have access to the user's home directory. You must have sufficient permissions in <code>&lt;directory&gt;</code>.</li>
 </ul>
 </dd>
 <dd>
@@ -5304,7 +5304,7 @@ behavior, which can improve the performance of class loading from the shared cla
 <pre><code>    -Xshareclasses:nonfatal
 </code></pre>
 <dl>
-<dd>Allows the VM to start even if class data sharing fails. Normal behavior for the VM is to refuse to start if class data sharing fails. If you select <code>nonfatal</code> and the shared classes cache fails to initialize, the VM attempts to connect to the cache in read-only mode. If this attempt fails, the VM starts without class data sharing. See also <a href="#fatal"><code>fatal</code></a>.</dd>
+<dd>Allows the VM to start, in most cases, even if class data sharing fails. Normal behavior for the VM is to refuse to start if class data sharing fails. If you select <code>nonfatal</code> and the shared classes cache fails to initialize, the VM attempts to connect to the cache in read-only mode. If this attempt fails, the VM starts without class data sharing. See also <a href="#fatal"><code>fatal</code></a>.</dd>
 <dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> Unless it is important that your application runs with class data sharing, it is good practice to set this parameter. See <a href="../shrc/#best-practices-for-using-xshareclasses">Class data sharing: Best practices for using <code>-Xshareclasses</code></a>.</dd>
 </dl>
 <h3 id="nonpersistent"><code>nonpersistent</code></h3>
