@@ -18,7 +18,7 @@
     
     
       
-        <title>Introduction to class data sharing -  </title>
+        <title>Introduction -  </title>
       
     
     
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction to class data sharing
+              Introduction
             
           </span>
         </div>
@@ -300,6 +300,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../version0.26/" class="md-nav__link">
+        Version 0.26.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../version0.25/" class="md-nav__link">
         Version 0.25.0
       </a>
@@ -335,18 +347,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../version0.22/" class="md-nav__link">
-        Version 0.22.0
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -363,6 +363,18 @@
           Earlier releases
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.22/" class="md-nav__link">
+        Version 0.22.0
+      </a>
+    </li>
+  
+
           
             
   
@@ -746,12 +758,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Introduction to class data sharing
+          Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Introduction to class data sharing
+        Introduction
       </a>
       
         
@@ -4309,7 +4321,7 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <p>If you have multiple VMs and you do not change the default shared classes behavior, the VMs share a single default cache, assuming that the VMs are from a single Java installation. If the VMs are from different Java installations, the cache might be deleted and re-created.</p>
 <p>For a set of best practices when using class data sharing, see <a href="#creating-a-shared-classes-cache">Creating a shared classes cache</a>.</p>
 <h2 id="class-data-sharing-operations">Class data sharing operations</h2>
-<p>When a VM loads a class, the VM looks in the shared classes cache to see if the class is already present. If the class is present and the classpath or URL to load the class is a match, the VM loads the class from the cache. Otherwise, it loads the class from the filesystem and writes it into the cache.</p>
+<p>When a VM loads a class and the class loader is enabled for class sharing, the VM looks in the shared classes cache to see if the class is already present. If the class is present and the classpath or URL to load the class is a match, the VM loads the class from the cache. Otherwise, it loads the class from the filesystem and writes it into the cache.</p>
 <p>The VM detects filesystem updates by storing timestamp values into the cache and comparing the cached values with actual values on each class load operation. In this way, the VM detects when a class might be invalidated and can mark the class as <em>stale</em>. These operations happen transparently when classes are loaded, so users can modify and update as many classes as they like during the lifetime of a shared class cache, knowing that the correct classes are always loaded. Stale classes are <em>redeemed</em> if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
 <p>Occasionally, caches that are created from one version of the VM might not be compatible with caches that are created from a different version. This situation typically occurs when an update is made in OpenJ9 that changes the internal cache data structure. If a VM detects an incompatible cache at start up, it creates a new cache that can coexist, even if it has the same name. The VM detects a conflict by checking an internal shared classes cache generation number.</p>
 <p>Caches are not compatible between VMs that are using different object storage modes. For example, a 64-bit VM that uses compressed references to store 64-bit objects in a 32-bit representation, cannot share a cache with a 64-bit VM that is not using compressed references. For more information about object storage options, see <a href="../allocation/#compressed-references">Compressed references</a>.</p>
@@ -4372,8 +4384,8 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <p>The <a href="../xshareclasses/">-Xshareclasses</a> option is highly configurable, allowing you to specify where to create the cache, how much space to allocate, and more. The following best practices apply to using class data sharing:</p>
 <ul>
 <li>
-<p>Before starting your application, use the <a href="../xshareclasses/#listallcaches"><code>-Xshareclasses:listAllCaches</code></a> cache utility to identify a suitable cache that your application might share.</p>
-<p>This option lists all the caches that exist in the default directory, including compatible and incompatible caches. You can also specify the <code>cacheDir</code> suboption to look for caches in a specified directory.</p>
+<p>Before starting your application, use the <a href="../xshareclasses/#listallcaches"><code>-Xshareclasses:listAllCaches</code></a> cache utility to review and maintain the existing caches on your system.</p>
+<p>This option lists all the caches that exist in the default directory, including compatible and incompatible caches. You can also specify the <code>cacheDir</code> suboption to look for caches in a specified directory. Remove any obsolete caches, as described in <a href="#housekeeping">Housekeeping</a>.</p>
 </li>
 <li>
 <p>If you are creating a new cache, set an application-specific cache name (<a href="../xshareclasses/#name"><code>-Xshareclasses:name=&lt;name&gt;</code></a>).</p>
@@ -4406,7 +4418,7 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <dl>
 <dt>The following example shows a Docker container with four layers:</dt>
 <dd>
-<p><img alt="This diagram is explained in the surrounding text" src="../cr/shrc_layers.jpg" title="Docker container with layered caches" /></p>
+<p><img alt="This diagram is explained in the surrounding text" src="../cr/shrc_layers.png" title="Docker container with layered caches" /></p>
 </dd>
 </dl>
 <ol>
@@ -4422,7 +4434,7 @@ MyCache                 Java8 64-bit  persistent      cr              0         
 </code></pre>
 </li>
 <li>
-<p>The next Docker layer up is an Open Liberty image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=MyCache,layer=1</code> suboption is used to create another cache called <code>MyCache</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>MyCache</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
+<p>The next Docker layer up is an application image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=MyCache,layer=1</code> suboption is used to create another cache called <code>MyCache</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>MyCache</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
 </li>
 <li>
 <p>In the same way, another Docker layer is added for an application, and another layered cache is created to add to <code>MyCache</code>. The <code>listAllCaches</code> suboption now shows all the caches and their layers:</p>
@@ -4447,7 +4459,7 @@ MyCache                 Java8 64-bit  persistent      cr              2         
 <li><a href="../xshareclasses/#destroyalllayers"><code>-Xshareclasses:destroyAllLayers</code></a></li>
 </ul>
 <h2 id="saving-a-non-persistent-shared-classes-cache">Saving a non-persistent shared classes cache</h2>
-<p>As described in an earlier section, a shared classes cache can be persistent or non-persistent. By default, a cache is persistent on all platforms, except z/OS. Non-persistent caches are stored in shared memory and are removed when a system is rebooted. If you want to save a non-persistent cache beyond a reboot, you might want to consider taking a cache snapshot.</p>
+<p>As described in an earlier section, a shared classes cache can be persistent or non-persistent; persistent caches are memory-mapped files. By default, a cache is persistent on all platforms, except z/OS. Non-persistent caches are stored in shared memory and are removed when a system is rebooted. If you want to save a non-persistent cache beyond a reboot, you might want to consider taking a cache snapshot.</p>
 <p>To create a snapshot of a non-persistent shared classes cache, use the <a href="../xshareclasses/#snapshotcache"><code>-Xshareclasses:snapshotCache</code></a> cache utility. The snapshot has the same name and location as the shared cache, as specified by the <code>name</code> and <code>cacheDir</code> suboptions. The shared cache can be in use when the snapshot is taken, but VMs are blocked when they try to write to the shared cache while the cache data is copied to the file.</p>
 <p>Typically, after a system is reinitialized, the snapshot file is used to restore the copy of the non-persistent cache into shared memory, by using the <a href="../xshareclasses/#restorefromsnapshot"><code>-Xshareclasses:restoreFromSnapshot</code></a> cache utility. Because this process removes all non-persistent caches from shared memory, restoring the cache from the snapshot file can result in better VM startup performance, because the contents of the shared cache, including classes and AOT code, do not have to be re-created.</p>
 <p>The <a href="../xshareclasses/#listallcaches"><code>-Xshareclasses:listAllCaches</code></a> cache utility can be used to identify snapshots on a system.</p>
@@ -4471,8 +4483,6 @@ MyCache                 Java8 64-bit  persistent      cr              2         
 <h2 id="support-for-custom-class-loaders">Support for custom class loaders</h2>
 <p>Classes are shared by the bootstrap class loader internally in the VM. The OpenJ9 implementation of <code>java.net.URLClassLoader</code> is modified to use <code>SharedClassURLClasspathHelper</code> and any class loaders that extend <code>java.net.URLClassLoader</code> can inherit this behavior. If you are using a custom class loader that does not extend <code>java.net.URLClassLoader</code>, you can use the Java Helper API to find and store classes in a shared classes cache.</p>
 <p>If a running application uses its own class loader, you must grant the class loader permission to <code>SharedCachePermission</code> before they can share classes. To grant permission, add shared class permissions to the <code>java.policy</code> file by specifying the <code>ClassLoader</code> class name. Permissions can be set for <code>read</code>, <code>write</code>, or <code>read,write</code>.</p>
-<!--If a `SecurityManager` is being used, you must grant all custom class loaders shared class permissions by using the `SharedClassesNamedPermission` method.-->
-
 <h3 id="the-java-shared-classes-helper-api">The Java shared classes Helper API</h3>
 <p>The Java Helper API classes can be found in the <a href="../api-overview/#monitoring-and-management"><code>com.ibm.oti.shared</code></a> package.</p>
 <p>Each class loader that wants to share classes must get a <code>SharedClassHelper</code> object from a <code>SharedClassHelperFactory</code>. The <code>SharedClassHelper</code>, when created, has a one to one relationship with the class loader. That is, it belongs to the class loader that requested it and can only store classes defined by that class loader. The <code>SharedClassHelper</code> gives the class loader a simple API for finding and storing classes in the class cache to which the VM is connected. If the class loader is garbage collected, its <code>SharedClassHelper</code> is also garbage collected.</p>
