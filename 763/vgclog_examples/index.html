@@ -705,8 +705,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-gencon-partial-gc-cycle-default-example" class="md-nav__link">
-    Summary of the gencon partial GC cycle (default) example
+  <a href="#summary" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -732,8 +732,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-gencon-global-gc-cycle-example" class="md-nav__link">
-    Summary of the gencon global GC cycle example
+  <a href="#summary_1" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -765,8 +765,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-partial-gc-cycle-example" class="md-nav__link">
-    Summary of the balanced partial GC cycle example
+  <a href="#summary_2" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -799,8 +799,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-global-mark-gc-cycle-example" class="md-nav__link">
-    Summary of the balanced global mark GC cycle example
+  <a href="#summary_3" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -819,8 +819,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-global-gc-cycle-examples" class="md-nav__link">
-    Summary of the balanced global GC cycle examples
+  <a href="#summary_4" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4178,8 +4178,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-gencon-partial-gc-cycle-default-example" class="md-nav__link">
-    Summary of the gencon partial GC cycle (default) example
+  <a href="#summary" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4205,8 +4205,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-gencon-global-gc-cycle-example" class="md-nav__link">
-    Summary of the gencon global GC cycle example
+  <a href="#summary_1" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4238,8 +4238,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-partial-gc-cycle-example" class="md-nav__link">
-    Summary of the balanced partial GC cycle example
+  <a href="#summary_2" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4272,8 +4272,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-global-mark-gc-cycle-example" class="md-nav__link">
-    Summary of the balanced global mark GC cycle example
+  <a href="#summary_3" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4292,8 +4292,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary-of-the-balanced-global-gc-cycle-examples" class="md-nav__link">
-    Summary of the balanced global GC cycle examples
+  <a href="#summary_4" class="md-nav__link">
+    Summary
   </a>
   
 </li>
@@ -4587,7 +4587,7 @@
 &lt;!-- End of gencon partial GC cycle example --&gt;
 </code></pre>
 
-<h4 id="summary-of-the-gencon-partial-gc-cycle-default-example">Summary of the <code>gencon</code> partial GC cycle (default) example</h4>
+<h4 id="summary">Summary</h4>
 <p>Analyzing the structure and elements of this example log output shows that this example global cycle has the following characteristics:</p>
 <ul>
 <li>
@@ -4952,7 +4952,7 @@
 &lt;exclusive-end id=&quot;12391&quot; timestamp=&quot;2020-10-18T13:35:44.619&quot; durationms=&quot;24.679&quot; /&gt;
 </code></pre>
 
-<h4 id="summary-of-the-gencon-global-gc-cycle-example">Summary of the <code>gencon</code> global GC cycle example</h4>
+<h4 id="summary_1">Summary</h4>
 <p>Analyzing the structure and elements of this example log output shows that this example global cycle has the following characteristics:</p>
 <ul>
 <li>
@@ -5258,7 +5258,7 @@
 <li>Application threads also used some memory from non-eden heap areas. The total available memory in the heap reduced from 69% to 19%.</li>
 <li>The remembered set status is unchanged, as shown by the <code>&lt;remembered-set&gt;</code> element. When mutator threads run, they build data about object references that cross boundaries by using a card table. However, the processing of card table data into the remembered set, and the reporting of the remembered set counts, are run during other cycle operations.</li>
 </ul>
-<h4 id="summary-of-the-balanced-partial-gc-cycle-example">Summary of the <code>balanced</code> partial GC cycle example</h4>
+<h4 id="summary_2">Summary</h4>
 <p>Analyzing the structure and elements of this example log output shows that this example <code>balanced</code> partial GC cycle has the following characteristics:</p>
 <ul>
 <li>The partial GC cycle is triggered when the eden space is full by an allocation taxation threshold.</li>
@@ -5601,7 +5601,7 @@ The `<remembered set>` element shows that there are two overflow regions to atte
 </code></pre>
 
 <p>A record of object liveness is now complete.</p>
-<h4 id="summary-of-the-balanced-global-mark-gc-cycle-example">Summary of the <code>balanced</code> global mark GC cycle example</h4>
+<h4 id="summary_3">Summary</h4>
 <p>Analyzing the structure and elements of this example log output shows that this example <code>balanced</code> global mark GC cycle has the following characteristics:</p>
 <ul>
 <li>If the total free memory is low when the taxation allocation threshold is reached, the GC triggers a global mark cycle. The allocation taxation threshold is set by the previous cycle to trigger a new cycle when the eden space is half full. This threshold value frees up eden space to enable a global mark cycle to interleave with the GC operations of partial GC cycles.</li>
@@ -5774,7 +5774,7 @@ The `<remembered set>` element shows that there are two overflow regions to atte
 <pre><code class="xml">&lt;exclusive-end id=&quot;2025&quot; timestamp=&quot;2021-03-05T12:16:44.237&quot; durationms=&quot;1130.358&quot; /&gt;
 </code></pre>
 
-<h4 id="summary-of-the-balanced-global-gc-cycle-examples">Summary of the <code>balanced</code> global GC cycle examples</h4>
+<h4 id="summary_4">Summary</h4>
 <p>Analyzing the structure and elements of this example log output shows that this global cycle has the following characteristics:</p>
 <ul>
 <li>
