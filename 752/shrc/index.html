@@ -4269,14 +4269,14 @@
 <p>Sharing class data between OpenJ9 VMs improves start up performance and reduces memory footprint. Consider the following outcomes for two VMs that are running similar Java applications but sharing class data:</p>
 <ul>
 <li>
-<p>Start up performance is improved by placing classes that each application needs when initializing into a shared classes cache. The next time the application runs, it takes much less time to start because the classes are already available.</p>
+<p>Start up performance is improved by placing classes that each application needs when initializing into a shared classes cache. The next time the application runs, it takes less time to start because the classes are already available.</p>
 </li>
 <li>
 <p>Memory footprint is reduced by sharing common classes between the applications.</p>
 </li>
 </ul>
 <p>When class data sharing is enabled, OpenJ9 automatically creates shared memory that stores and shares the classes in memory between processes. This shared classes cache is updated dynamically; when an application loads new classes, the VM automatically stores them in the cache without any user intervention. By default, class data sharing is enabled for bootstrap classes, as described in <a href="#enabling-class-data-sharing">Enabling class data sharing</a>.</p>
-<p>When class data sharing is enabled, Ahead-of-time (AOT) compilation is also enabled by default, which dynamically compiles certain methods into AOT code at runtime. By using these features in combination, startup performance is further improved because the cached AOT code can be used to quickly enable native code performance for subsequent runs of your application. For more information about AOT, see <a href="../aot/">AOT Compiler</a>.</p>
+<p>When class data sharing is enabled, Ahead-of-time (AOT) compilation is also enabled by default, which dynamically compiles certain methods into AOT code at runtime. By using these features in combination, startup performance is further improved because the cached AOT code can be used to quickly enable native code performance for subsequent runs of your application. For more information about AOT, see <a href="../aot/">AOT Compiler</a>. Further performance improvements are gained by storing JIT data and profiles in the shared classes cache.</p>
 <p>The contents of a shared classes cache can include the following artifacts:</p>
 <ul>
 <li>Bootstrap classes</li>
@@ -4322,7 +4322,7 @@ If you are using a non-persistent cache, you can use a cache utility to create a
 <p>For a set of best practices when using class data sharing, see <a href="#creating-a-shared-classes-cache">Creating a shared classes cache</a>.</p>
 <h2 id="class-data-sharing-operations">Class data sharing operations</h2>
 <p>When a VM loads a class and the class loader is enabled for class sharing, the VM looks in the shared classes cache to see if the class is already present. If the class is present and the classpath or URL to load the class is a match, the VM loads the class from the cache. Otherwise, it loads the class from the filesystem and writes it into the cache.</p>
-<p>The VM detects filesystem updates by storing timestamp values into the cache and comparing the cached values with actual values on each class load operation. In this way, the VM detects when a class might be invalidated and can mark the class as <em>stale</em>. These operations happen transparently when classes are loaded, so users can modify and update as many classes as they like during the lifetime of a shared class cache, knowing that the correct classes are always loaded. Stale classes are <em>redeemed</em> if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
+<p>The VM detects filesystem updates by storing timestamp values into the cache and comparing the cached values with actual values. In this way, the VM detects when a class might be invalidated and can mark the class as <em>stale</em>. These operations happen transparently when classes are loaded, so users can modify and update as many classes as they like during the lifetime of a shared class cache, knowing that the correct classes are always loaded. Stale classes are <em>redeemed</em> if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
 <p>Occasionally, caches that are created from one version of the VM might not be compatible with caches that are created from a different version. This situation typically occurs when an update is made in OpenJ9 that changes the internal cache data structure. If a VM detects an incompatible cache at start up, it creates a new cache that can coexist, even if it has the same name. The VM detects a conflict by checking an internal shared classes cache generation number.</p>
 <p>Caches are not compatible between VMs that are using different object storage modes. For example, a 64-bit VM that uses compressed references to store 64-bit objects in a 32-bit representation, cannot share a cache with a 64-bit VM that is not using compressed references. For more information about object storage options, see <a href="../allocation/#compressed-references">Compressed references</a>.</p>
 <p>In the OpenJ9 implementation of <code>java.net.URLClassLoader</code>, classes are read from and written to the cache using the public Helper API. Therefore, any class loader that extends <code>java.net.URLClassLoader</code> gets class sharing support for free provided that it continues to use the methods in <code>java.net.URLClassLoader</code> to load classes. Custom class loaders that do not extend <code>java.net.URLClassLoader</code> must be adapted to share class data as described in <a href="#support-for-custom-class-loaders">Support for custom class loaders</a>.</p>
@@ -4434,7 +4434,7 @@ MyCache                 Java8 64-bit  persistent      cr              0         
 </code></pre>
 </li>
 <li>
-<p>The next Docker layer up is an application image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=MyCache,layer=1</code> suboption is used to create another cache called <code>MyCache</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>MyCache</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
+<p>The next Docker layer up is a middleware image that is built on the OpenJ9 image. As part of this image, the <code>-Xshareclasses:name=MyCache,layer=1</code> suboption is used to create another cache called <code>MyCache</code>. Because the <code>layer=1</code> suboption is specified, this new cache is a layered cache, which builds on <code>MyCache</code> in the previous container layer. (Open Liberty starts two VMs, so if you instead use the <code>createLayer</code> suboption here, two layered caches are created, with layer numbers of 1 and 2.) Note that cache layers are different from, and independent of, container layers.</p>
 </li>
 <li>
 <p>In the same way, another Docker layer is added for an application, and another layered cache is created to add to <code>MyCache</code>. The <code>listAllCaches</code> suboption now shows all the caches and their layers:</p>
@@ -4482,7 +4482,16 @@ MyCache                 Java8 64-bit  persistent      cr              2         
 <p>If you want to remove a cache but allow it to be re-created when the VM restarts, use the <a href="../xshareclasses/#reset"><code>-Xshareclasses:reset</code></a> option.</p>
 <h2 id="support-for-custom-class-loaders">Support for custom class loaders</h2>
 <p>Classes are shared by the bootstrap class loader internally in the VM. The OpenJ9 implementation of <code>java.net.URLClassLoader</code> is modified to use <code>SharedClassURLClasspathHelper</code> and any class loaders that extend <code>java.net.URLClassLoader</code> can inherit this behavior. If you are using a custom class loader that does not extend <code>java.net.URLClassLoader</code>, you can use the Java Helper API to find and store classes in a shared classes cache.</p>
-<p>If a running application uses its own class loader, you must grant the class loader permission to <code>SharedCachePermission</code> before they can share classes. To grant permission, add shared class permissions to the <code>java.policy</code> file by specifying the <code>ClassLoader</code> class name. Permissions can be set for <code>read</code>, <code>write</code>, or <code>read,write</code>.</p>
+<p>If a running application uses its own class loader and you are using a <code>SecurityManager</code>, you must grant the class loader permission to <code>SharedCachePermission</code> before they can share classes. To grant permission, add shared class permissions to the <code>java.policy</code> file by specifying the <code>ClassLoader</code> class name. Permissions can be set for <code>read</code>, <code>write</code>, or <code>read,write</code>. For example:</p>
+<pre><code>permission com.ibm.oti.shared.SharedClassPermission
+        &quot;com.abc.customclassloaders.*&quot;, &quot;read,write&quot;;
+</code></pre>
+
+<p>If a running application is calling the <code>com.ibm.oti.shared.SharedClassUtilities</code> APIs <code>getSharedCacheInfo()</code> or <code>destroySharedCache()</code>, you must also grant the code calling these APIs the appropriate <code>SharedClassesNamedPermission</code>. For example:</p>
+<pre><code>permission com.ibm.oti.shared.SharedClassesNamedPermission &quot;getSharedCacheInfo&quot;;
+permission com.ibm.oti.shared.SharedClassesNamedPermission &quot;destroySharedCache&quot;;
+</code></pre>
+
 <h3 id="the-java-shared-classes-helper-api">The Java shared classes Helper API</h3>
 <p>The Java Helper API classes can be found in the <a href="../api-overview/#monitoring-and-management"><code>com.ibm.oti.shared</code></a> package.</p>
 <p>Each class loader that wants to share classes must get a <code>SharedClassHelper</code> object from a <code>SharedClassHelperFactory</code>. The <code>SharedClassHelper</code>, when created, has a one to one relationship with the class loader. That is, it belongs to the class loader that requested it and can only store classes defined by that class loader. The <code>SharedClassHelper</code> gives the class loader a simple API for finding and storing classes in the class cache to which the VM is connected. If the class loader is garbage collected, its <code>SharedClassHelper</code> is also garbage collected.</p>
@@ -4499,7 +4508,7 @@ A <code>SharedDataHelperFactory</code> provides an interface that can be used to
 <ul>
 <li><code>com.ibm.oti.shared.SharedClassStatistics</code>: Obtains information about cache size, including free space, soft maximum limit, and the limits enforced for AOT and JIT data.</li>
 <li><code>com.ibm.oti.shared.SharedClassUtilities</code>: Obtains detailed information about a shared classes cache, including its size, name, type, and status.</li>
-<li><code>com.ibm.oti.shared.SharedClassCacheInfo</code>: Stores information about a shared classes cache and provides API methods to retrieve the information and remove caches. For example, you can use the <code>IterateSharedCaches</code> and <code>DestroySharedCache</code> <a href="../interface_jvmti/#iteratesharedcaches">JVMTI extensions</a>.</li>
+<li><code>com.ibm.oti.shared.SharedClassCacheInfo</code>: Stores information about a shared classes cache and provides API methods to retrieve the information and remove caches. You can also use the <code>IterateSharedCaches</code> and <code>DestroySharedCache</code> <a href="../interface_jvmti/#iteratesharedcaches">JVMTI extensions</a>.</li>
 </ul>
 <h2 id="see-also">See also</h2>
 <ul>
