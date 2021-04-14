@@ -4582,7 +4582,7 @@ permission com.ibm.oti.shared.SharedClassesNamedPermission &quot;destroySharedCa
 <li><code>storeSharedClass</code>: Used to store a class in the cache.</li>
 <li><code>setSharingFilter</code>: A filter that can be used to decide which classes are found and stored in the cache. This filter can be applied to a particular package by implementing the <code>SharedClassFilter</code> interface. To apply a filter to all non-bootstrap class loaders that share classes, specify the <a href="../dcomibmotisharedsharedclassglobalfilterclass/"><code>-Dcom.ibm.oti.shared.SharedClassGlobalFilterClass</code></a> system property on the command line.</li>
 </ul>
-<p>You can also define partitions in a cache to store sets of classes separately from one another. For more information see <a href="#sharedclasshelpercachepartitions"><code>SharedClassHelper</code> cache partitions</a>.</p>
+<p>You can also define partitions in a cache to store sets of classes separately from one another. For more information see <a href="#sharedclasshelper-cache-partitions"><code>SharedClassHelper</code> cache partitions</a>.</p>
 <p>Each class loader that wants to share data must get a <code>SharedDataHelper</code> object from a <code>SharedDataHelperFactory</code>.
 A <code>SharedDataHelperFactory</code> provides an interface that can be used to create <code>SharedDataHelpers</code>, which are used for storing Java byte array data. A <code>SharedDataHelper</code> also has a one to one relationship with a class loader, although a class loader can exist without a <code>SharedDataHelper</code>.</p>
 <h3 id="the-java-shared-classes-utility-api">The Java shared classes utility API</h3>
