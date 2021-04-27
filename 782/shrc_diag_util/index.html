@@ -4444,7 +4444,7 @@
 <li>Retransformed classes are stored only if you specify the <code>-Xshareclasses:cacheRetransformed</code> suboption when you start your application.</li>
 </ul>
 <p>If a running application uses its own class loader and you are using a <code>SecurityManager</code>, you must grant the class loader permission to <code>SharedCachePermission</code> before they can share classes. For more information, see <a href="../shrc/#support-for-custom-class-loaders">Support for custom class loaders</a>.</p>
-<p>In very rare cases, problems with finding or storing classes might be due to cache corruption. If the VM detects that a cache is corrupt it attempts to destroy the cache and re-create it. If the VM cannot re-create the cache it starts only if the <code>-Xshareclasses:nonfatal</code> suboption is specified on the command line. Try using the <code>-Xshareclasses:destroyAll</code> cache utility to remove the cache and re-create it.</p>
+<p>In very rare cases, problems with finding or storing classes might be due to cache corruption. If the VM detects that a cache is corrupt, it attempts to destroy the cache and re-create it. If the VM cannot re-create the cache it starts only if the <code>-Xshareclasses:nonfatal</code> suboption is specified on the command line. Try using the <code>-Xshareclasses:destroyAll</code> cache utility to remove the cache and re-create it.</p>
 <h2 id="generating-verbose-output">Generating verbose output</h2>
 <p>A number of <code>-Xshareclasses</code> suboptions are available for generating verbose output during class data sharing operations, which can help you identify the root cause of a problem.</p>
 <h3 id="verbose"><code>verbose</code></h3>
@@ -4736,13 +4736,15 @@ Data bytes                           = 114080
 </li>
 <li><code>Classpaths</code>, <code>URLs</code>, and <code>Tokens</code><ul>
 <li>The number of class paths, URLs, and tokens in the cache. Classes stored from a <code>SharedClassURLClasspathHelper</code> are stored with a Classpath. Classes stored using a <code>SharedClassURLHelper</code> are stored with a URL. Classes stored using a <code>SharedClassTokenHelper</code> are stored with a Token. Most class loaders, including the bootstrap and application class loaders, use a <code>SharedClassURLClasspathHelper</code>. The result is that it is most common to see class paths in the cache.</li>
-<li>The number of Classpaths, URLs, and Tokens stored is determined by a number of factors. For example, every time an element of a Classpath is updated, such as when a <code>.jar</code> file is rebuilt, a new Classpath is added to the cache. Additionally, if partitions or modification contexts are used, they are associated with the Classpath, URL, or Token. A Classpath, URL, or Token is stored for each unique combination of partition and modification context. For more information, see <a href="../shrc/#sharing-modified-bytecode">Sharing modified bytecode and <code>SharedClassHelper</code> cache partitions</a>.
--<code>Zip caches</code></li>
-<li>The number of .zip files that have entry caches stored in the shared cache.</li>
+<li>The number of Classpaths, URLs, and Tokens stored is determined by a number of factors. For example, every time an element of a Classpath is updated, such as when a <code>.jar</code> file is rebuilt, a new Classpath is added to the cache. Additionally, if partitions or modification contexts are used, they are associated with the Classpath, URL, or Token. A Classpath, URL, or Token is stored for each unique combination of partition and modification context. For more information, see <a href="../shrc/#sharing-modified-bytecode">Sharing modified bytecode and <code>SharedClassHelper</code> cache partitions</a>.</li>
+</ul>
+</li>
+<li><code>Zip caches</code><ul>
+<li>The number of <code>.zip</code> files that have entry caches stored in the shared cache.</li>
 </ul>
 </li>
 <li><code>Startup hints</code><ul>
-<li>The number of startup hints stored in the cache. There can be a startup hint for each unique set of command line options used to start the JVM.</li>
+<li>The number of startup hints stored in the cache. There can be a startup hint for each unique set of command line options used to start the VM.</li>
 </ul>
 </li>
 <li><code>Stale classes</code><ul>
