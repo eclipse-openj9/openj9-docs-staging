@@ -1,0 +1,5300 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Eclipse OpenJ9 documentation">
+      
+      
+      
+      
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/shrc_diag_util/">
+      
+      <link rel="shortcut icon" href="../cr/openj9-logo.svg">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.3">
+    
+    
+      
+        <title>Diagnostic cache utilities -  </title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1655a90d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.7fa14f5b.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#009485">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../stylesheets/oj9.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="teal" data-md-color-accent="cyan">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shared-classes-cache-diagnostic-utilities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://www.eclipse.org/openj9/docs" title=" " class="md-header__button md-logo" aria-label=" ">
+      
+  <img src="../cr/openj9_6b.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+             
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Diagnostic cache utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/eclipse/openj9" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eclipse/openj9
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      <!--Staging site notice --><div class="md-container"><div style="margin:-2rem 0 -2rem 0; background: linear-gradient(white, #69c1bd, white); color:white; text-align:center; font-size:1.5rem; font-weight:bold; text-shadow: 2px 2px 4px #000000;"><p style="padding:2rem 0 2rem 0;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> CAUTION: This site is for reviewing draft documentation. For published content, visit <a style="color:#af6e3d; text-shadow:none; padding-left:1rem;" href="http://www.eclipse.org/openj9/docs/index.html">www.eclipse.org/openj9/docs</a></p></div>
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://www.eclipse.org/openj9/docs" title=" " class="md-nav__button md-logo" aria-label=" ">
+      
+  <img src="../cr/openj9_6b.png" alt="logo">
+
+    </a>
+     
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/eclipse/openj9" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eclipse/openj9
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        About the docs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../builds/" class="md-nav__link">
+        OpenJ9 builds
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_newuser/" class="md-nav__link">
+        New to OpenJ9?
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Release notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_releases/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.27/" class="md-nav__link">
+        Version 0.27.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.26/" class="md-nav__link">
+        Version 0.26.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.25/" class="md-nav__link">
+        Version 0.25.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.24/" class="md-nav__link">
+        Version 0.24.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.23/" class="md-nav__link">
+        Version 0.23.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Earlier releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Earlier releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Earlier releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.22/" class="md-nav__link">
+        Version 0.22.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.21/" class="md-nav__link">
+        Version 0.21.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.20/" class="md-nav__link">
+        Version 0.20.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.19/" class="md-nav__link">
+        Version 0.19.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.18/" class="md-nav__link">
+        Version 0.18.1
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.17/" class="md-nav__link">
+        Version 0.17.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.16/" class="md-nav__link">
+        Version 0.16.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.15/" class="md-nav__link">
+        Version 0.15.1
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.14/" class="md-nav__link">
+        Version 0.14.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.13/" class="md-nav__link">
+        Version 0.13.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.12/" class="md-nav__link">
+        Version 0.12.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.11/" class="md-nav__link">
+        Version 0.11.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.10/" class="md-nav__link">
+        Version 0.10.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.9/" class="md-nav__link">
+        Version 0.9.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version0.8/" class="md-nav__link">
+        Version 0.8.0
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuring/" class="md-nav__link">
+        Configuring your system
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        Memory management
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Memory management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Memory management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../allocation/" class="md-nav__link">
+        Heap allocation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gc_overview/" class="md-nav__link">
+        Garbage Collection (GC)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gc/" class="md-nav__link">
+        GC policies
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      <label class="md-nav__link" for="__nav_7_4">
+        Troubleshooting GC
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Troubleshooting GC" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Troubleshooting GC
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vgclog/" class="md-nav__link">
+        Verbose GC logs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vgclog_examples/" class="md-nav__link">
+        Log examples
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jit/" class="md-nav__link">
+        JIT Compiler
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jitserver/" class="md-nav__link">
+        JITServer (tech. preview)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aot/" class="md-nav__link">
+        AOT Compiler
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" checked>
+      
+      <label class="md-nav__link" for="__nav_11">
+        Class data sharing
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Class data sharing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Class data sharing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shrc/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Diagnostic cache utilities
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Diagnostic cache utilities
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="On this page...">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page...
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#printallstats" class="md-nav__link">
+    printAllStats
+  </a>
+  
+    <nav class="md-nav" aria-label="printAllStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-paths" class="md-nav__link">
+    Class paths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclasses" class="md-nav__link">
+    ROMClasses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-methods" class="md-nav__link">
+    AOT methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urls-and-tokens" class="md-nav__link">
+    URLs and tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-entry-caches" class="md-nav__link">
+    Zip entry caches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jit-data" class="md-nav__link">
+    JIT data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hints" class="md-nav__link">
+    Startup hints
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printstats" class="md-nav__link">
+    printStats
+  </a>
+  
+    <nav class="md-nav" aria-label="printStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#baseaddress-and-endaddress" class="md-nav__link">
+    baseAddress and endAddress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allocation-pointer" class="md-nav__link">
+    allocation pointer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-layer" class="md-nav__link">
+    cache layer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-size-and-free-bytes" class="md-nav__link">
+    cache size and free bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmx-bytes" class="md-nav__link">
+    softmx bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclass-bytes" class="md-nav__link">
+    ROMClass bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-bytes" class="md-nav__link">
+    AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space-for-aot-bytes" class="md-nav__link">
+    Reserved space for AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-space-for-aot-bytes" class="md-nav__link">
+    Maximum space for AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jit-data-bytes" class="md-nav__link">
+    JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space-for-jit-data-bytes" class="md-nav__link">
+    Reserved space for JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-space-for-jit-data-bytes" class="md-nav__link">
+    Maximum space for JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-cache-bytes" class="md-nav__link">
+    Zip cache bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hint-bytes" class="md-nav__link">
+    Startup hint bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-bytes" class="md-nav__link">
+    Data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-bytes" class="md-nav__link">
+    Metadata bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-used" class="md-nav__link">
+    Metadata % used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-size" class="md-nav__link">
+    Class debug area size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-bytes-used" class="md-nav__link">
+    Class debug area bytes used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-used" class="md-nav__link">
+    Class debug area % used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclasses_1" class="md-nav__link">
+    ROMClasses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-methods_1" class="md-nav__link">
+    AOT methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classpaths-urls-and-tokens" class="md-nav__link">
+    Classpaths, URLs, and Tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-caches" class="md-nav__link">
+    Zip caches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hints_1" class="md-nav__link">
+    Startup hints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stale-classes" class="md-nav__link">
+    Stale classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stale-classes_1" class="md-nav__link">
+    % Stale classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-xxx-full" class="md-nav__link">
+    Cache is XXX% full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-xxx-soft-full" class="md-nav__link">
+    Cache is XXX% soft full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-accessible-to-current-user" class="md-nav__link">
+    Cache is accessible to current user
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printtoplayerstats" class="md-nav__link">
+    printTopLayerStats
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attachapi/" class="md-nav__link">
+        Java Attach API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" type="checkbox" id="__nav_13" >
+      
+      <label class="md-nav__link" for="__nav_13">
+        Diagnostics
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Diagnostics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diag_overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13_2" type="checkbox" id="__nav_13_2" >
+      
+      <label class="md-nav__link" for="__nav_13_2">
+        Dumps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dumps" data-md-level="2">
+        <label class="md-nav__title" for="__nav_13_2">
+          <span class="md-nav__icon md-icon"></span>
+          Dumps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dump_javadump/" class="md-nav__link">
+        Java dump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dump_heapdump/" class="md-nav__link">
+        Heap dump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dump_systemdump/" class="md-nav__link">
+        System dump
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13_3" type="checkbox" id="__nav_13_3" >
+      
+      <label class="md-nav__link" for="__nav_13_3">
+        Tools
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_13_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jextract/" class="md-nav__link">
+        Dump extractor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jdmpview/" class="md-nav__link">
+        Dump viewer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_traceformat/" class="md-nav__link">
+        Trace formatter
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_builder/" class="md-nav__link">
+        Option builder
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jcmd/" class="md-nav__link">
+        Java command (jcmd) tool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jmap/" class="md-nav__link">
+        Java memory map (jmap) tool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jps/" class="md-nav__link">
+        Java process status (jps)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jstack/" class="md-nav__link">
+        Java stack (jstack) tool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_jstat/" class="md-nav__link">
+        Java statistics monitoring (jstat) tool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool_migration/" class="md-nav__link">
+        Switching to OpenJ9
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13_4" type="checkbox" id="__nav_13_4" >
+      
+      <label class="md-nav__link" for="__nav_13_4">
+        Interfaces
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Interfaces" data-md-level="2">
+        <label class="md-nav__title" for="__nav_13_4">
+          <span class="md-nav__icon md-icon"></span>
+          Interfaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface_jvmti/" class="md-nav__link">
+        JVMTI
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface_dtfj/" class="md-nav__link">
+        DTFJ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interface_lang_management/" class="md-nav__link">
+        Language Management
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" >
+      
+      <label class="md-nav__link" for="__nav_14">
+        Command-line options
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Command-line options" data-md-level="1">
+        <label class="md-nav__title" for="__nav_14">
+          <span class="md-nav__icon md-icon"></span>
+          Command-line options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmdline_specifying/" class="md-nav__link">
+        Specifying options
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmdline_general/" class="md-nav__link">
+        Standard options
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmdline_migration/" class="md-nav__link">
+        Switching to OpenJ9
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_4" type="checkbox" id="__nav_14_4" >
+      
+      <label class="md-nav__link" for="__nav_14_4">
+        System property options
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="System property options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_14_4">
+          <span class="md-nav__icon md-icon"></span>
+          System property options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../d_jvm_commands/" class="md-nav__link">
+        Using System properties
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmenableclasscaching/" class="md-nav__link">
+        -Dcom.ibm.enableClassCaching
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmenablelegacydumpsecurity/" class="md-nav__link">
+        -Dcom.ibm.enableLegacyDumpSecurity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmenablelegacylogsecurity/" class="md-nav__link">
+        -Dcom.ibm.enableLegacyLogSecurity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmenablelegacytracesecurity/" class="md-nav__link">
+        -Dcom.ibm.enableLegacyTraceSecurity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmgpudisable/" class="md-nav__link">
+        -Dcom.ibm.gpu.disable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmgpuenable/" class="md-nav__link">
+        -Dcom.ibm.gpu.enable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmgpuverbose/" class="md-nav__link">
+        -Dcom.ibm.gpu.verbose
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmlangmanagementosmxbeaniscputime100ns/" class="md-nav__link">
+        -Dcom.ibm.lang.management.OperatingSystemMXBean.isCpuTime100ns
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmlangmanagementverbose/" class="md-nav__link">
+        -Dcom.ibm.lang.management.verbose
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmotisharedsharedclassglobalfilterclass/" class="md-nav__link">
+        -Dcom.ibm.oti.shared.SharedClassGlobalFilterClass
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachcommand_timeout/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.command_timeout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachdirectory/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.directory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachdisplayname/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.displayName
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachenable/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.enable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachid/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.id
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachlogging/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachlogname/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.log.name
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachshutdown_timeout/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.shutdown_timeout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcomibmtoolsattachtimeout/" class="md-nav__link">
+        -Dcom.ibm.tools.attach.timeout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dfileencoding/" class="md-nav__link">
+        -Dfile.encoding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djavacompiler/" class="md-nav__link">
+        -Djava.compiler
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djavalangstringsubstringnocopy/" class="md-nav__link">
+        -Djava.lang.string.substring.nocopy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djavalangstringbuffergrowaggressively/" class="md-nav__link">
+        -Djava.lang.stringBuffer.growAggressively
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativecbc/" class="md-nav__link">
+        -Djdk.nativeCBC
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativechacha20/" class="md-nav__link">
+        -Djdk.nativeChaCha20
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativecrypto/" class="md-nav__link">
+        -Djdk.nativeCrypto
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativedigest/" class="md-nav__link">
+        -Djdk.nativeDigest
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativegcm/" class="md-nav__link">
+        -Djdk.nativeGCM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../djdknativersa/" class="md-nav__link">
+        -Djdk.nativeRSA
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_5" type="checkbox" id="__nav_14_5" >
+      
+      <label class="md-nav__link" for="__nav_14_5">
+        JVM -X options
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="JVM -X options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_14_5">
+          <span class="md-nav__icon md-icon"></span>
+          JVM -X options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../x_jvm_commands/" class="md-nav__link">
+        Using -X options
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../x/" class="md-nav__link">
+        -X
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xaggressive/" class="md-nav__link">
+        -Xaggressive
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xalwaysclassgc/" class="md-nav__link">
+        -Xalwaysclassgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xaot/" class="md-nav__link">
+        -Xaot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xargencoding/" class="md-nav__link">
+        -Xargencoding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xbootclasspath/" class="md-nav__link">
+        -Xbootclasspath
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xceehdlr/" class="md-nav__link">
+        -XCEEHDLR
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcheck/" class="md-nav__link">
+        -Xcheck
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xclassgc/" class="md-nav__link">
+        -Xclassgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcodecache/" class="md-nav__link">
+        -Xcodecache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcodecachetotal/" class="md-nav__link">
+        -Xcodecachetotal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcomp/" class="md-nav__link">
+        -Xcomp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompactexplicitgc/" class="md-nav__link">
+        -Xcompactexplicitgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompactgc/" class="md-nav__link">
+        -Xcompactgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompilationthreads/" class="md-nav__link">
+        -XcompilationThreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompressedrefs/" class="md-nav__link">
+        -Xcompressedrefs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xconcurrentbackground/" class="md-nav__link">
+        -Xconcurrentbackground
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xconcurrentlevel/" class="md-nav__link">
+        -Xconcurrentlevel
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xconcurrentslack/" class="md-nav__link">
+        -Xconcurrentslack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xconmeter/" class="md-nav__link">
+        -Xconmeter
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenableexcessivegc/" class="md-nav__link">
+        -Xdisableexcessivegc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenableexplicitgc/" class="md-nav__link">
+        -Xdisableexplicitgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xdisablejavadump/" class="md-nav__link">
+        -Xdisablejavadump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenablestringconstantgc/" class="md-nav__link">
+        -Xdisablestringconstantgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xdump/" class="md-nav__link">
+        -Xdump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenableexcessivegc/" class="md-nav__link">
+        -Xenableexcessivegc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenableexplicitgc/" class="md-nav__link">
+        -Xenableexplicitgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xenablestringconstantgc/" class="md-nav__link">
+        -Xenablestringconstantgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xfastresolve/" class="md-nav__link">
+        -Xfastresolve
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xfuture/" class="md-nav__link">
+        -Xfuture
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgc/" class="md-nav__link">
+        -Xgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgcsplitheap/" class="md-nav__link">
+        -Xgc:splitheap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgcmaxthreads/" class="md-nav__link">
+        -Xgcmaxthreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgcpolicy/" class="md-nav__link">
+        -Xgcpolicy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgcthreads/" class="md-nav__link">
+        -Xgcthreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xgcworkpackets/" class="md-nav__link">
+        -Xgcworkpackets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xint/" class="md-nav__link">
+        -Xint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        -Xiss
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xjit/" class="md-nav__link">
+        -Xjit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xjni/" class="md-nav__link">
+        -Xjni
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlinenumbers/" class="md-nav__link">
+        -Xlinenumbers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xloa/" class="md-nav__link">
+        -Xloa
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xloaminimum/" class="md-nav__link">
+        -Xloainitial
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xloaminimum/" class="md-nav__link">
+        -Xloamaximum
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xloaminimum/" class="md-nav__link">
+        -Xloaminimum
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlockreservation/" class="md-nav__link">
+        -XlockReservation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlockword/" class="md-nav__link">
+        -Xlockword
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlog/" class="md-nav__link">
+        -Xlog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlp/" class="md-nav__link">
+        -Xlp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlpcodecache/" class="md-nav__link">
+        -Xlp:codecache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlpobjectheap/" class="md-nav__link">
+        -Xlp:objectheap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmine/" class="md-nav__link">
+        -Xmaxe
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xminf/" class="md-nav__link">
+        -Xmaxf
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmint/" class="md-nav__link">
+        -Xmaxt
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmca/" class="md-nav__link">
+        -Xmca
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmca/" class="md-nav__link">
+        -Xmco
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmcrs/" class="md-nav__link">
+        -Xmcrs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmine/" class="md-nav__link">
+        -Xmine
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xminf/" class="md-nav__link">
+        -Xminf
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmint/" class="md-nav__link">
+        -Xmint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmn/" class="md-nav__link">
+        -Xmn
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmn/" class="md-nav__link">
+        -Xmns
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmn/" class="md-nav__link">
+        -Xmnx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmo/" class="md-nav__link">
+        -Xmo
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmo/" class="md-nav__link">
+        -Xmoi
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmo/" class="md-nav__link">
+        -Xmos
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmo/" class="md-nav__link">
+        -Xmox
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmr/" class="md-nav__link">
+        -Xmr
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmr/" class="md-nav__link">
+        -Xmrx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xms/" class="md-nav__link">
+        -Xms
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xmso/" class="md-nav__link">
+        -Xmso
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xms/" class="md-nav__link">
+        -Xmx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xaot/" class="md-nav__link">
+        -Xnoaot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xclassgc/" class="md-nav__link">
+        -Xnoclassgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompactexplicitgc/" class="md-nav__link">
+        -Xnocompactexplicitgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompactgc/" class="md-nav__link">
+        -Xnocompactgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xcompressedrefs/" class="md-nav__link">
+        -Xnocompressedrefs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xjit/" class="md-nav__link">
+        -Xnojit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xlinenumbers/" class="md-nav__link">
+        -Xnolinenumbers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xloa/" class="md-nav__link">
+        -Xnoloa
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsigcatch/" class="md-nav__link">
+        -Xnosigcatch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsigchain/" class="md-nav__link">
+        -Xnosigchain
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xnumanone/" class="md-nav__link">
+        -Xnuma:none
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xoptionsfile/" class="md-nav__link">
+        -Xoptionsfile
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xquickstart/" class="md-nav__link">
+        -Xquickstart
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xrs/" class="md-nav__link">
+        -Xrs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsamplingexpirationtime/" class="md-nav__link">
+        -XsamplingExpirationTime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscdmx/" class="md-nav__link">
+        -Xscdmx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscminaot/" class="md-nav__link">
+        -Xscmaxaot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscminjitdata/" class="md-nav__link">
+        -Xscmaxjitdata
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscminaot/" class="md-nav__link">
+        -Xscminaot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscminjitdata/" class="md-nav__link">
+        -Xscminjitdata
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xscmx/" class="md-nav__link">
+        -Xscmx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xshareclasses/" class="md-nav__link">
+        -Xshareclasses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsigcatch/" class="md-nav__link">
+        -Xsigcatch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsigchain/" class="md-nav__link">
+        -Xsigchain
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsignal/" class="md-nav__link">
+        -Xsignal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsoftmx/" class="md-nav__link">
+        -Xsoftmx
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsoftrefthreshold/" class="md-nav__link">
+        -Xsoftrefthreshold
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        -Xss
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
+        -Xssi
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xsyslog/" class="md-nav__link">
+        -Xsyslog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtgc/" class="md-nav__link">
+        -Xtgc
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xthr/" class="md-nav__link">
+        -Xthr
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtlhprefetch/" class="md-nav__link">
+        -XtlhPrefetch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtrace/" class="md-nav__link">
+        -Xtrace
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtunevirtualized/" class="md-nav__link">
+        -Xtune:virtualized
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xverbosegclog/" class="md-nav__link">
+        -Xverbosegclog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xverify/" class="md-nav__link">
+        -Xverify
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xzero/" class="md-nav__link">
+        -Xzero
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_6" type="checkbox" id="__nav_14_6" >
+      
+      <label class="md-nav__link" for="__nav_14_6">
+        JVM -XX options
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="JVM -XX options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_14_6">
+          <span class="md-nav__icon md-icon"></span>
+          JVM -XX options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xx_jvm_commands/" class="md-nav__link">
+        Using -XX options
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxactiveprocessorcount/" class="md-nav__link">
+        -XXActiveProcessorCount
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxadaptivegcthreading/" class="md-nav__link">
+        -XX:[+|-]AdaptiveGCThreading
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxallowvmshutdown/" class="md-nav__link">
+        -XXallowvmshutdown
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxalwayspretouch/" class="md-nav__link">
+        -XX:[+|-]AlwaysPreTouch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxclassrelationshipverifier/" class="md-nav__link">
+        -XX:[+|-]ClassRelationshipVerifier
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxconcgcthreads/" class="md-nav__link">
+        -XX:ConcGCThreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxcodecachetotal/" class="md-nav__link">
+        -XX:codecachetotal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxcompactstrings/" class="md-nav__link">
+        -XX:[+|-]CompactStrings
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxdiagnosesynconvaluebasedclasses/" class="md-nav__link">
+        -XX:DiagnoseSyncOnValueBasedClasses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxdisableexplicitgc/" class="md-nav__link">
+        -XX:[+|-]DisableExplicitGC
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxdisclaimjitscratch/" class="md-nav__link">
+        -XX:[+|-]DisclaimJitScratch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxenablecpumonitor/" class="md-nav__link">
+        -XX:[+|-]EnableCPUMonitor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxexitonoutofmemoryerror/" class="md-nav__link">
+        -XX:[+|-]ExitOnOutOfMemoryError
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxgloballockreservation/" class="md-nav__link">
+        -XX:[+|-]GlobalLockReservation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxhandlesigxfsz/" class="md-nav__link">
+        -XX:[+|-]HandleSIGXFSZ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxhandlesigabrt/" class="md-nav__link">
+        -XX:[+|-]HandleSIGABRT
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxheapdumponoutofmemory/" class="md-nav__link">
+        -XX:[+|-]HeapDumpOnOutOfMemory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxheapdumppath/" class="md-nav__link">
+        -XX:HeapDumpPath
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxheapmanagementmxbeancompatibility/" class="md-nav__link">
+        -XX:[+|-]HeapManagementMXBeanCompatibility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxidletuningcompactonidle/" class="md-nav__link">
+        -XX:[+|-]IdleTuningCompactOnIdle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxidletuninggconidle/" class="md-nav__link">
+        -XX:[+|-]IdleTuningGcOnIdle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxidletuningminfreeheaponidle/" class="md-nav__link">
+        -XX:IdleTuningMinFreeHeapOnIdle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxidletuningminidlewaittime/" class="md-nav__link">
+        -XX:IdleTuningMinIdleWaitTime
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxignoreunrecognizedvmoptions/" class="md-nav__link">
+        -XX:[+|-]IgnoreUnrecognizedVMOptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxignoreunrecognizedxxcolonoptions/" class="md-nav__link">
+        -XX:[+|-]IgnoreUnrecognizedXXColonOptions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxinitialrampercentage/" class="md-nav__link">
+        -XX:InitialRAMPercentage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxinitialheapsize/" class="md-nav__link">
+        -XX:InitialHeapSize
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxinterleavememory/" class="md-nav__link">
+        -XX:[+|-]InterleaveMemory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxjitinlinewatches/" class="md-nav__link">
+        -XX:[+|-]JITInlineWatches
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxlazysymbolresolution/" class="md-nav__link">
+        -XX:[+|-]LazySymbolResolution
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxlegacyxlogoption/" class="md-nav__link">
+        -XX:[+|-]LegacyXLogOption
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxmaxdirectmemorysize/" class="md-nav__link">
+        -XX:MaxDirectMemorySize
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxinitialheapsize/" class="md-nav__link">
+        -XX:MaxHeapSize
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxinitialrampercentage/" class="md-nav__link">
+        -XX:MaxRAMPercentage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxonoutofmemoryerror/" class="md-nav__link">
+        -XX:OnOutOfMemoryError
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxoriginaljdk8heapsizecompatibilitymode/" class="md-nav__link">
+        -XX:[+|-]OriginalJDK8HeapSizeCompatibilityMode
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxnosuballoc32bitmem/" class="md-nav__link">
+        -XXnosuballoc32bitmem
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxpagealigndirectmemory/" class="md-nav__link">
+        -XX:[+|-]PageAlignDirectMemory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxparallelcmsthreads/" class="md-nav__link">
+        -XX:ParallelCMSThreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxparallelgcmaxthreads/" class="md-nav__link">
+        -XX:ParallelGCMaxThreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxparallelgcthreads/" class="md-nav__link">
+        -XX:ParallelGCThreads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxportablesharedcache/" class="md-nav__link">
+        -XX:[+|-]PortableSharedCache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxpositiveidentityhash/" class="md-nav__link">
+        -XX:[+|-]PositiveIdentityHash
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxprintcodecache/" class="md-nav__link">
+        -XX:[+|-]PrintCodeCache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxprintflagsfinal/" class="md-nav__link">
+        -XX:[+|-]PrintFlagsFinal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxreadipinfoforras/" class="md-nav__link">
+        -XX:[+|-]ReadIPInfoForRAS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxreducecpumonitoroverhead/" class="md-nav__link">
+        -XX:[+|-]ReduceCPUMonitorOverhead
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxruntimeinstrumentation/" class="md-nav__link">
+        -XX:[+|-]RuntimeInstrumentation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxsethwprefetch/" class="md-nav__link">
+        -XXsetHWPrefetch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxshareanonymousclasses/" class="md-nav__link">
+        -XX:[+|-]ShareAnonymousClasses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxshareclassesenablebci/" class="md-nav__link">
+        -XX:ShareClassesDisableBCI
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxshareclassesenablebci/" class="md-nav__link">
+        -XX:ShareClassesEnableBCI
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxsharedcachehardlimit/" class="md-nav__link">
+        -XX:SharedCacheHardLimit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxshareunsafeclasses/" class="md-nav__link">
+        -XX:[+|-]ShareUnsafeClasses
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxstacktraceinthrowable/" class="md-nav__link">
+        -XX:-StackTraceInThrowable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxtransparenthugepage/" class="md-nav__link">
+        -XX:[+|-]TransparentHugePage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxusecompressedoops/" class="md-nav__link">
+        -XX:[+|-]UseCompressedOops
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxusecontainersupport/" class="md-nav__link">
+        -XX:[+|-]UseContainerSupport
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxusegcstartuphints/" class="md-nav__link">
+        -XX:[+|-]UseGCStartupHints
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxusenogc/" class="md-nav__link">
+        -XX:[+|-]UseNoGC
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxverboseverification/" class="md-nav__link">
+        -XX:[+|-]VerboseVerification
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxvmlockclassloader/" class="md-nav__link">
+        -XX:[+|-]VMLockClassLoader
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_15" type="checkbox" id="__nav_15" >
+      
+      <label class="md-nav__link" for="__nav_15">
+         Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label=" Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_15">
+          <span class="md-nav__icon md-icon"></span>
+           Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_support/" class="md-nav__link">
+        Supported environments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_defaults/" class="md-nav__link">
+        Default settings
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_signals/" class="md-nav__link">
+        Signal handling
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openj9_directories/" class="md-nav__link">
+        Directory conventions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../messages_intro/" class="md-nav__link">
+        OpenJ9 messages
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../env_var/" class="md-nav__link">
+        Environment variables
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+      
+      <label class="md-nav__link" for="__nav_16">
+        API documentation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_16">
+          <span class="md-nav__icon md-icon"></span>
+          API documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16_2" type="checkbox" id="__nav_16_2" >
+      
+      <label class="md-nav__link" for="__nav_16_2">
+        Java 8 API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Java 8 API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_16_2">
+          <span class="md-nav__icon md-icon"></span>
+          Java 8 API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-conditionhandling/" class="md-nav__link">
+        Condition exception handling
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-cuda/" class="md-nav__link">
+        CUDA4J
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-daa/" class="md-nav__link">
+        Data access acceleration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-dtfj/" class="md-nav__link">
+        DTFJ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-gpu/" class="md-nav__link">
+        GPU
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-jvm/" class="md-nav__link">
+        JVM diagnostic utilities
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-langmgmt/" class="md-nav__link">
+        Monitoring and management
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-shrc/" class="md-nav__link">
+        Shared classes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-jdk11/" class="md-nav__link">
+        Java 11 API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-jdk16/" class="md-nav__link">
+        Java 16 API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legal/" class="md-nav__link">
+        Legal
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="On this page...">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page...
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#printallstats" class="md-nav__link">
+    printAllStats
+  </a>
+  
+    <nav class="md-nav" aria-label="printAllStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-paths" class="md-nav__link">
+    Class paths
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclasses" class="md-nav__link">
+    ROMClasses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-methods" class="md-nav__link">
+    AOT methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urls-and-tokens" class="md-nav__link">
+    URLs and tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-entry-caches" class="md-nav__link">
+    Zip entry caches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jit-data" class="md-nav__link">
+    JIT data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hints" class="md-nav__link">
+    Startup hints
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printstats" class="md-nav__link">
+    printStats
+  </a>
+  
+    <nav class="md-nav" aria-label="printStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#baseaddress-and-endaddress" class="md-nav__link">
+    baseAddress and endAddress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allocation-pointer" class="md-nav__link">
+    allocation pointer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-layer" class="md-nav__link">
+    cache layer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-size-and-free-bytes" class="md-nav__link">
+    cache size and free bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmx-bytes" class="md-nav__link">
+    softmx bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclass-bytes" class="md-nav__link">
+    ROMClass bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-bytes" class="md-nav__link">
+    AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space-for-aot-bytes" class="md-nav__link">
+    Reserved space for AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-space-for-aot-bytes" class="md-nav__link">
+    Maximum space for AOT bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jit-data-bytes" class="md-nav__link">
+    JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-space-for-jit-data-bytes" class="md-nav__link">
+    Reserved space for JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-space-for-jit-data-bytes" class="md-nav__link">
+    Maximum space for JIT data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-cache-bytes" class="md-nav__link">
+    Zip cache bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hint-bytes" class="md-nav__link">
+    Startup hint bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-bytes" class="md-nav__link">
+    Data bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-bytes" class="md-nav__link">
+    Metadata bytes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata-used" class="md-nav__link">
+    Metadata % used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-size" class="md-nav__link">
+    Class debug area size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-bytes-used" class="md-nav__link">
+    Class debug area bytes used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-debug-area-used" class="md-nav__link">
+    Class debug area % used
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romclasses_1" class="md-nav__link">
+    ROMClasses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aot-methods_1" class="md-nav__link">
+    AOT methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classpaths-urls-and-tokens" class="md-nav__link">
+    Classpaths, URLs, and Tokens
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-caches" class="md-nav__link">
+    Zip caches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startup-hints_1" class="md-nav__link">
+    Startup hints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stale-classes" class="md-nav__link">
+    Stale classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stale-classes_1" class="md-nav__link">
+    % Stale classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-xxx-full" class="md-nav__link">
+    Cache is XXX% full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-xxx-soft-full" class="md-nav__link">
+    Cache is XXX% soft full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-is-accessible-to-current-user" class="md-nav__link">
+    Cache is accessible to current user
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printtoplayerstats" class="md-nav__link">
+    printTopLayerStats
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <!--
+* Copyright (c) 2017, 2021 IBM Corp. and others
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which accompanies this distribution and is available at
+* https://www.eclipse.org/legal/epl-2.0/ or the Apache
+* License, Version 2.0 which accompanies this distribution and
+* is available at https://www.apache.org/licenses/LICENSE-2.0.
+*
+* This Source Code may also be made available under the
+* following Secondary Licenses when the conditions for such
+* availability set forth in the Eclipse Public License, v. 2.0
+* are satisfied: GNU General Public License, version 2 with
+* the GNU Classpath Exception [1] and GNU General Public
+* License, version 2 with the OpenJDK Assembly Exception [2].
+*
+* [1] https://www.gnu.org/software/classpath/license.html
+* [2] http://openjdk.java.net/legal/assembly-exception.html
+*
+* SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH
+* Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
+-->
+
+<h1 id="shared-classes-cache-diagnostic-utilities">Shared classes cache diagnostic utilities</h1>
+<p>These utilities display information about the contents of a shared classes cache. Run the utilities by specifying them as suboptions of <code>-Xshareclasses</code>. The utilities run on the default cache unless you specify a cache by adding the <code>name=&lt;cache_name&gt;</code> suboption.</p>
+<h2 id="printallstats"><code>printAllStats</code></h2>
+<pre><code>-Xshareclasses:printAllStats
+-Xshareclasses:printAllStats,name=&lt;cache_name&gt;
+</code></pre>
+
+<p>Displays the contents of the cache in chronological order. You can use this output to see the history of updates that were made to the cache. For layered caches, some information is shown for the top layer cache only, and some is shown for all layers combined. To see information for the top layer cache only, use <a href="#printtoplayerstats"><code>printTopLayerStats=all</code></a>.</p>
+<p>Each entry in the output starts with a VM ID, so you can see which VM wrote the associated data. Here are example entries for various types of cache data, with explanations:</p>
+<h3 id="class-paths">Class paths</h3>
+<dl>
+<dd>
+<p>This example shows one class path with 4 entries:</p>
+<pre><code>1: 0x2234FA6C CLASSPATH
+        /myVM/Apps/application1.jar
+        /myVM/Apps/application2.jar
+        /myVM/Apps/application3.jar
+        /myVM/Apps/application4.jar
+</code></pre>
+<ul>
+<li><code>1</code> : the ID of the VM that wrote this data.</li>
+<li><code>0x2234FA6C</code> : the address where this data is stored.</li>
+<li><code>CLASSPATH</code> : the type of data that was written.</li>
+</ul>
+</dd>
+</dl>
+<h3 id="romclasses">ROMClasses</h3>
+<dl>
+<dd>
+<p>This example shows an entry for a single <code>ROMClass</code>:</p>
+<pre><code>1: 0x2234F7DC ROMCLASS: java/lang/Runnable at 0x213684A8
+        Index 1 in class path 0x2234FA6C
+</code></pre>
+<ul>
+<li><code>1</code> : the ID of the VM that wrote this data.</li>
+<li><code>0x2234F7DC</code> : the address where the metadata about the class is stored.</li>
+<li><code>ROMCLASS</code> : the type of data that was stored.</li>
+<li><code>java/lang/Runnable</code> : the name of the class.</li>
+<li><code>0x213684A8</code> : the address where the class was stored.</li>
+<li><code>Index 1</code> : the index in the class path where the class was loaded from.</li>
+<li><code>0x2234FA6C</code> : the address of the class path against which this class is stored.</li>
+</ul>
+</dd>
+<dd>
+<p>Stale classes are marked with <code>!STALE!</code>. Any partition or modification context that is used when the class is stored is also shown.</p>
+</dd>
+</dl>
+<h3 id="aot-methods">AOT methods</h3>
+<dl>
+<dd>
+<p>This example shows an entry for one AOT-compiled method:</p>
+<pre><code>1: 0x540FBA6A AOT: loadConvert
+        for ROMClass java/util/Properties at 0x52345174
+</code></pre>
+<ul>
+<li><code>1</code> : the ID of the VM that wrote this data.</li>
+<li><code>0x540FBA6A</code> : the address where the data is stored.</li>
+<li><code>AOT</code> : the type of data that was stored.</li>
+<li><code>loadConvert</code> : the method for which AOT-compiled code is stored.</li>
+<li><code>java/util/Properties</code> : the class that contains the method.</li>
+<li><code>0x52345174</code> : the address of the class that contains the method.</li>
+</ul>
+</dd>
+<dd>
+<p>Stale methods are marked with <code>!STALE!</code>.</p>
+</dd>
+</dl>
+<h3 id="urls-and-tokens">URLs and tokens</h3>
+<dl>
+<dd>A <code>Token</code> is a string that is passed to the Java™ <code>SharedClassHelper</code> API. The output for these data types has the same format as that for class paths, but with a single entry.</dd>
+</dl>
+<h3 id="zip-entry-caches">Zip entry caches</h3>
+<dl>
+<dd>
+<p>This example shows 4 separate entries for zip entry caches:</p>
+<pre><code>1: 0x042FE07C ZIPCACHE: luni-kernel.jar_347075_1272300300_1 Address: 0x042FE094 Size: 7898
+1: 0x042FA878 ZIPCACHE: luni.jar_598904_1272300546_1 Address: 0x042FA890 Size: 14195
+1: 0x042F71F8 ZIPCACHE: nio.jar_405359_1272300546_1 Address: 0x042F7210 Size: 13808
+1: 0x042F6D58 ZIPCACHE: annotation.jar_13417_1272300554_1 Address: 0x042F6D70 Size: 1023
+</code></pre>
+<ul>
+<li><code>1</code> : the ID of the VM that wrote this data.</li>
+<li><code>0x042FE07C</code> : the address where the metadata for the zip entry cache is stored.</li>
+<li><code>ZIPCACHE</code> : the type of data that was stored.</li>
+<li><code>luni-kernel.jar_347075_1272300300_1</code> : the name of the zip entry cache.</li>
+<li><code>0x042FE094</code> : the address where the data is stored.</li>
+<li><code>7898</code> : the size of the stored data, in bytes.</li>
+</ul>
+</dd>
+</dl>
+<h3 id="jit-data">JIT data</h3>
+<dl>
+<dd>Information about JIT data is shown in <code>JITPROFILE</code> and <code>JITHINT</code> entries. For example:<pre><code>1: 0xD6290368 JITPROFILE: getKeyHash Signature: ()I Address: 0xD55118C0
+for ROMClass java/util/Hashtable$Entry at 0xD5511640.
+2: 0xD6283848 JITHINT: loadClass Signature: (Ljava/lang/String;)Ljava/lang/Class; Address: 0xD5558F98
+for ROMClass com/ibm/oti/vm/BootstrapClassLoader at 0xD5558AE0.
+</code></pre>
+</dd>
+</dl>
+<h3 id="startup-hints">Startup hints</h3>
+<dl>
+<dd>Information about startup hints is shown in <code>STARTUP HINTS KEY</code> and <code>STARTUP HINTS DETAIL</code>. For example:<pre><code>1: 0x000000002237C6E0 STARTUP HINTS KEY: -Xoptionsfile=jre\bin\compressedrefs\options.default -Xlockword:mode=default -Xjcl:jclse29 -Dcom.ibm.oti.vm.bootstrap.library.path=jre\bin\compressedrefs;jre\bin -Djava.home=jre -Djava.ext.dirs=jre\lib\ext -Duser.dir=bin -Djava.class.path=. -Dsun.java.launcher=SUN_STANDARD Address: 0x000000002237C700 Size: 96
+STARTUP HINTS DETAIL Flags: 1 DATA1: 1677721 DATA2: 5033165
+</code></pre>
+</dd>
+</dl>
+<h2 id="printstats"><code>printStats</code></h2>
+<pre><code>-Xshareclasses:printStats
+-Xshareclasses:printStats,name=&lt;cache_name&gt;
+-Xshareclasses:printStats=&lt;data_type1&gt;[+&lt;data_type2&gt;][...],name=&lt;cache_name&gt;
+</code></pre>
+
+<p>Displays summary information about the cache. For layered caches, <code>-Xshareclasses:printStats</code> shows some information for the top layer cache, and summary information (bytes and counts only) for all layers combined. To see information for the top layer cache only, use <a href="#printtoplayerstats"><code>printTopLayerStats</code></a>.</p>
+<p>You can request more detail about items of a specific data type that are stored in the shared cache by using <code>printStats=&lt;data_type&gt;</code>. Use the plus symbol (+) to separate the data types. For example, use <code>printStats=romclass+url,name=myCache</code> to see information about <code>ROMClass</code> and <code>URL</code> items in all the layer caches of the cache called <code>Cache1</code>. The valid data types are as follows (case insensitive):</p>
+<ul>
+<li><code>help</code> (displays the list of valid data types)</li>
+<li><code>all</code> (equivalent to <code>printAllStats</code>)</li>
+<li><code>classpath</code></li>
+<li><code>url</code></li>
+<li><code>token</code></li>
+<li><code>romclass</code></li>
+<li><code>rommethod</code></li>
+<li><code>aot</code></li>
+<li><code>jitprofile</code></li>
+<li><code>jithint</code></li>
+<li><code>zipcache</code></li>
+<li><code>stale</code></li>
+<li><code>startuphint</code></li>
+</ul>
+<p>Example output for a traditional cache (no cache layers: <code>cache layer = 0</code>), with summary information only:</p>
+<pre><code>Current statistics for cache &quot;Cache1&quot;:
+
+Cache created with:
+        -Xnolinenumbers                      = false
+        BCI Enabled                          = true
+        Restrict Classpaths                  = false
+        Feature                              = cr
+
+Cache contains only classes with line numbers
+
+base address                         = 0x00007F60B807A000
+end address                          = 0x00007F60B905E000
+allocation pointer                   = 0x00007F60B81BE3A8
+
+cache layer                          = 0
+cache size                           = 16776608
+softmx bytes                         = 16776608
+free bytes                           = 12740572
+Reserved space for AOT bytes         = -1
+Maximum space for AOT bytes          = -1
+Reserved space for JIT data bytes    = -1
+Maximum space for JIT data bytes     = -1
+Metadata bytes                       = 30440
+Metadata % used                      = 0%
+Class debug area size                = 1331200
+Class debug area used bytes          = 189358
+Class debug area % used              = 14%
+
+ROMClass bytes                       = 1328040
+AOT bytes                            = 98404
+JIT data bytes                       = 168
+Zip cache bytes                      = 1133704
+Startup hint bytes                   = 0
+Data bytes                           = 114080
+
+# ROMClasses                         = 452
+# AOT Methods                        = 2
+# Classpaths                         = 1
+# URLs                               = 0
+# Tokens                             = 0
+# Zip caches                         = 21
+# Startup hints                      = 0
+# Stale classes                      = 0
+% Stale classes                      = 0%
+
+
+Cache is 24% full
+
+Cache is accessible to current user = true
+</code></pre>
+
+<p>Example output for a cache with 2 layers (<code>cache layer = 1</code>), with summary information only:</p>
+<pre><code>Current statistics for top layer of cache &quot;Cache1&quot;:
+
+Cache created with:
+        -Xnolinenumbers                      = false
+        BCI Enabled                          = true
+        Restrict Classpaths                  = false
+        Feature                              = cr
+
+
+base address                         = 0x00007FCAB2766000
+end address                          = 0x00007FCAB374A000
+allocation pointer                   = 0x00007FCAB2766000
+
+cache layer                          = 1
+cache size                           = 16776608
+softmx bytes                         = 16776608
+free bytes                           = 15299372
+Reserved space for AOT bytes         = -1
+Maximum space for AOT bytes          = -1
+Reserved space for JIT data bytes    = -1
+Maximum space for JIT data bytes     = -1
+Class debug area size                = 1331200
+Class debug area used bytes          = 0
+Class debug area % used              = 0%
+
+Cache is 8% full
+
+Cache is accessible to current user = true
+---------------------------------------------------------
+
+Current statistics for all layers of cache &quot;Cache1&quot;:
+
+ROMClass bytes                       = 1328040
+AOT bytes                            = 128924
+JIT data bytes                       = 812
+Zip cache bytes                      = 1133704
+Startup hint bytes                   = 0
+Data bytes                           = 114080
+
+# ROMClasses                         = 452
+# AOT Methods                        = 20
+# Classpaths                         = 1
+# URLs                               = 0
+# Tokens                             = 0
+# Zip caches                         = 21
+# Startup hints                      = 0
+# Stale classes                      = 0
+% Stale classes                      = 0%
+</code></pre>
+
+<p>The <code>Cache created with</code> section indicates the options that were used when the cache was created. <code>BCI Enabled</code> relates to the <a href="../xshareclasses/#enablebci"><code>-Xshareclasses:enableBCI</code></a> option (enabled by default) and <code>Restrict Classpaths</code> relates to the <a href="../xshareclasses/#restrictclasspaths"><code>-Xshareclasses:restrictClasspaths</code></a> option. <code>Feature = cr</code> indicates that the cache is a 64-bit compressed references cache, as described in <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_admin.html">Creating, populating, monitoring, and deleting a cache</a>.</p>
+<p>Line number information for classes in the cache is then shown with one of the following messages:</p>
+<ul>
+<li><code>Cache contains only classes with line numbers</code> : VM line number processing was enabled for all the classes that were stored in this shared cache (the <code>-Xlinenumbers</code> option is enabled by default). All classes in the cache contain line numbers if the original classes contained line number data.</li>
+<li><code>Cache contains only classes without line numbers</code> : The <code>-Xnolinenumbers</code> option was used to disable VM line number processing for all the classes that were stored in this shared cache, so none of the classes contain line numbers.</li>
+<li><code>Cache contains classes with line numbers and classes without line numbers</code> : VM line number processing was enabled for some classes and disabled for others (the <code>-Xnolinenumbers</code> option was specified when some of the classes were added to the cache).</li>
+</ul>
+<p>The following summary data is displayed:</p>
+<h4 id="baseaddress-and-endaddress"><code>baseAddress</code> and <code>endAddress</code></h4>
+<dl>
+<dd>The boundary addresses of the shared memory area that contains the classes.</dd>
+</dl>
+<h4 id="allocation-pointer"><code>allocation pointer</code></h4>
+<dl>
+<dd>The address where <code>ROMClass</code> data is currently being allocated in the cache.</dd>
+</dl>
+<h4 id="cache-layer"><code>cache layer</code></h4>
+<dl>
+<dd>The layer number that the cache stats relate to.</dd>
+</dl>
+<h4 id="cache-size-and-free-bytes"><code>cache size</code> and <code>free bytes</code></h4>
+<dl>
+<dd><code>cache size</code> shows the total size of the shared memory area in bytes, and <code>free bytes</code> shows the free bytes that remain.</dd>
+</dl>
+<h4 id="softmx-bytes"><code>softmx bytes</code></h4>
+<dl>
+<dd>The soft maximum size for the cache. For more information, see <a href="../xscmx/"><code>-Xscmx</code></a>.</dd>
+</dl>
+<h4 id="romclass-bytes"><code>ROMClass bytes</code></h4>
+<dl>
+<dd>The number of bytes of class data in the cache.</dd>
+</dl>
+<h4 id="aot-bytes"><code>AOT bytes</code></h4>
+<dl>
+<dd>The number of bytes of AOT-compiled code in the cache.</dd>
+</dl>
+<h4 id="reserved-space-for-aot-bytes"><code>Reserved space for AOT bytes</code></h4>
+<dl>
+<dd>The number of bytes reserved for AOT-compiled code in the cache.</dd>
+</dl>
+<h4 id="maximum-space-for-aot-bytes"><code>Maximum space for AOT bytes</code></h4>
+<dl>
+<dd>The maximum number of bytes of AOT-compiled code that can be stored in the cache.</dd>
+</dl>
+<h4 id="jit-data-bytes"><code>JIT data bytes</code></h4>
+<dl>
+<dd>The number of bytes of JIT-related data stored in the cache.</dd>
+</dl>
+<h4 id="reserved-space-for-jit-data-bytes"><code>Reserved space for JIT data bytes</code></h4>
+<dl>
+<dd>The number of bytes reserved for JIT-related data in the cache.</dd>
+</dl>
+<h4 id="maximum-space-for-jit-data-bytes"><code>Maximum space for JIT data bytes</code></h4>
+<dl>
+<dd>The maximum number of bytes of JIT-related data that can be stored in the cache.</dd>
+</dl>
+<h4 id="zip-cache-bytes"><code>Zip cache bytes</code></h4>
+<dl>
+<dd>The number of zip entry cache bytes stored in the cache.</dd>
+</dl>
+<h4 id="startup-hint-bytes"><code>Startup hint bytes</code></h4>
+<dl>
+<dd>The number of bytes of data stored to describe startup hints.</dd>
+</dl>
+<h4 id="data-bytes"><code>Data bytes</code></h4>
+<dl>
+<dd>The number of bytes of non-class data stored by the VM.</dd>
+</dl>
+<h4 id="metadata-bytes"><code>Metadata bytes</code></h4>
+<dl>
+<dd>The number of bytes of data stored to describe the cached classes. <span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> This field is available only in the top layer cache output or when a cache is not layered.</dd>
+</dl>
+<h4 id="metadata-used"><code>Metadata % used</code></h4>
+<dl>
+<dd>The proportion of metadata bytes to class bytes, which indicates how efficiently cache space is being used. The value shown does consider the <code>Class debug area size</code>.</dd>
+</dl>
+<h4 id="class-debug-area-size"><code>Class debug area size</code></h4>
+<dl>
+<dd>The size in bytes of the Class Debug Area. This area is reserved to store <code>LineNumberTable</code> and <code>LocalVariableTable</code> class attribute information.</dd>
+</dl>
+<h4 id="class-debug-area-bytes-used"><code>Class debug area bytes used</code></h4>
+<dl>
+<dd>The size in bytes of the Class Debug Area that contains data.</dd>
+</dl>
+<h4 id="class-debug-area-used"><code>Class debug area % used</code></h4>
+<dl>
+<dd>The percentage of the Class Debug Area that contains data.</dd>
+</dl>
+<h4 id="romclasses_1"><code>ROMClasses</code></h4>
+<dl>
+<dd>The number of classes in the cache. The cache stores <code>ROMClasses</code> (the class data itself, which is read-only) and information about the location from which the classes were loaded. This information is stored in different ways, depending on the Java <code>SharedClassHelper</code> API that was used to store the classes. For more information, see <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_pd_helper.html">Using the Java Helper API</a>.</dd>
+</dl>
+<h4 id="aot-methods_1"><code>AOT methods</code></h4>
+<dl>
+<dd>Optionally, <code>ROMClass</code> methods can be compiled and the AOT code stored in the cache. The <code>AOT methods</code> information shows the total number of methods in the cache that have AOT code compiled for them. This number includes AOT code for stale classes.</dd>
+</dl>
+<h4 id="classpaths-urls-and-tokens"><code>Classpaths</code>, <code>URLs</code>, and <code>Tokens</code></h4>
+<dl>
+<dd>The number of class paths, URLs, and tokens in the cache. Classes stored from a <code>SharedClassURLClasspathHelper</code> are stored with a Classpath. Classes stored using a <code>SharedClassURLHelper</code> are stored with a URL. Classes stored using a <code>SharedClassTokenHelper</code> are stored with a Token. Most class loaders, including the bootstrap and application class loaders, use a <code>SharedClassURLClasspathHelper</code>. The result is that it is most common to see class paths in the cache.</dd>
+<dd>The number of Classpaths, URLs, and Tokens stored is determined by a number of factors. For example, every time an element of a Classpath is updated, such as when a <code>.jar</code> file is rebuilt, a new Classpath is added to the cache. Additionally, if partitions or modification contexts are used, they are associated with the Classpath, URL, or Token. A Classpath, URL, or Token is stored for each unique combination of partition and modification context. For more information, see <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_pd_rbm_partitions.html">SharedClassHelper partitions</a> and <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_pd_rbm_contexts.html">Modification contexts</a>.</dd>
+</dl>
+<h4 id="zip-caches"><code>Zip caches</code></h4>
+<dl>
+<dd>The number of .zip files that have entry caches stored in the shared cache.</dd>
+</dl>
+<h4 id="startup-hints_1"><code>Startup hints</code></h4>
+<dl>
+<dd>The number of startup hints stored in the cache. There can be a startup hint for each unique set of command line options used to start the JVM.</dd>
+</dl>
+<h4 id="stale-classes"><code>Stale classes</code></h4>
+<dl>
+<dd>The number of classes that have been marked as "potentially stale" by the cache code, because of a VM or Java application update. See <a href="https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/shrc_pd_dynamic.html">Understanding dynamic updates</a>.</dd>
+</dl>
+<h4 id="stale-classes_1"><code>% Stale classes</code></h4>
+<dl>
+<dd>The percentage of classes in the cache that are stale.</dd>
+</dl>
+<h4 id="cache-is-xxx-full"><code>Cache is XXX% full</code></h4>
+<dl>
+<dd>The percentage of the cache that is currently used. This line is displayed only if the soft maximum size is not set. This value is calculated as follows:<pre><code>% Full = (('Cache Size' - 'Free Bytes') * 100) / ('Cache Size')
+</code></pre>
+</dd>
+</dl>
+<h4 id="cache-is-xxx-soft-full"><code>Cache is XXX% soft full</code></h4>
+<dl>
+<dd>The percentage of the soft maximum size that is currently used. This line is displayed only if the soft maximum size is set. The <code>free bytes</code> in the cache statistics means the free bytes within the soft maximum limit. This value is calculated as follows:<pre><code>% soft Full = (('Soft max bytes' - 'Free Bytes') * 100) / ('Soft max  bytes')
+</code></pre>
+</dd>
+<dd>
+<p>For more information about the soft maximum size, see <a href="../xscmx/"><code>-Xscmx</code></a>.</p>
+</dd>
+</dl>
+<h4 id="cache-is-accessible-to-current-user"><code>Cache is accessible to current user</code></h4>
+<dl>
+<dd>Whether the current user can access the cache.</dd>
+</dl>
+<h2 id="printtoplayerstats"><code>printTopLayerStats</code></h2>
+<p>Use this utility with a layered cache. This utility works in the same way as <code>printStats</code>. By default, this utility shows information for the top layer cache. To view statistics for a specific layer, use the <code>layer=&lt;number&gt;</code> option. For example, to show statistics for the second layer in a 2-layer cache, run <code>printTopLayerStats,layer=1</code>.</p>
+<p>Example output:</p>
+<pre><code>Current statistics for cache &quot;Cache1&quot;:
+
+Cache created with:
+        -Xnolinenumbers                      = false
+        BCI Enabled                          = true
+        Restrict Classpaths                  = false
+        Feature                              = cr
+
+
+base address                         = 0x00007F234C054000
+end address                          = 0x00007F234D038000
+allocation pointer                   = 0x00007F234C054000
+
+cache layer                          = 1
+cache size                           = 16776608
+softmx bytes                         = 16776608
+free bytes                           = 15299372
+Reserved space for AOT bytes         = -1
+Maximum space for AOT bytes          = -1
+Reserved space for JIT data bytes    = -1
+Maximum space for JIT data bytes     = -1
+Metadata bytes                       = 792
+Metadata % used                      = 0%
+Class debug area size                = 1331200
+Class debug area used bytes          = 0
+Class debug area % used              = 0%
+
+ROMClass bytes                       = 0
+AOT bytes                            = 30520
+JIT data bytes                       = 644
+Zip cache bytes                      = 0
+Startup hint bytes                   = 0
+Data bytes                           = 114080
+
+# ROMClasses                         = 0
+# AOT Methods                        = 18
+# Classpaths                         = 0
+# URLs                               = 0
+# Tokens                             = 0
+# Zip caches                         = 0
+# Startup hints                      = 0
+# Stale classes                      = 0
+% Stale classes                      = 0%
+
+
+Cache is 8% full
+
+Cache is accessible to current user = true
+</code></pre>
+
+<!-- ==== END OF TOPIC ==== shrc_diag_util.md ==== -->
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+* Copyright (c) 2017, 2021 IBM Corp. and others
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which accompanies this distribution and is available at
+* https://www.eclipse.org/legal/epl-2.0/ or the Apache
+* License, Version 2.0 which accompanies this distribution and
+* is available at https://www.apache.org/licenses/LICENSE-2.0.
+*
+* This Source Code may also be made available under the
+* following Secondary Licenses when the conditions for such
+* availability set forth in the Eclipse Public License, v. 2.0
+* are satisfied: GNU General Public License, version 2 with
+* the GNU Classpath Exception [1] and GNU General Public
+* License, version 2 with the OpenJDK Assembly Exception [2].
+*
+* [1] https://www.gnu.org/software/classpath/license.html
+* [2] http://openjdk.java.net/legal/assembly-exception.html
+*
+* SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH
+* Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
+-->
+
+<footer class="md-footer">
+
+  <div class="md-footer-meta">
+    
+
+<!-- Add following links ...................................... -->
+
+    <div class="above-line">
+      <div class="above-line-links">
+        <div class="column">
+          <h3 >Docs</h3>
+          <span class="footer-link"><a href="/openj9/docs/openj9_newuser/" >New to OpenJ9?</a></span>
+          <span class="footer-link"><a href="/openj9/docs/introduction/">Getting started</a></span>
+          <span class="footer-link"><a href="/openj9/docs/cmdline_specifying/">Command-line options</a></span>
+        </div>
+
+        <div class="column">
+          <h3>Resources</h3>
+          <span class="footer-link"><a href="https://www.eclipse.org/openj9/about/" rel="noopener noreferrer" target="_blank">About</a></span>
+          <span class="footer-link"><a href="https://www.eclipse.org/openj9/performance/" rel="noopener noreferrer" target="_blank">Performance</a></span>
+        </div>
+
+        <div class="column">
+          <h3 >Community</h3>
+          <span class="footer-link"><a href="https://www.eclipse.org/openj9/news/" rel="noopener noreferrer" target="_blank">News</a></span>
+          <span class="footer-link"><a href="https://blog.openj9.org/" rel="noopener noreferrer" target="_blank">Blogs</a></span>
+        </div>
+      </div>
+
+      <div class="column-incubator">
+        <div class="arrange-column">
+          <h3 ><b>OpenJ9 is an Eclipse Incubator project</b></h3>
+          <a class="incubator-image" href="http://wiki.eclipse.org/Development_Resources/Process_Guidelines/What_is_Incubation" target="_blank"><img width="50px" src="../cr/incubator-logo.svg" alt="Eclipse Incubation"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-line"></div>
+
+    <div class="below-line">
+      <span class="below-line-links"><a href="https://www.eclipse.org/" rel="noopener noreferrer" target="_blank">Eclipse Foundation Website </a></span>
+      <span class="below-line-links"><a href="https://www.eclipse.org/legal/privacy.php" rel="noopener noreferrer" target="_blank">Privacy Policy</a></span>
+      <span class="below-line-links"><a href="https://www.eclipse.org/legal/termsofuse.php" rel="noopener noreferrer" target="_blank">Terms of Use</a></span>
+      <span class="below-line-links"><a href="https://www.eclipse.org/legal/copyright.php" rel="noopener noreferrer" target="_blank">Copyright Agent</a></span>
+      <span class="below-line-links"><a href="https://www.eclipse.org/legal/" rel="noopener noreferrer" target="_blank">Legal</a></span>
+      <div class="below-line-social-media-icons">
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/eclipse/openj9" target="_blank" rel="noopener" title="OpenJ9 in GitHub" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://openj9.slack.com" target="_blank" rel="noopener" title="OpenJ9 on Slack" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/openj9" target="_blank" rel="noopener" title="OpenJ9 on Twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://stackoverflow.com/search?q=OpenJ9" target="_blank" rel="noopener" title="OpenJ9 on StackOverflow" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"/></svg>
+      </a>
+    
+  </div>
+
+      </div>
+    </div>
+
+<!-- End of added links........................................ -->
+
+
+
+<!--
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/eclipse/openj9" target="_blank" rel="noopener" title="OpenJ9 in GitHub" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://openj9.slack.com" target="_blank" rel="noopener" title="OpenJ9 on Slack" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1c0-25.9 21.16-47.06 47.06-47.06h47.06v47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V315.1zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06H164.9zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06H164.9zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06h-47.06V196.9zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06 25.9 0 47.06 21.16 47.06 47.06V196.9zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06-25.9 0-47.06-21.16-47.06-47.06v-47.06h47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06 0-25.9 21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06 0 25.9-21.16 47.06-47.06 47.06H283.1z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/openj9" target="_blank" rel="noopener" title="OpenJ9 on Twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://stackoverflow.com/search?q=OpenJ9" target="_blank" rel="noopener" title="OpenJ9 on StackOverflow" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"/></svg>
+      </a>
+    
+  </div>
+
+-->
+  </div>
+</footer>
+
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": 2.0}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ca5457b8.min.js"></script>
+      
+        <script src="../javascripts/oj9.js"></script>
+      
+    
+  </body>
+</html>
