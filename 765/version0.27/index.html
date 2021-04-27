@@ -310,9 +310,58 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Version 0.27.0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Version 0.27.0
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="On this page...">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page...
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-changes" class="md-nav__link">
+    Features and changes
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvements" class="md-nav__link">
+    Performance improvements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-xx-adaptivegcthreading-option-added" class="md-nav__link">
+    New -XX:[+|-]AdaptiveGCThreading option added
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4059,6 +4108,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page...
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-changes" class="md-nav__link">
+    Features and changes
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvements" class="md-nav__link">
+    Performance improvements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-xx-adaptivegcthreading-option-added" class="md-nav__link">
+    New -XX:[+|-]AdaptiveGCThreading option added
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4097,8 +4181,13 @@
 <h1 id="whats-new-in-version-0270">What's new in version 0.27.0</h1>
 <p>The following new features and notable changes since v 0.26.0 are included in this release:</p>
 <ul>
-<li><a href="../xxadaptivegcthreading/">New <code>-XX:[+|-]AdaptiveGCThreading</code> option added</a></li>
+<li><a href="#new-xx-adaptivegcthreading-option-added">New <code>-XX:[+|-]AdaptiveGCThreading</code> option added</a></li>
 </ul>
+<h2 id="features-and-changes">Features and changes</h2>
+<h3 id="performance-improvements">Performance improvements</h3>
+<h3 id="new-xx-adaptivegcthreading-option-added">New <code>-XX:[+|-]AdaptiveGCThreading</code> option added</h3>
+<p>To optimize performance, you can now enable adaptive threading to automatically tune the number of active parallel garbage collection (GC) threads. When enabled, the GC thread count is dynamically adjusted from collection cycle to cycle to account for changes in the workload and consider the available resources. When parallel workloads decrease, less threads can be used, reducing the overhead and freeing up resources for other processing activities.</p>
+<p>Use the <a href="../xgcmaxthreads/"><code>-xgcmaxthreads</code></a> option with the <a href="../xxadaptivegcthreading/"><code>-XX:+AdaptiveGCThreading</code></a> option to specify a thread count limit.</p>
 <!-- ==== END OF TOPIC ==== version0.27.md ==== -->
                 
               
