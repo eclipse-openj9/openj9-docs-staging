@@ -4431,12 +4431,12 @@
 <h2 id="initialization-problems">Initialization problems</h2>
 <p>The shared classes cache is created in the <code>javasharedresources</code> directory. Check that the user has permissions to write to this directory, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. This problem can occur on systems other than Windows&reg; because, by default, caches are created with read/write access for the user only, unless the <code>-Xshareclasses:groupAccess</code> suboption is used when the cache is created.</p>
 <p>For a persistent cache, initialization problems can also occur if there is insufficient disk space available or if you are attempting to locate the cache on a remote networked file system, which is not supported.</p>
-<p>For a non-persistent cache, a shared memory area is required. Check that your system is configured with sufficient resources as described in <a href="../configuring/#setting-shared-memory-values">Setting shared memory values</a>. If initialization problems persist, try deleting the cache by using the <code>-Xshareclasses:destroyAll</code> cache utility, which removes all known memory areas and semaphores. Also remove the <code>javasharedresources</code> directory. These action force the VM to re-create the cache.</p>
+<p>For a non-persistent cache, a shared memory area is required. Check that your system is configured with sufficient resources as described in <a href="../configuring/#setting-shared-memory-values">Setting shared memory values</a>. If initialization problems persist, try deleting the cache by using the <code>-Xshareclasses:destroyAll</code> cache utility, which removes all known shared memory areas and semaphores. Also remove the <code>javasharedresources</code> directory. These actions force the VM to re-create the cache.</p>
 <h2 id="problems-finding-or-storing-classes">Problems finding or storing classes</h2>
 <p>Classes are typically not found if the class is stale, as described in <a href="../shrc/#class-data-sharing-operations">Class data sharing operations</a>. Stale classes are redeemed if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
 <p>If you are attempting to share modified bytecode, you must use a modification context, as described in <a href="../shrc/#sharing-modified-bytecode">Sharing modified bytecode</a>. Otherwise, classes are stored in a private area that is not accessible to other VMs.</p>
 <p>If you are using a custom class loader, class path entries in the <code>SharedClassURLClasspathHelper</code> must be <em>confirmed</em> before classes can be found for these entries. More information about confirmed entries is available in the <code>SharedClassHelper</code> <a href="../api-overview/#monitoring-and-management">API documentation</a>.</p>
-<p>The most common cause for classes not being stored in the cache is due to space constraints. Make sure that you set an appropriate size for the cache, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. Setting a soft maximum size is recommended, because you can adjust the size of the cache after it is created. See <a href="../xscmx/#setting-a-soft-maximum-size">Setting a soft maximum size</a>.</p>
+<p>The most common cause for classes not being stored in the cache is due to space constraints. Make sure that you set an appropriate size for the cache, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. Setting a soft maximum size is recommended, because you can adjust the soft maximum size that is set for the cache after it is created. See <a href="../xscmx/#setting-a-soft-maximum-size">Setting a soft maximum size</a>.</p>
 <p>Storing classes can also be a problem if the cache is opened read-only or if the class does not exist on the file system because it is sourced from a URL location.</p>
 <p>If you are instrumenting bytecode by using a JVMTI agent or <code>java.lang.instrument</code> agent, the following rules apply:</p>
 <ul>
@@ -4444,16 +4444,16 @@
 <li>Retransformed classes are stored only if you specify the <code>-Xshareclasses:cacheRetransformed</code> suboption when you start your application.</li>
 </ul>
 <p>If a running application uses its own class loader and you are using a <code>SecurityManager</code>, you must grant the class loader permission to <code>SharedCachePermission</code> before they can share classes. For more information, see <a href="../shrc/#support-for-custom-class-loaders">Support for custom class loaders</a>.</p>
-<p>In very rare cases, problems with finding or storing classes might be due to cache corruption. If the VM detects that a cache is corrupt, it attempts to destroy the cache and re-create it. If the VM cannot re-create the cache it starts only if the <code>-Xshareclasses:nonfatal</code> suboption is specified on the command line. Try using the <code>-Xshareclasses:destroyAll</code> cache utility to remove the cache and re-create it.</p>
+<p>In very rare cases, problems with finding or storing classes might be due to cache corruption. If the VM detects that a cache is corrupt, it attempts to destroy the cache and re-create it. If the VM cannot re-create the cache, it starts only if the <code>-Xshareclasses:nonfatal</code> suboption is specified on the command line, but without using the shared cache. Try using the <code>-Xshareclasses:destroy</code> cache utility to remove the specific cache and re-create it. You might need to specify the <code>cacheDir</code> and <code>name</code> suboptions if the cache is not using the default settings.</p>
 <h2 id="generating-verbose-output">Generating verbose output</h2>
 <p>A number of <code>-Xshareclasses</code> suboptions are available for generating verbose output during class data sharing operations, which can help you identify the root cause of a problem.</p>
 <h3 id="verbose"><code>verbose</code></h3>
-<p>The <a href="../xshareclasses/#verbose"><code>-Xshareclasses:verbose</code></a> suboption provides basic output on cache usage. In the following example, a persistent cache is opened and attached to the VM for class sharing. Information is provided about the size of the cache, any soft limits set, and the storage of AOT and JIT data.</p>
+<p>The <a href="../xshareclasses/#verbose"><code>-Xshareclasses:verbose</code></a> suboption provides basic output on cache usage. In the following example, a persistent cache is opened and attached to the VM for class sharing. Information is provided about the size of the cache, the unstored bytes due to the setting of a soft maximum size, and maximum AOT and JIT data size.</p>
 <pre><code>java -Xshareclasses:name=myCache,verbose HelloWorld
 [-Xshareclasses persistent cache enabled]
 [-Xshareclasses verbose output enabled]
-JVMSHRC237I Opened shared classes persistent cache Cache1
-JVMSHRC246I Attached shared classes persistent cache Cache1
+JVMSHRC237I Opened shared classes persistent cache myCache
+JVMSHRC246I Attached shared classes persistent cache myCache
 JVMSHRC765I Memory page protection on runtime data, string read-write data and partially filled pages is successfully enabled
 Hello World
 JVMSHRC168I Total shared class bytes read=2532416. Total bytes stored=268156
@@ -4509,7 +4509,7 @@ Hello World
 </code></pre>
 
 <h2 id="diagnostic-cache-utilities">Diagnostic cache utilities</h2>
-<p>These utilities display information about the contents of a shared classes cache. Run the utilities by specifying them as suboptions of <code>-Xshareclasses</code>. The utilities run on the default cache unless you specify a cache by adding the <code>name=&lt;cache_name&gt;</code> suboption.</p>
+<p>These utilities display information about the contents of a shared classes cache. Run the utilities by specifying them as suboptions of <code>-Xshareclasses</code>. The utilities run on the default cache unless you specify a cache by adding the <code>name=&lt;cache_name&gt;</code> and <code>cacheDir=&lt;directory&gt;</code> suboptions.</p>
 <h3 id="printstats"><code>printStats</code></h3>
 <pre><code>-Xshareclasses:printStats
 -Xshareclasses:printStats,name=&lt;cache_name&gt;
@@ -4812,16 +4812,18 @@ Data bytes                           = 114080
 <p>Stale classes are marked with <code>!STALE!</code>. Any partition or modification context that is used when the class is stored is also shown.</p>
 <h4 id="aot-methods">AOT methods</h4>
 <p>This example shows an entry for one AOT-compiled method:</p>
-<pre><code>    1: 0x540FBA6A AOT: loadConvert
-            for ROMClass java/util/Properties at 0x52345174
+<pre><code>    1: 0x00007F841A800554 AOT: hashCode Signature: ()I Address: 0x00007F83F6859280
+            for ROMClass java/lang/Object at 0x00007F83F6859000.
 </code></pre>
 <ul>
-<li><code>1</code> : the ID of the VM that wrote this data.</li>
-<li><code>0x540FBA6A</code> : the address where the data is stored.</li>
-<li><code>AOT</code> : the type of data that was stored.</li>
-<li><code>loadConvert</code> : the method for which AOT-compiled code is stored.</li>
-<li><code>java/util/Properties</code> : the class that contains the method.</li>
-<li><code>0x52345174</code> : the address of the class that contains the method.</li>
+<li><code>1</code>: the ID of the VM that wrote this data.</li>
+<li><code>0x00007F841A800554</code>: the address where the data is stored.</li>
+<li><code>AOT</code>: the type of data that was stored.</li>
+<li><code>hashCode</code>: the method for which AOT-compiled code is stored.</li>
+<li><code>()I</code>: the signature of the ROM method.</li>
+<li><code>0x00007F83F6859280</code>: the ROM method address.</li>
+<li><code>java/lang/Object</code>: the class that contains the method.</li>
+<li><code>0x00007F83F6859000</code>: the address of the class that contains the method.</li>
 </ul>
 <p>Stale methods are marked with <code>!STALE!</code>.</p>
 <h4 id="urls-and-tokens">URLs and tokens</h4>
