@@ -787,7 +787,7 @@
   
     <li class="md-nav__item">
       <a href="../shrc_diag_util/" class="md-nav__link">
-        Diagnostic cache utilities
+        Diagnosing problems
       </a>
     </li>
   
@@ -5025,7 +5025,7 @@
 <p>On AIX&reg;, Linux, macOS, and Windows systems, the VM writes persistent cache files directly into the directory specified. Persistent cache files can be safely moved and deleted from the file system. For persistent caches, the directory must not be on an NFS mount.</p>
 </dd>
 <dd>
-<p>Nonpersistent caches are stored in shared memory and have control files that describe the location of the memory. Control files are stored in a <code>javasharedresources</code> subdirectory of the <code>cacheDir</code> specified. Do not move or delete control files in this directory. The <code>listAllCaches</code> utility, the <code>destroyAll</code> utility, and the <code>expire</code> suboption work only in the scope of a given <code>cacheDir</code>.</p>
+<p>Non-persistent caches are stored in shared memory and have control files that describe the location of the memory. Control files are stored in a <code>javasharedresources</code> subdirectory of the <code>cacheDir</code> specified. Do not move or delete control files in this directory. The <code>listAllCaches</code> utility, the <code>destroyAll</code> utility, and the <code>expire</code> suboption work only in the scope of a given <code>cacheDir</code>.</p>
 </dd>
 <dd>
 <p>On AIX, Linux, and macOS systems, if you specify the <code>cacheDir=&lt;directory&gt;</code> option, persistent caches are created with the following permissions (<code>-rw-r--r--</code>):</p>
@@ -5373,8 +5373,8 @@ behavior, which can improve the performance of class loading from the shared cla
 <pre><code>    -Xshareclasses:nonpersistent
 </code></pre>
 <dl>
-<dd>Uses a nonpersistent cache. The cache is lost when the operating system shuts down. Nonpersistent and persistent caches can have the same name. On Linux, macOS, and Windows systems, you must always use the <code>nonpersistent</code> suboption when you run utilities such as <code>destroy</code> on a nonpersistent cache. z/OS supports only nonpersistent caches.</dd>
-<dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> On macOS systems, you must set <code>kern.sysv.shmmax</code> and <code>kern.sysv.shmall</code> when using a nonpersistent cache.</dd>
+<dd>Uses a non-persistent cache. The cache is lost when the operating system shuts down. Non-persistent and persistent caches can have the same name. On Linux, macOS, and Windows systems, you must always use the <code>nonpersistent</code> suboption when you run utilities such as <code>destroy</code> on a non-persistent cache. z/OS supports only non-persistent caches.</dd>
+<dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> On macOS systems, you must set <code>kern.sysv.shmmax</code> and <code>kern.sysv.shmall</code> when using a non-persistent cache.</dd>
 </dl>
 <h3 id="nopersistentdiskspacecheck"><code>noPersistentDiskSpaceCheck</code></h3>
 <pre><code>    -Xshareclasses:noPersistentDiskSpaceCheck
@@ -5387,8 +5387,8 @@ behavior, which can improve the performance of class loading from the shared cla
 <pre><code>    -Xshareclasses:persistent
 </code></pre>
 <dl>
-<dd>Uses a persistent cache. The cache is created on disk, which persists beyond operating system restarts. Nonpersistent and persistent caches can have the same name. On AIX, you must always use the <code>persistent</code> suboption when you run utilities such as <code>destroy</code> on a persistent cache.</dd>
-<dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> Persisent caches are not supported on z/OS systems. z/OS supports only nonpersistent caches.</dd>
+<dd>Uses a persistent cache. The cache is created on disk, which persists beyond operating system restarts. Non-persistent and persistent caches can have the same name. On AIX, you must always use the <code>persistent</code> suboption when you run utilities such as <code>destroy</code> on a persistent cache.</dd>
+<dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> Persisent caches are not supported on z/OS systems. z/OS supports only non-persistent caches.</dd>
 </dl>
 <h3 id="printallstats-cache-utility"><code>printAllStats</code> (Cache utility)</h3>
 <pre><code>    -Xshareclasses:printAllStats

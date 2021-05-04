@@ -18,7 +18,7 @@
     
     
       
-        <title>Diagnostic cache utilities -  </title>
+        <title>Diagnosing problems -  </title>
       
     
     
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Diagnostic cache utilities
+              Diagnosing problems
             
           </span>
         </div>
@@ -797,12 +797,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Diagnostic cache utilities
+          Diagnosing problems
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Diagnostic cache utilities
+        Diagnosing problems
       </a>
       
         
@@ -4434,9 +4434,9 @@
 <li>On Windows&reg; systems, this directory is created in the user's <code>C:\Documents and Settings\&lt;username&gt;\Local Settings\Application Data\</code> directory.</li>
 <li>On other systems, this directory is located in the user's home directory.</li>
 </ul>
-<p>Initialization problems can occur on systems other than Windows because caches are created with read/write access for the user only and subsequent users do not have permission to write to their home directory. If you specify the <code>-Xshareclasses:groupAccess</code> suboption, the cache is created in the <code>tmp</code> directory instead where all users have permission to write to the cache.</p>
+<p>Initialization problems can occur on systems other than Windows because caches are created with read/write access for the user only and subsequent users do not have permission to write to the home directory. If you specify the <code>-Xshareclasses:groupAccess</code> suboption, the cache is created in the <code>/tmp</code> directory instead where all users have permission to write to the cache.</p>
 <p>For a persistent cache, initialization problems can also occur if there is insufficient disk space available or if you are attempting to locate the cache on a remote networked file system, which is not supported.</p>
-<p>For a non-persistent cache, a shared memory area is required. Check that your system is configured with sufficient resources as described in <a href="../configuring/#setting-shared-memory-values">Setting shared memory values</a>. If initialization problems persist, try deleting the cache by using the <code>-Xshareclasses:destroyAll</code> cache utility, which removes all known shared memory areas and semaphores. Also remove the <code>javasharedresources</code> directory. These actions force the VM to re-create the cache.</p>
+<p>For a non-persistent cache, a shared memory area is required. Check that your system is configured with sufficient resources as described in <a href="../configuring/#setting-shared-memory-values">Setting shared memory values</a>. If initialization problems persist, try deleting the cache by using the <code>-Xshareclasses:destroyAll</code> cache utility, which removes all known shared memory areas and semaphores for caches in the <code>cacheDir</code> specified or the default directory. These actions force the VM to re-create the cache.</p>
 <h2 id="problems-finding-or-storing-classes">Problems finding or storing classes</h2>
 <p>The most common cause for classes not being stored in the cache is due to space constraints. Make sure that you set an appropriate size for the cache, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. Setting a soft maximum size is recommended, because you can adjust the soft maximum size that is set for the cache after it is created. See <a href="../xscmx/#setting-a-soft-maximum-size">Setting a soft maximum size</a>.</p>
 <p>Storing classes can also be a problem if the cache is opened read-only or if the class does not exist on the file system because it is sourced from a URL location.</p>
