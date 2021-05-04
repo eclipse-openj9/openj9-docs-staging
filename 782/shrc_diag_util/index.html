@@ -4429,15 +4429,19 @@
 <h1 id="diagnosing-problems-with-class-data-sharing">Diagnosing problems with class data sharing</h1>
 <p>If you encounter problems with class data sharing, VM messages are typically generated that point to an underlying cause. In some situations, a cache might fail to initialize correctly. In other situations classes might not be found or stored in the shared classes cache. To provide more information about a problem, you can generate verbose output, use diagnostic cache utilities, or use the OpenJ9 trace facility.</p>
 <h2 id="initialization-problems">Initialization problems</h2>
-<p>The shared classes cache is created in the <code>javasharedresources</code> directory. Check that the user has permissions to write to this directory, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. This problem can occur on systems other than Windows&reg; because, by default, caches are created with read/write access for the user only, unless the <code>-Xshareclasses:groupAccess</code> suboption is used when the cache is created.</p>
+<p>If you do not specify a directory for the shared classes cache by using the <code>cacheDir</code> suboption, the cache is created in the <code>javasharedresources</code> directory in the following default location:</p>
+<ul>
+<li>On Windows&reg; systems, this directory is created in the user's <code>C:\Documents and Settings\&lt;username&gt;\Local Settings\Application Data\</code> directory.</li>
+<li>On other systems, this directory is located in the user's home directory.</li>
+</ul>
+<p>Initialization problems can occur on systems other than Windows because caches are created with read/write access for the user only and subsequent users do not have permission to write to their home directory. If you specify the <code>-Xshareclasses:groupAccess</code> suboption, the cache is created in the <code>tmp</code> directory instead where all users have permission to write to the cache.</p>
 <p>For a persistent cache, initialization problems can also occur if there is insufficient disk space available or if you are attempting to locate the cache on a remote networked file system, which is not supported.</p>
 <p>For a non-persistent cache, a shared memory area is required. Check that your system is configured with sufficient resources as described in <a href="../configuring/#setting-shared-memory-values">Setting shared memory values</a>. If initialization problems persist, try deleting the cache by using the <code>-Xshareclasses:destroyAll</code> cache utility, which removes all known shared memory areas and semaphores. Also remove the <code>javasharedresources</code> directory. These actions force the VM to re-create the cache.</p>
 <h2 id="problems-finding-or-storing-classes">Problems finding or storing classes</h2>
-<p>Classes are typically not found if the class is stale, as described in <a href="../shrc/#class-data-sharing-operations">Class data sharing operations</a>. Stale classes are redeemed if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
-<p>If you are attempting to share modified bytecode, you must use a modification context, as described in <a href="../shrc/#sharing-modified-bytecode">Sharing modified bytecode</a>. Otherwise, classes are stored in a private area that is not accessible to other VMs.</p>
-<p>If you are using a custom class loader, class path entries in the <code>SharedClassURLClasspathHelper</code> must be <em>confirmed</em> before classes can be found for these entries. More information about confirmed entries is available in the <code>SharedClassURLClasspathHelper</code> interface in the <a href="../api-overview/#monitoring-and-management"><code>com.ibm.oti.shared</code> API documentation</a>.</p>
 <p>The most common cause for classes not being stored in the cache is due to space constraints. Make sure that you set an appropriate size for the cache, as described in <a href="../shrc/#creating-a-shared-classes-cache">Creating a shared classes cache</a>. Setting a soft maximum size is recommended, because you can adjust the soft maximum size that is set for the cache after it is created. See <a href="../xscmx/#setting-a-soft-maximum-size">Setting a soft maximum size</a>.</p>
 <p>Storing classes can also be a problem if the cache is opened read-only or if the class does not exist on the file system because it is sourced from a URL location.</p>
+<p>If you are attempting to share modified bytecode, you must use a modification context, as described in <a href="../shrc/#sharing-modified-bytecode">Sharing modified bytecode</a>. Otherwise, classes are stored in a private area that is not accessible to other VMs.</p>
+<p>If you are using a custom class loader, class path entries in the <code>SharedClassURLClasspathHelper</code> must be <em>confirmed</em> before classes can be found for these entries. More information about confirmed entries is available in the <code>SharedClassURLClasspathHelper</code> interface in the <a href="../api-overview/#monitoring-and-management"><code>com.ibm.oti.shared</code> API documentation</a>.</p>
 <p>If you are instrumenting bytecode by using a JVMTI agent or <code>java.lang.instrument</code> agent, the following rules apply:</p>
 <ul>
 <li>Redefined classes are never stored in the cache.</li>
@@ -4476,6 +4480,7 @@ Stored class openj9/internal/tools/attach/target/CommonDirectory in shared cache
 </code></pre>
 
 <p>The bootstrap class loader has an ID of <code>0</code>; other class loaders are given a unique ID. Class loaders follow the class loader hierarchy by asking the parent class loader for a class. If a parent fails to find the class in the cache, the child class loader stores the class in the cache.</p>
+<p>In some situations, verbose output might not show classes being found. For example, classes are typically not found if the class is stale, as described in <a href="../shrc/#class-data-sharing-operations">Class data sharing operations</a>. Stale classes are redeemed if the same class is subsequently fetched by the class loader from another VM and checked against the stale class in the cache.</p>
 <h3 id="verboseaot"><code>verboseAOT</code></h3>
 <p>To troubleshoot AOT problems, use the <a href="../xshareclasses/#verboseaot"><code>-Xshareclasses:verboseAOT</code></a> suboption on the command line, which generates output about AOT code that is found or stored in the cache.</p>
 <p>In the following example output, a populated cache is being accessed to look for compiled AOT code. Some AOT code is found, which can be shared, and some AOT code is stored for reuse.</p>
@@ -4646,7 +4651,7 @@ Data bytes                           = 114080
 <p>The following summary data is displayed:</p>
 <ul>
 <li><code>baseAddress</code> and <code>endAddress</code><ul>
-<li>The boundary addresses of the shared memory area that contains the classes.</li>
+<li>The boundary addresses of the shared memory area that contains the classes. These addresses vary from run to run, depending on where the operating system allocates the memory.</li>
 </ul>
 </li>
 <li><code>allocation pointer</code><ul>
@@ -4659,7 +4664,7 @@ Data bytes                           = 114080
 </li>
 <li><code>cache size</code> and <code>free bytes</code><ul>
 <li><code>cache size</code> shows the total size of the shared memory area in bytes</li>
-<li><code>free bytes</code> shows the free bytes that remain.</li>
+<li><code>free bytes</code> shows the free bytes that remain. The free space is not necessarily all available for storing new classes. The cache contains separate areas for different data, and can reserve space for AOT and JIT data, as shown by subsequent summary data.</li>
 </ul>
 </li>
 <li><code>softmx bytes</code><ul>
@@ -4667,7 +4672,7 @@ Data bytes                           = 114080
 </ul>
 </li>
 <li><code>ROMClass bytes</code><ul>
-<li>The number of bytes of class data in the cache.</li>
+<li>The number of bytes of class data in the cache, which does not include data that is stored in the class debug area (see separate output for the class debug area).</li>
 </ul>
 </li>
 <li><code>AOT bytes</code><ul>
@@ -4695,7 +4700,7 @@ Data bytes                           = 114080
 </ul>
 </li>
 <li><code>Zip cache bytes</code><ul>
-<li>The number of zip entry cache bytes stored in the cache.</li>
+<li>The number of zip entry cache bytes stored in the cache. On Java 11 and later, this value is zero unless a <code>jar</code> file is added to the boot classpath.</li>
 </ul>
 </li>
 <li><code>Startup hint bytes</code><ul>
@@ -4715,7 +4720,7 @@ Data bytes                           = 114080
 </ul>
 </li>
 <li><code>Class debug area size</code><ul>
-<li>The size in bytes of the Class Debug Area. This area is reserved to store <code>LineNumberTable</code> and <code>LocalVariableTable</code> class attribute information.</li>
+<li>The size in bytes of the class debug area. This area is reserved to store <code>LineNumberTable</code> and <code>LocalVariableTable</code> class attribute information.</li>
 </ul>
 </li>
 <li><code>Class debug area bytes used</code><ul>
@@ -4740,7 +4745,7 @@ Data bytes                           = 114080
 </ul>
 </li>
 <li><code>Zip caches</code><ul>
-<li>The number of <code>.zip</code> files that have entry caches stored in the shared cache.</li>
+<li>The number of <code>.zip</code> files that have entry caches stored in the shared cache. On Java 11 and later, this value is zero unless a <code>jar</code> file is added to the boot classpath.</li>
 </ul>
 </li>
 <li><code>Startup hints</code><ul>
@@ -4827,7 +4832,7 @@ Data bytes                           = 114080
 </ul>
 <p>Stale methods are marked with <code>!STALE!</code>.</p>
 <h4 id="urls-and-tokens">URLs and tokens</h4>
-<p>A <code>Token</code> is a string that is passed to the Java  <code>SharedClassHelper</code> API. The output for these data types has the same format as that for class paths, but with a single entry.</p>
+<p>The output for these data types has the same format as that for class paths, but with a single entry. A <code>Token</code> is a string that is passed to the Java <code>SharedClassHelper</code> API.</p>
 <h4 id="zip-entry-caches">Zip entry caches</h4>
 <p>The following example shows 4 separate entries for zip entry caches:</p>
 <pre><code>    1: 0x042FE07C ZIPCACHE: luni-kernel.jar_347075_1272300300_1 Address: 0x042FE094 Size: 7898
