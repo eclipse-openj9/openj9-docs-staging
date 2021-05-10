@@ -2143,8 +2143,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#synchronousgconoom-nosynchronousgconoom" class="md-nav__link">
-    synchronousGCOnOOM | nosynchronousGCOnOOM
+  <a href="#synchronousgconoom" class="md-nav__link">
+    synchronousGCOnOOM
   </a>
   
 </li>
@@ -2612,7 +2612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xmo/" class="md-nav__link">
+      <a href="../xmoi/" class="md-nav__link">
         -Xmoi
       </a>
     </li>
@@ -4419,8 +4419,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#synchronousgconoom-nosynchronousgconoom" class="md-nav__link">
-    synchronousGCOnOOM | nosynchronousGCOnOOM
+  <a href="#synchronousgconoom" class="md-nav__link">
+    synchronousGCOnOOM
   </a>
   
 </li>
@@ -4627,7 +4627,7 @@
 <td>Sets the verbose GC format.</td>
 </tr>
 <tr>
-<td><a href="#verbosegccyletime"><code>verbosegcCycleTime</code>               </a></td>
+<td><a href="#verbosegccycletime"><code>verbosegcCycleTime</code>               </a></td>
 <td>Sets the criteria for verbose GC logging.</td>
 </tr>
 </tbody>
@@ -4854,7 +4854,7 @@
 <pre><code>    -Xgc:nosynchronousGCOnOOM
 </code></pre>
 <dl>
-<dd>Setting <code>-Xgc:nosynchronousGCOnOOM</code> implies that when heap memory is full your application stops and issues an <em>out-of-memory</em> message. The default is <code>-Xgc:synchronousGCOnOOM</code>.</dd>
+<dd>Setting <code>-Xgc:nosynchronousGCOnOOM</code> implies that when heap memory is full your application stops and issues an <em>out-of-memory</em> message. The default is <a href="#synchronousgconoom"><code>-Xgc:synchronousGCOnOOM</code></a>.</dd>
 <dd>This option applies only to the <code>metronome</code> GC policy.</dd>
 </dl>
 <h3 id="overridehirestimercheck"><code>overrideHiresTimerCheck</code></h3>
@@ -4953,7 +4953,7 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 <dl>
 <dd>This option is not supported with the balanced GC policy (<code>-Xgcpolicy:balanced</code>) or metronome GC policy (<code>-Xgcpolicy:metronome</code>).</dd>
 </dl>
-<h3 id="synchronousgconoom-nosynchronousgconoom"><code>synchronousGCOnOOM | nosynchronousGCOnOOM</code></h3>
+<h3 id="synchronousgconoom"><code>synchronousGCOnOOM</code></h3>
 <pre><code>    -Xgc:synchronousGCOnOOM
 </code></pre>
 <dl>

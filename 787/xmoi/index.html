@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xxlazysymbolresolution/">
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xmoi/">
       
       <link rel="shortcut icon" href="../cr/openj9-logo.svg">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.3">
     
     
       
-        <title>-XX:[+|-]LazySymbolResolution -  </title>
+        <title>-Xmoi -  </title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xx-lazysymbolresolution" class="md-skip">
+        <a href="#-xmoi" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -XX:[+|-]LazySymbolResolution
+              -Xmoi
             
           </span>
         </div>
@@ -1581,12 +1581,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_5" type="checkbox" id="__nav_14_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_5" type="checkbox" id="__nav_14_5" checked>
       
       <label class="md-nav__link" for="__nav_14_5">
         JVM -X options
@@ -2382,11 +2384,56 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../xmoi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          -Xmoi
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         -Xmoi
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="On this page...">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page...
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See also
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2940,14 +2987,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_6" type="checkbox" id="__nav_14_6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_6" type="checkbox" id="__nav_14_6" >
       
       <label class="md-nav__link" for="__nav_14_6">
         JVM -XX options
@@ -3323,56 +3368,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          -XX:[+|-]LazySymbolResolution
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../xxlazysymbolresolution/" class="md-nav__link">
         -XX:[+|-]LazySymbolResolution
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="On this page...">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page...
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#explanation" class="md-nav__link">
-    Explanation
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4111,8 +4111,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#explanation" class="md-nav__link">
-    Explanation
+  <a href="#see-also" class="md-nav__link">
+    See also
   </a>
   
 </li>
@@ -4154,38 +4154,38 @@
 * Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
 -->
 
-<h1 id="-xx-lazysymbolresolution">-XX:[+|-]LazySymbolResolution</h1>
-<p><strong>(Linux&reg; and macOS&reg; only)</strong></p>
-<p>This option affects the timing of symbol resolution for functions in user native libraries.</p>
+<h1 id="-xmoi">-Xmoi</h1>
+<p>Sets the heap expansion allocation increment.</p>
+<p>You can use the <code>-verbose:sizes</code> option to find out the values that the VM is currently using.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code>    -XX:[+|-]LazySymbolResolution
-</code></pre>
 <table>
 <thead>
 <tr>
 <th>Setting</th>
 <th>Effect</th>
-<th align="center">Default</th>
+<th>Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>-XX:+LazySymbolResolution</code></td>
-<td>Enable</td>
-<td align="center"><span aria-hidden="true" class="twemoji yes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span><span class="sr-only">yes</span></td>
-</tr>
-<tr>
-<td><code>-XX:-LazySymbolResolution</code></td>
-<td>Disable</td>
-<td align="center"></td>
+<td><code>-Xmoi&lt;size&gt;</code></td>
+<td>Sets the heap expansion allocation increment</td>
+<td>See <strong>Notes</strong></td>
 </tr>
 </tbody>
 </table>
-<h2 id="explanation">Explanation</h2>
-<p>Enabling this option forces the VM to delay symbol resolution for each function in a user native library, until the function is called.
-The <code>-XX:-LazySymbolResolution</code> option forces the VM to immediately resolve symbols for all functions in a user native library when the library is loaded.</p>
-<p>These options apply only to functions; variable symbols are always resolved immediately when loaded. If you attempt to use these options on an operating system other than Linux or macOS, the options are accepted, but ignored.</p>
-<!-- ==== END OF TOPIC ==== xxlazysymbolresolution.md ==== -->
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Notes:</strong></p>
+<ul>
+<li>By default, the increment size (<code>-Xmoi</code>) is calculated on the expansion size, set by <a href="../xmine/"><code>-Xmine</code></a> and <a href="../xminf/"><code>-Xminf</code></a>.  If you set <code>-Xmoi</code> to zero, no expansion is allowed.</li>
+<li>For the <code>gencon</code> GC policy, the expansion increment applies to the tenure area of the heap.  </li>
+</ul>
+<p>This option is not supported for the <code>metronome</code> GC policy, because the heap is always fully expanded.</p>
+<p>See <a href="../x_jvm_commands/">Using -X command-line options</a> for more information about the <code>&lt;size&gt;</code> parameter.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../allocation/#expansion-and-contraction">Heap expansion and contraction</a></li>
+</ul>
+<!-- ==== END OF TOPIC ==== xmoi.md ==== -->
                 
               
               
