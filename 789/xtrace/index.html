@@ -5294,7 +5294,7 @@ yyyymmdd* format (for example, <code>traceout.20181025.trc</code>):</p>
 </code></pre>
 <p>The <code>iprint</code> suboption prints to stderr with indentation.
 To output method trace information in binary format, see the <a href="#output"><code>output</code></a> option</p>
-<p>Internal Native Library (INL) native methods inside the VM cannot be traced because they are not implemented using JNI. The list of methods that are not traceable is subject to change without notice.</p>
+<p>Internal Native Library (INL) native methods inside the VM cannot be traced because they are not implemented by using JNI. The list of methods that are not traceable is subject to change without notice.</p>
 <p>Here are some examples:</p>
 <p><em>Tracing entry and exit of all methods in a given class:</em> To trace all method entry and exit of the <code>ReaderMain</code> class in the default package and the <code>java.lang.String</code> class, specify the following command:</p>
 <pre><code>-Xtrace:methods={ReaderMain.*,java/lang/String.*},print=mt
@@ -5550,7 +5550,7 @@ print=tpnid(j9vm.23-25)
 </tr>
 <tr>
 <td><code>coredump</code></td>
-<td>Produce a system dump. See <a href="../xdump/#dump-agents">Dump agents(<code>-Xdump:system</code>)</a></td>
+<td>Produce a system dump. See <a href="../xdump/#dump-agents">Dump agents (<code>-Xdump:system</code>)</a></td>
 </tr>
 <tr>
 <td><code>heapdump</code></td>
