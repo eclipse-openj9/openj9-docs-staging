@@ -347,6 +347,27 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Earlier releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Earlier releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Earlier releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
     <li class="md-nav__item">
       <a href="../version0.23/" class="md-nav__link">
         Version 0.23.0
@@ -354,27 +375,6 @@
     </li>
   
 
-          
-            
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
-      
-      <label class="md-nav__link" for="__nav_5_7">
-        Earlier releases
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Earlier releases" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_7">
-          <span class="md-nav__icon md-icon"></span>
-          Earlier releases
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
           
             
   
@@ -5021,17 +5021,21 @@ lib/ppc64le/compressedrefs/libj9jit29.so
 <li>
 <p>Use the <code>grep</code> command to show lines that do not match the pattern.</p>
 <p>For example, the following command displays the number of instances and total heap size for the <code>java/lang/String</code> class:</p>
+<p>```</p>
 <blockquote>
 <p>info class | grep java/lang/String            <br />
 94 7688 [Ljava/lang/String;          <br />
 1822 58304 java/lang/String             <br />
 1 16 java/lang/String$CaseInsensitiveComparator             <br />
-0 0 java/lang/String$UnsafeHelpers</p>
+0 0 java/lang/String$UnsafeHelpers
+```</p>
 </blockquote>
 <p>The following command uses two pipes in combination to display the number of instances and total heap size for the <code>java/lang/StringCoding.StringDecoder</code> class:</p>
+<p>```</p>
 <blockquote>
 <p>info class | grep java/lang/String | grep -i decoder
-1 48 java/lang/StringCoding$StringDecoder</p>
+1 48 java/lang/StringCoding$StringDecoder
+```</p>
 </blockquote>
 </li>
 </ul>
