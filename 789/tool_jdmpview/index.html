@@ -5020,21 +5020,19 @@ lib/ppc64le/compressedrefs/libj9jit29.so
 </li>
 <li>
 <p>Use the <code>grep</code> command to show lines that do not match the pattern.</p>
-<p>For example, in the following output, the command displays the number of instances and total heap size for the <code>java/lang/String</code> class:</p>
-<blockquote>
-<p>info class | grep java/lang/String
-94 7688 [Ljava/lang/String;
-1822 58304 java/lang/String             <br />
-1 16 java/lang/String$CaseInsensitiveComparator            <br />
-0 0 java/lang/String$UnsafeHelpers</p>
-</blockquote>
-<p>In the following output, the command uses two pipes in combination to display the number of instances and total heap size for the <code>java/lang/StringCoding.StringDecoder</code> class:</p>
-<blockquote>
-<p>info class | grep java/lang/String | grep -i decoder
-1 48 java/lang/StringCoding$StringDecoder</p>
-</blockquote>
 </li>
 </ul>
+<p>In the following example, the command displays the number of instances and total heap size for the <code>java/lang/String</code> class:</p>
+<pre><code>&gt; info class | grep java/lang/String
+94 7688 [Ljava/lang/String;
+1822 58304 java/lang/String               
+1 16 java/lang/String$CaseInsensitiveComparator              
+0 0 java/lang/String$UnsafeHelpers
+</code></pre>
+<p>In the following example, the command uses two pipes in combination to display the number of instances and total heap size for the <code>java/lang/StringCoding.StringDecoder</code> class:</p>
+<pre><code>&gt; info class | grep java/lang/String | grep -i decoder
+1 48 java/lang/StringCoding$StringDecoder
+</code></pre>
 <h4 id="using-tokens">Using <code>tokens</code></h4>
 <p>Use the <code>tokens</code> command after the vertical bar character to isolate specified tokens in the resulting lines.</p>
 <pre><code>tokens [options] range[,range][..range]
