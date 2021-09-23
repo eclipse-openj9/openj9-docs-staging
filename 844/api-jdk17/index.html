@@ -11,14 +11,14 @@
       
       
       
-        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xscdmx/">
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/api-jdk17/">
       
       <link rel="icon" href="../cr/openj9-logo.svg">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
     
     
       
-        <title>-Xscdmx -  </title>
+        <title>Java 17 API -  </title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xscdmx" class="md-skip">
+        <a href="#openj9-jdk-17-api-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -Xscdmx
+              Java 17 API
             
           </span>
         </div>
@@ -1143,14 +1143,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14" type="checkbox" id="__nav_14" >
       
       <label class="md-nav__link" for="__nav_14">
         Command-line options
@@ -1589,14 +1587,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_5" type="checkbox" id="__nav_14_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_14_5" type="checkbox" id="__nav_14_5" >
       
       <label class="md-nav__link" for="__nav_14_5">
         JVM -X options
@@ -2668,58 +2664,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          -Xscdmx
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../xscdmx/" class="md-nav__link">
         -Xscdmx
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="On this page...">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page...
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#explanation" class="md-nav__link">
-    Explanation
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4035,12 +3984,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_16" type="checkbox" id="__nav_16" checked>
       
       <label class="md-nav__link" for="__nav_16">
         API documentation
@@ -4203,11 +4154,21 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../api-jdk17/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Java 17 API
       </a>
+      
     </li>
   
 
@@ -4252,28 +4213,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page...
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#explanation" class="md-nav__link">
-    Explanation
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -4309,16 +4248,11 @@
 * Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
 -->
 
-<h1 id="-xscdmx">-Xscdmx</h1>
-<p>Use the <code>-Xscdmx</code> option to control the size of the class debug area when you create a shared classes cache.</p>
-<h2 id="syntax">Syntax</h2>
-<pre><code>    -Xscdmx&lt;size&gt;
-</code></pre>
-<p>See <a href="../x_jvm_commands/">Using -X command-line options</a> for more information about the <code>&lt;size&gt;</code> parameter.</p>
-<h2 id="explanation">Explanation</h2>
-<p>The <code>-Xscdmx</code> option works in a similar way to the <a href="../xscmx/"><code>-Xscmx</code></a> option, which is used to control the overall size of the shared classes cache. The size of <code>-Xscdmx</code> must be smaller than the size of <code>-Xscmx</code>. By default, the size of the class debug area is a percentage of the free class data bytes in a newly created or empty cache.</p>
-<p>A class debug area is still created if you use the <a href="../xlinenumbers/"><code>-Xnolinenumbers</code></a> option with the <code>-Xscdmx</code> option on the command line.</p>
-<!-- ==== END OF TOPIC ==== xscdmx.md ==== -->
+<h1 id="openj9-jdk-17-api-documentation">OpenJ9 JDK 17 API documentation</h1>
+<div id="api" data-role="content">
+    <iframe src="../api/jdk16/index.html?view=embed" title="API viewer" name="classFrame" allow="autoplay *; fullscreen *; encrypted-media *" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="min-height:80vh; width: 100%;">
+    </iframe>
+</div>
                 
               
               
