@@ -4494,21 +4494,21 @@ java -Xdump:java:events=vmstop -XX:+UseCompressedOop -XX:CompressedClassSpaceSiz
 <h3 id="new-xx-ensurehashed-option-added">New <code>-XX:[+|-]EnsureHashed</code> option added</h3>
 <p>This option specifies/unspecifies classes of objects that will be hashed and extended with a hash slot upon object creation or first move. This option may improve performance for applications that frequently hash objects of a certain type. See <a href="../xxensurehashed/">-XX:[+|-]EnsureHashed</a> for more details.</p>
 <h3 id="redesigned-heap-resizing-for-balanced-gc-policy">Redesigned heap resizing for balanced GC policy</h3>
-<p>Heap resizing heuristics have been redesigned for balanced GC. This includes both total heap resizing including Eden and non-Eden components indenpendantly, and also balancing between these 2 components when heap is fully expanded. The heuristics now combine both CPU overhead (for both Partial GCs and Global Mark Phase) and heap occupancy criteria. The balancing between Eden and non-Eden for fully expanded heaps is far more dynamic (instead of being mostly fixed to ratio 1:4).</p>
-<p>As a consequence there should typically be less need for heap sizing tuning options, most notably for Eden sizing options (-Xmn/mnx/mns). </p>
-<p>Also a new soft limit pause target is added for Partial GCs, that defaults to 200ms. This criteria is combined with PGC CPU overhead critera for a balanced compromise between minimizing footprint, maximizing throughput and meeting the paused time target.</p>
+<p>Heap resizing heuristics have been redesigned for balanced GC. This includes both total heap resizing including Eden and non-Eden components indenpendantly, and also balancing between these two components when heap is fully expanded. The heuristics now combine both CPU overhead (for both Partial GCs and Global Mark Phase) and heap occupancy criteria. The balancing between Eden and non-Eden for fully expanded heaps is far more dynamic (instead of being mostly fixed to ratio 1:4).</p>
+<p>As a consequence there should typically be less need for heap sizing tuning options, most notably for Eden sizing options <a href="../xmn/">-Xmn/mns/mnx</a>. </p>
+<p>Also, a new soft limit pause target is added for Partial GCs, that defaults to 200ms. This criteria is combined with PGC CPU overhead critera for a balanced compromise between minimizing footprint, maximizing throughput and meeting the paused time target.</p>
 <p>More details about the new heurstics can be found at:</p>
 <p><a href="https://blog.openj9.org/2021/09/24/balanced-gc-performance-improvements-eden-heap-sizing-improvements/">https://blog.openj9.org/2021/09/24/balanced-gc-performance-improvements-eden-heap-sizing-improvements/</a></p>
 <p>The heuristcs now obey existing options</p>
 <pre>
--Xmint/-Xmaxt
--Xgc:dnssExpectedTimeRatioMaximum/Minimum
+[-Xmint/-Xmaxt](xmint.md)
+[-Xgc:dnssExpectedTimeRatioMaximum/Minimum](xgc.md#dnssexpectedtimeratiomaximum)
 </pre>
 
 <p>previously used for optthruput/optavgpause/gencon GC policies</p>
 <p>and also</p>
 <pre>
--Xgc:targetPausetime
+[-Xgc:targetPausetime](xgc.md#targetpausetime)
 </pre>
 
 <p>previosly used only for Metronome GC policy.</p>
