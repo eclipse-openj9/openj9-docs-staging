@@ -4420,7 +4420,7 @@
 <ul>
 <li>When using the <code>balanced</code> GC policy without specifying <code>-Xmn</code> or <code>-Xmns</code>, the GC may decide to shrink eden size below its initial size (25% of <code>-Xms</code>) if it determines that doing so will improve GC performance.</li>
 <li>When using the <code>balanced</code> GC policy, specifying <code>-Xmn</code>/<code>-Xmns</code>/<code>-Xmnx</code> may affect <code>balanced</code> GC's ability to satisfy <a href="../xgc/#targetpausetime"><code>-Xgc:targetPausetime</code></a></li>
-<li>Specifying <code>-Xmn</code>/<code>-Xmns</code>/<code>-Xmnx</code> may affect both <code>gencon</code> and <code>balanced</code> GC's ability to satisfy <a href="../xgc/##dnssexpectedtimeratiomaximum"><code>-Xgc:dnssexpectedtimeratiomaximum</code></a> and <a href="../xgc/##dnssexpectedtimeratiominimum"><code>-Xgc:dnssexpectedtimeratiominimum</code></a></li>
+<li>Specifying <code>-Xmn</code>/<code>-Xmns</code>/<code>-Xmnx</code> may affect both <code>gencon</code> and <code>balanced</code> GC's ability to satisfy <a href="../xgc/#dnssexpectedtimeratiomaximum"><code>-Xgc:dnssexpectedtimeratiomaximum</code></a> and <a href="../xgc/#dnssexpectedtimeratiominimum"><code>-Xgc:dnssexpectedtimeratiominimum</code></a></li>
 </ul>
 <p>To set the size of the tenure area of the heap when using <code>gencon</code> GC policy, see <a href="../xmo/"><code>-Xmo/-Xmos/-Xmox</code></a>.</p>
 <h2 id="see-also">See also</h2>
