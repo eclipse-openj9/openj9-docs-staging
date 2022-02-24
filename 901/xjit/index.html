@@ -4630,8 +4630,12 @@
 
 <h1 id="-xjit-xnojit">-Xjit / -Xnojit</h1>
 <p>Use this option to control the behavior of the JIT compiler.</p>
-<p>Specifying <code>-Xjit</code> with no parameters, has no effect as the JIT compiler is enabled by default.</p>
-<p><code>-Xnojit</code> turns off the JIT compiler but does not affect the AOT compiler.</p>
+<p>Specifying <code>-Xjit</code> with no parameters has no effect because the JIT compiler is enabled by default.</p>
+<p>Specifying <code>-Xnojit</code> turns off the JIT compiler but does not affect the AOT compiler.</p>
+<p>Specify the <code>-Xjit</code> option only once. If you specify this option multiple times, only the last option takes effect. </p>
+<p>You can specify multiple parameters for the <code>-Xjit</code> option by using commas to separate the parameters. For example: </p>
+<p><code>-Xjit:enableGPU,exclude={ilog/rules/engine/sequential/generated/*}</code> </p>
+<p>Parameters such as <code>exclude</code> are additive so you can specify them multiple times within the same <code>-Xjit</code> option.</p>
 <h2 id="syntax">Syntax</h2>
 <table>
 <thead>
@@ -4707,9 +4711,6 @@
 </tr>
 </tbody>
 </table>
-<dl>
-<dd><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> The -Xjit option should only be specified once. If it's specified multiple times, only the last option takes effect. To specify multiple -Xjit parameters, use commas to separate the parameters; for example, -Xjit:enableGPU,exclude={ilog/rules/engine/sequential/generated/*}. Parameters such as exclude are additive and may be specified multiple times (but all within the same -Xjit option).</dd>
-</dl>
 <h3 id="count"><code>count</code></h3>
 <pre><code>    -Xjit:count=&lt;n&gt;
 </code></pre>
