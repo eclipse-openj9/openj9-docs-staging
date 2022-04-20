@@ -367,6 +367,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#new-xx-openj9commandlineenv-option-added" class="md-nav__link">
+    New -XX:[+|-]OpenJ9CommandLineEnv option added
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#modified-default-value-for-xxmaxdirectmemorysize" class="md-nav__link">
     Modified default value for -XX:MaxDirectMemorySize
   </a>
@@ -4464,6 +4471,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#new-xx-openj9commandlineenv-option-added" class="md-nav__link">
+    New -XX:[+|-]OpenJ9CommandLineEnv option added
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#modified-default-value-for-xxmaxdirectmemorysize" class="md-nav__link">
     Modified default value for -XX:MaxDirectMemorySize
   </a>
@@ -4546,6 +4560,8 @@
 <p>This option specifies whether generated hidden MethodHandle frames are displayed in a stack trace. For more information, see <a href="../xxshowhiddenframes/"><code>-XX:[+|-]ShowHiddenFrames</code></a>.</p>
 <h3 id="sharedclassstatistics-api-updated"><code>SharedClassStatistics</code> API updated</h3>
 <p>You can now use the <code>SharedClassStatistics</code> API to get the name, path, and directory of a shared classes cache. Depending on the operating system, you can also get the number of attached VMs for a non-persistent cache. This information is available through the following new methods: <code>cacheDir()</code>, <code>cacheName()</code>, <code>cachePath()</code>, and <code>numberAttached()</code>. For more information, see the API documentation.</p>
+<h3 id="new-xx-openj9commandlineenv-option-added">New <code>-XX:[+|-]OpenJ9CommandLineEnv</code> option added</h3>
+<p>This option specifies whether the command line should be captured in the environment variable <code>OPENJ9_JAVA_COMMAND_LINE</code>. For more information, see <a href="../xxopenj9commandlineenv/"><code>-XX:[+|-]OpenJ9CommandLineEnv</code></a>.</p>
 <h3 id="modified-default-value-for-xxmaxdirectmemorysize"><img alt="Start of content that applies to Java 11 plus" src="../cr/java11plus.png" /> Modified default value for <code>-XX:MaxDirectMemorySize</code></h3>
 <p>The default value of the <a href="../xxmaxdirectmemorysize/"><code>-XX:MaxDirectMemorySize</code></a> option, which limits the amount of heap memory that is used for direct byte buffers, is now the same as the maximum heap size.</p>
 <h3 id="new-jdk-18-features"><img alt="Start of content that applies to Java 18 plus" src="../cr/java18plus.png" /> New JDK 18 features</h3>
