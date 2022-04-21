@@ -3639,6 +3639,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See also
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4381,6 +4388,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See also
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4419,7 +4433,7 @@
 -->
 
 <h1 id="-xx-openj9commandlineenv">-XX:[+|-]OpenJ9CommandLineEnv</h1>
-<p>This option controls whether the VM captures the command line in the environment variable <code>OPENJ9_JAVA_COMMAND_LINE</code>.</p>
+<p>This option controls whether the VM captures the command line in the environment variable <code>OPENJ9_JAVA_COMMAND_LINE</code>. If enabled, the variable is set by the VM after it starts. Using this variable, you can find the command-line parameters set when the VM started. It applies not just to launchers (e.g. <code>java</code>) that are included in a JDK, but to any application that uses <code>JNI_CreateJavaVM()</code>.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]OpenJ9CommandLineEnv
 </code></pre>
@@ -4447,7 +4461,11 @@
 </tr>
 </tbody>
 </table>
-<p>It is enabled by default on most platforms. On z/OS, however, it is disabled by default because it is believed to be the cause of at least one crashing scenario. For more information, see <a href="../env_var/">Environment variables</a>.</p>
+<p>This option is currently disabled by default on z/OS&reg; because it might cause the VM to crash.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../env_var/">Environment variables</a></li>
+</ul>
 <!-- ==== END OF TOPIC ==== xxopenj9commandlineenv.md ==== -->
                 
               
