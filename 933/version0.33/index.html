@@ -346,8 +346,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#aix-requires-the-xl-c-runtime" class="md-nav__link">
-    AIX requires the XL C++ Runtime
+  <a href="#xl-c-runtime-required-on-aix" class="md-nav__link">
+    XL C++ Runtime required on AIX
   </a>
   
 </li>
@@ -4427,8 +4427,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#aix-requires-the-xl-c-runtime" class="md-nav__link">
-    AIX requires the XL C++ Runtime
+  <a href="#xl-c-runtime-required-on-aix" class="md-nav__link">
+    XL C++ Runtime required on AIX
   </a>
   
 </li>
@@ -4486,14 +4486,15 @@
 <p>The following new features and notable changes since version 0.30.0 are included in this release:</p>
 <ul>
 <li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
-<li><img alt="Start of content that applies to Java 11" src="../cr/java11.png" /> <a href="#aix-requires-the-16-1-xl-c-runtime">AIX requires the 16.1 XL C++ Runtime</a></li>
+<li><img alt="Start of content that applies to Java 11" src="../cr/java11.png" /> <a href="#xl-c++-runtime-required-on-aix">XL C++ Runtime required on AIX</a></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
 <p>OpenJ9 release 0.33.0 supports OpenJDK 8, 11, 17, and 18.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
-<h3 id="aix-requires-the-xl-c-runtime"><img alt="Start of content that applies to Java 11" src="../cr/java11.png" /> AIX requires the XL C++ Runtime</h3>
-<p>AIX requires the <a href="https://www.ibm.com/support/pages/fix-list-xl-cc-runtime-aix#161X">16.1 XL C++ Runtime</a> to accommodate a security update to the HarfBuzz text shaping library.</p>
+<h3 id="xl-c-runtime-required-on-aix"><img alt="Start of content that applies to Java 11" src="../cr/java11.png" /> XL C++ Runtime required on AIX</h3>
+<p>AIX OpenJ9 builds now require version 16.1 of the <a href="https://www.ibm.com/support/pages/fix-list-xl-cc-runtime-aix#161X">IBM XL C++ Runtime</a> for AIX.
+This was already required for OpenJDK 17 and is now also required for 11. The change accommodates a security update to the HarfBuzz text shaping library.</p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
 <p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.32.0 and v0.33.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.33/0.33.md">Release notes</a>.</p>
 <!-- ==== END OF TOPIC ==== version0.33.md ==== -->
