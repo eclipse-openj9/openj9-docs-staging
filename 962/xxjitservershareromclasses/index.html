@@ -4589,7 +4589,7 @@
 <p>Note that the <code>-XX:+JITServerShareROMClasses</code> option is enabled by default at the server when the <a href="../xxjitserveruseaotcache/"><code>-XX:+JITServerUseAOTCache</code></a> option is specified.</p>
 <h2 id="explanation">Explanation</h2>
 <p>Enable this option when multiple clients that are running identical or similar applications connect to a single server.</p>
-<p>This option enables a caching optimization that allows the server to use ROM classes that are cached for one client while compiling for a different client. This behavior reduces the memory usage at the server. Moreover, footprint at the server can be reduced because only a single copy of a particular Java&trade; class is cached.</p>
+<p>This option enables a caching optimization that allows the server to use ROM classes that are cached for one client while compiling for a different client. This behavior reduces the memory usage at the server because only a single copy of a particular Java&trade; class is cached.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../jitserver/">JITServer technology</a></li>
