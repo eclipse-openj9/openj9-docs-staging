@@ -4609,13 +4609,13 @@ java -Xdump:java:events=vmstop -XX:+UseCompressedOop -XX:CompressedClassSpaceSiz
 <p>This option specifies/unspecifies classes of objects that will be hashed and extended with a hash slot upon object creation or first move. This option may improve performance for applications that frequently hash objects of a certain type. See <a href="../xxensurehashed/">-XX:[+|-]EnsureHashed</a> for more details.</p>
 <h3 id="redesigned-heap-resizing-for-the-balanced-gc-policy">Redesigned heap resizing for the <code>balanced</code> GC policy</h3>
 <p>Heap resizing heuristics have been redesigned for the <code>balanced</code> GC policy. This includes both total heap resizing including eden and non-eden components independently, and also balancing between these two components when the heap is fully expanded. The heuristics now combine both the CPU overhead (for Partial GCs as well as Global Mark Phase) and the heap occupancy criteria. The balancing between eden and non-eden for fully expanded heaps is far more dynamic (instead of being mostly fixed in the ratio 1:4).</p>
-<p>As a consequence, there should typically be less need for heap sizing tuning options, most notably for eden sizing options <a href="../xmn/">-Xmn, -Xmns, and -Xmnx</a>. </p>
+<p>As a consequence, there should typically be less need for heap sizing tuning options, most notably for eden sizing options <a href="../xmn/">-Xmn, -Xmns, and -Xmnx</a>.</p>
 <p>Also, a new soft limit pause target is added for Partial GCs, which defaults to 200ms. This criterion is combined with the PGC CPU overhead criterion for a balanced compromise between minimizing footprint, maximizing throughput, and meeting the paused time target.</p>
 <p>More details about the new heuristics can be found at:</p>
 <p><a href="https://blog.openj9.org/2021/09/24/balanced-gc-performance-improvements-eden-heap-sizing-improvements/">https://blog.openj9.org/2021/09/24/balanced-gc-performance-improvements-eden-heap-sizing-improvements/</a></p>
 <p>The heuristics now obey the following existing options that were previously used for the <code>optthruput</code>, <code>optavgpause</code>, and <code>gencon</code> GC policies:</p>
 <ul>
-<li><a href="../xmint/">-Xmint/-Xmaxt</a>  </li>
+<li><a href="../xmint/">-Xmint/-Xmaxt</a></li>
 <li><a href="../xgc/#dnssexpectedtimeratiomaximum">-Xgc:dnssExpectedTimeRatioMaximum/Minimum</a></li>
 </ul>
 <p>The heuristics also use the <a href="../xgc/#targetpausetime">-Xgc:targetPausetime</a> option that was previously used only for the <code>metronome</code> GC policy.</p>
