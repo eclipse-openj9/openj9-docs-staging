@@ -3619,7 +3619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xxjitservemetricsport/" class="md-nav__link">
+      <a href="../xxjitservermetricsport/" class="md-nav__link">
         -XX:JITServerMetricsPort
       </a>
     </li>
@@ -4575,7 +4575,7 @@
 -->
 
 <h1 id="-xx-jitservermetrics">-XX:[+|-]JITServerMetrics</h1>
-<p>This option enables the provision of JITServer performance metrics to a monitoring agent that follows the <a href="https://openmetrics.io/">OpenMetrics</a> standard.</p>
+<p>This option enables the provision of JITServer performance metrics to a monitoring agent that follows the OpenMetrics standard.</p>
 <p>When you enable this option, the following JITServer metrics are provided:</p>
 <ul>
 <li>The CPU utilization of the JITServer</li>
@@ -4584,7 +4584,6 @@
 <li>The number of active compilation threads in the JITServer</li>
 </ul>
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong> The data is currently not encrypted.</p>
-<p>You can use the <a href="../xxjitservemetricsport/"><code>-XX:JITServerMetricsPort</code></a> option to specify the port number on which JITServer metrics are provided to the monitoring agent.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]JITServerMetrics
 </code></pre>
@@ -4610,9 +4609,9 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>When you enable this option, the JITServer process will open a TCP port, which can be used by monitoring agents (like Prometheus) to collect custom metrics exported by JITServer. Monitoring agents must issue http <code>GET</code> requests to a url of the form: <code>http://jitserveraddress:metricsport/metrics</code>. The path for the http request must be <code>/metrics</code>.</p>
-<p>The default value of <code>metricsport</code> is 38500 and can be changed with <a href="../xxjitservemetricsport/"><code>-XX:JITServerMetricsPort=&lt;NNN\&gt;</code></a> command line option.</p>
-<p>The exposition format for the metrics returned by JITServer follows the <a href="https://openmetrics.io/">OpenMetrics</a> protocol.</p>
+<p>When you enable this option, the JITServer process opens a TCP port, which can be used by monitoring agents (like Prometheus) to collect the custom metrics exported by the JITServer. Monitoring agents must issue HTTP <code>GET</code> requests to a URL of the form: <code>http://&lt;jitserveraddress&gt;:&lt;port&gt;/metrics</code>. The path for the HTTP request must be <code>/metrics</code>.</p>
+<p>The default value of <code>&lt;port&gt;</code> is 38500. You can change this value by using the <a href="../xxjitservermetricsport/"><code>-XX:JITServerMetricsPort=&lt;NNN&gt;</code></a> command line option.</p>
+<p>The format for the metrics returned by the JITServer follows the <a href="https://openmetrics.io/">OpenMetrics</a> protocol.</p>
 <h2 id="example">Example</h2>
 <p>The following example shows an HTTP request from a <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a> monitoring agent and the response from the JITServer:</p>
 <p>HTTP request:</p>
@@ -4637,7 +4636,7 @@
    jitserver_active_threads 1.000000</code></p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="../xxjitservemetricsport/">-XX:JITServerMetricsPort</a></li>
+<li><a href="../xxjitservermetricsport/">-XX:JITServerMetricsPort</a></li>
 <li><a href="../jitserver/">JITServer technology</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxjitservermetrics.md ==== -->
