@@ -4610,7 +4610,7 @@
 </table>
 <h2 id="explanation">Explanation</h2>
 <p>When you enable this option, the JITServer process opens a TCP port, which can be used by monitoring agents (like Prometheus) to collect the custom metrics exported by the JITServer. Monitoring agents must issue HTTP <code>GET</code> requests to a URL of the form: <code>http://&lt;jitserveraddress&gt;:&lt;port&gt;/metrics</code>. The path for the HTTP request must be <code>/metrics</code>.</p>
-<p>The default value of <code>&lt;port&gt;</code> is 38500. You can change this value by using the <a href="../xxjitservermetricsport/"><code>-XX:JITServerMetricsPort=&lt;NNN&gt;</code></a> command line option.</p>
+<p>The default value of <code>&lt;port&gt;</code> is 38500. You can change this value by using the <a href="../xxjitservermetricsport/"><code>-XX:JITServerMetricsPort</code></a> command line option.</p>
 <p>The format for the metrics returned by the JITServer follows the <a href="https://openmetrics.io/">OpenMetrics</a> protocol.</p>
 <h2 id="example">Example</h2>
 <p>The following example shows an HTTP request from a <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a> monitoring agent and the response from the JITServer:</p>
