@@ -5659,7 +5659,7 @@ calls a JNI method whose native implementation causes a crash. The Java call sta
 native call stack shows the point of failure. In this example, the native call stack does not include any function names to help you isolate the error
 in the native code. You can get this information from a system dump, which is usually produced alongside the Java dump. Open the
 system dump with the <a href="../tool_jdmpview/">Dump viewer</a> and use the <code>info thread</code> command to print the Java and native stack for the current thread.</p>
-<p>The next time you run the application, you can use the <a href="../xxshownativestacksymbols/">-XX:+ShowNativeStackSymbols</a> command line option to display the corresponding function names in the native call stack.</p>
+<p>The next time you run the application, you can use the <a href="../xxshownativestacksymbols/">-XX:+ShowNativeStackSymbols=all</a> command line option to display the corresponding function names in the native call stack.</p>
 <pre><code>4XENATIVESTACK               protectedBacktrace+0x12 (0x00007F3F9213E312 [libj9prt29.so+0x25312])
 4XENATIVESTACK               omrsig_protect+0x1e3 (0x00007F3F92142AD3 [libj9prt29.so+0x29ad3])
 4XENATIVESTACK               omrintrospect_backtrace_thread_raw+0xbf (0x00007F3F9213E80F [libj9prt29.so+0x2580f])
