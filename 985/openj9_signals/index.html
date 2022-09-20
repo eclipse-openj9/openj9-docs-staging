@@ -4764,7 +4764,6 @@
 <ul>
 <li>The use of <code>SIGRTMIN</code> is configurable with the <code>-Xdump:suspendwith=&lt;num&gt;</code> option.</li>
 <li>The handling of <code>SIGABRT</code> is configurable with the <code>-XX[+|-]HandleSIGABRT</code> option.</li>
-<li>While <code>SIGUSR2</code> signal is used for generating system dump files with exclusive access, which ensures reliable information for Java heap analysis, <code>SIGQUIT</code> signal is used for generating Java dump files with shared access for performance investigations. For more information, see <a href="../xdump/#dump-events">Dump events</a>.</li>
 </ul>
 <h2 id="signals-on-macos">Signals on macOS</h2>
 <table>
@@ -4863,10 +4862,9 @@
 </tr>
 </tbody>
 </table>
-<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Notes:</strong></p>
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong></p>
 <ul>
 <li>The handling of <code>SIGABRT</code> is configurable with the <code>-XX[+|-]HandleSIGABRT</code> option.</li>
-<li>While <code>SIGUSR2</code> signal is used for generating system dump files with exclusive access, which ensures reliable information for Java heap analysis, <code>SIGQUIT</code> signal is used for generating Java dump files with shared access for performance investigations. For more information, see <a href="../xdump/#dump-events">Dump events</a>.</li>
 </ul>
 <h2 id="signals-on-windows">Signals on Windows</h2>
 <table>
@@ -4998,10 +4996,9 @@
 </tr>
 </tbody>
 </table>
-<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Notes:</strong></p>
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="m497.9 142.1-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span> <strong>Note:</strong></p>
 <ul>
 <li>The handling of <code>SIGABRT</code> is configurable with the <code>-XX[+|-]HandleSIGABRT</code> option.</li>
-<li>While <code>SIGUSR2</code> signal is used for generating system dump files with exclusive access, which ensures reliable information for Java heap analysis, <code>SIGQUIT</code> signal is used for generating Java dump files with shared access for performance investigations. For more information, see <a href="../xdump/#dump-events">Dump events</a>.</li>
 </ul>
 <h2 id="signals-on-aix">Signals on AIX</h2>
 <table>
@@ -5117,7 +5114,6 @@
 <li>VM performance is affected if you install a signal handler for SIGTRAP (5) or SIGRECONFIG (58) because these signals are used for internal control purposes.</li>
 <li>If you want to generate floating point exceptions, use the following call in your code to generate a <code>SIGFPE</code> signal: <code>fp_trap( P_TRAP_SYNC)</code>. Although you can use the C compiler <code>-qflttrap</code> setting to generate <code>SIGTRAP</code> signals to trap floating point exceptions, this mechanism can affect the JIT compiler.</li>
 <li>The handling of <code>SIGABRT</code> is configurable with the <code>-XX[+|-]HandleSIGABRT</code> option.</li>
-<li>While <code>SIGUSR2</code> signal is used for generating system dump files with exclusive access, which ensures reliable information for Java heap analysis, <code>SIGQUIT</code> signal is used for generating Java dump files with shared access for performance investigations. For more information, see <a href="../xdump/#dump-events">Dump events</a>.</li>
 </ul>
 <h2 id="signal-chaining">Signal chaining</h2>
 <p>Signal chaining allows application code to interoperate with VM signal handling. By linking and loading a shared library, certain
