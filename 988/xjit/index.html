@@ -4899,7 +4899,7 @@
 </tr>
 <tr>
 <td><a href="#perftool"><code>perfTool</code>      </a></td>
-<td>Facilitates JIT compiled code symbol resolution when profiling the VM on Linux.</td>
+<td>Facilitates JIT-compiled code symbol resolution when profiling the VM on Linux.</td>
 </tr>
 </tbody>
 </table>
@@ -5005,7 +5005,7 @@ Similarly, <code>-Xjit:exclude={*}</code> excludes <em>all</em> methods.</p>
 <pre><code>    -Xjit:perfTool
 </code></pre>
 <dl>
-<dd>generates the <code>/tmp/perf-&lt;pid&gt;.map</code> file for JIT compiled code. This file is used by the Linux&reg; system profiler, <code>perf</code>, to map the JIT-compiled method symbols to the corresponding Java method addresses for profiling the VM.</dd>
+<dd>generates a <code>/tmp/perf-&lt;pid&gt;.map</code> file for the JIT-compiled code. This file is used by the Linux&reg; system profiler, <code>perf</code>, to map the samples in the JIT-compiled code to the corresponding Java method names for profiling the VM.</dd>
 </dl>
 <p>For more information, see <a href="../xxperftool/"><code>-XX:[+|-]PerfTool</code></a>.</p>
 <h2 id="examples">Examples</h2>

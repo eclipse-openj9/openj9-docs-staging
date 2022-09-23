@@ -4624,8 +4624,8 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>The <code>-XX:+PerfTool</code> option is a stand-alone alternative for the existing <code>-Xjit:perfTool</code> option. If multiple <code>-Xjit</code> options exist, only the last option takes effect. Therefore, if the <code>-Xjit:perfTool</code> option is added later, it overrides the existing <code>-Xjit</code> options. To overcome this issue, the <code>XX:+PerfTool</code> option enables JIT support for the <code>perf</code> tool without having any impact on the existing <code>Xjit</code> options. This enabling option creates the <code>/tmp/perf-&lt;pid&gt;.map</code> file that is used by the <code>perf</code> tool to map the JIT-compiled method symbols to the corresponding Java method addresses.</p>
-<p>To disable the perf tool, set the <code>-XX:-PerfTool</code> option on the command line.</p>
+<p>The <code>-XX:+PerfTool</code> option is a stand-alone alternative for the existing <code>-Xjit:perfTool</code> option. If multiple <code>-Xjit</code> options exist, only the last option takes effect. Therefore, if the <code>-Xjit:perfTool</code> option is added later, it overrides the existing <code>-Xjit</code> options. To overcome this issue, the <code>XX:+PerfTool</code> option enables JIT support for the <code>perf</code> tool without having any impact on the existing <code>Xjit</code> options. This enabling option creates a <code>/tmp/perf-&lt;pid&gt;.map</code> file that is used by the <code>perf</code> tool to map the samples in the JIT-compiled code to the corresponding Java method names.</p>
+<p>To disable the <code>perf</code> tool, set the <code>-XX:-PerfTool</code> option on the command line.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xjit/"><code>xjit</code></a></li>
