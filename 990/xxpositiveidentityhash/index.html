@@ -3810,6 +3810,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../xxperftool/" class="md-nav__link">
+        -XX:[+|-]PerfTool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../xxportablesharedcache/" class="md-nav__link">
         -XX:[+|-]PortableSharedCache
       </a>
@@ -4454,18 +4466,6 @@
   
 
           
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api-jdk18/" class="md-nav__link">
-        Java 18 API
-      </a>
-    </li>
-  
-
-          
         </ul>
       </nav>
     </li>
@@ -4557,7 +4557,7 @@
 -->
 
 <h1 id="-xx-positiveidentityhash">-XX:[+|-]PositiveIdentityHash</h1>
-<p>OpenJ9 allows both positive and negative identity hashcodes (<code>System.identityHashCode</code> / <code>Object.hashCode</code>). This is problematic for programs that incorrectly assume hashcodes can only be positive.</p>
+<p>Eclipse OpenJ9&trade; allows both positive and negative identity hashcodes (<code>System.identityHashCode</code> / <code>Object.hashCode</code>). This is problematic for programs that incorrectly assume hashcodes can only be positive.</p>
 <p>When enabled, this option limits identity hash codes to non-negative values.</p>
 <p>Because limiting identity hash codes to non-negative values can have an impact on the performance of hash-intensive operations, this option is not enabled by default.</p>
 <h2 id="syntax">Syntax</h2>

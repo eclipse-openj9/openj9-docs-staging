@@ -367,6 +367,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#new-xx-perftool-option-added" class="md-nav__link">
+    New -XX:[+|-]PerfTool option added
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#-xxensurehashedjavalangclassjavalangthread-is-added-in-the-optionsdefault-file" class="md-nav__link">
     -XX:+EnsureHashed:java/lang/Class,java/lang/Thread is added in the options.default file
   </a>
@@ -3896,6 +3903,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../xxperftool/" class="md-nav__link">
+        -XX:[+|-]PerfTool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../xxportablesharedcache/" class="md-nav__link">
         -XX:[+|-]PortableSharedCache
       </a>
@@ -4500,18 +4519,6 @@
   
 
           
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api-jdk18/" class="md-nav__link">
-        Java 18 API
-      </a>
-    </li>
-  
-
-          
         </ul>
       </nav>
     </li>
@@ -4595,6 +4602,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#new-xx-perftool-option-added" class="md-nav__link">
+    New -XX:[+|-]PerfTool option added
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#-xxensurehashedjavalangclassjavalangthread-is-added-in-the-optionsdefault-file" class="md-nav__link">
     -XX:+EnsureHashed:java/lang/Class,java/lang/Thread is added in the options.default file
   </a>
@@ -4657,11 +4671,12 @@
 <li><a href="#java-dump-files-contain-more-information-about-waiting-threads">Java&trade; dump files contain more information about waiting threads</a></li>
 <li><a href="#new--xx-shownativestacksymbols-option-added">New <code>-XX:[+|-]ShowNativeStackSymbols</code> option added</a></li>
 <li><a href="#new-user2-event-added-for-the--xdump-option">New <code>user2</code> event added for the <code>-Xdump</code> option</a></li>
+<li><a href="#new--xx-perftool-option-added">New <code>-XX:[+|-]PerfTool</code> option added</a></li>
 <li><a href="#xxensurehashedjavalangclassjavalangthread-is-added-in-the-optionsdefault-file"><code>-XX:+EnsureHashed:java/lang/Class,java/lang/Thread</code> is added in the <code>options.default</code> file</a></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
-<p>OpenJ9 release 0.35.0 supports OpenJDK 8, 11, and 17.</p>
+<p>Eclipse OpenJ9&trade; release 0.35.0 supports OpenJDK 8, 11, and 17.</p>
 <p>OpenJ9 Windows&reg; builds for OpenJDK 11 are now compiled with Microsoft&reg; Visual Studio 2019. The Visual Studio redistributable files included with the build are updated to match.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
 <h3 id="java-dump-files-contain-more-information-about-waiting-threads">Java dump files contain more information about waiting threads</h3>
@@ -4675,6 +4690,10 @@
 <p>On operating systems other than Windows&trade;, you can now use the <code>user2</code> event for the <code>-Xdump</code> option. This event is triggered when the VM receives the <code>SIGUSR2</code> signal.</p>
 <p>There is a change in the <code>SIGUSR2</code> signal behavior as well whereby, the process does not exit in response to this signal.</p>
 <p>For more information, see <a href="../xdump/#dump-events"><code>-Xdump</code></a> and <a href="../openj9_signals/">Signal handling</a>.</p>
+<h3 id="new-xx-perftool-option-added">New <code>-XX:[+|-]PerfTool</code> option added</h3>
+<p>This option enables or disables the JIT support for the <code>perf</code> tool without affecting the existing <code>Xjit</code> options.</p>
+<p>Since this option creates a file that is used by the Linux&reg; system profiler, <code>perf</code>, it applies only to Linux.</p>
+<p>For more information, see <a href="../xxperftool/"><code>-XX:[+|-]PerfTool</code></a>.</p>
 <h3 id="-xxensurehashedjavalangclassjavalangthread-is-added-in-the-optionsdefault-file"><code>-XX:+EnsureHashed:java/lang/Class,java/lang/Thread</code> is added in the <code>options.default</code> file</h3>
 <p><code>-XX:+EnsureHashed:java/lang/Class,java/lang/Thread</code> is added to the list of default options in the <code>options.default</code> file to improve performance.</p>
 <p>For more information, see <a href="../xxensurehashed/"><code>XX:[+|-]EnsureHashed</code></a>.</p>

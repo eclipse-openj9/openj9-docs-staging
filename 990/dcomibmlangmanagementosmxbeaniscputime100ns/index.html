@@ -3864,6 +3864,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../xxperftool/" class="md-nav__link">
+        -XX:[+|-]PerfTool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../xxportablesharedcache/" class="md-nav__link">
         -XX:[+|-]PortableSharedCache
       </a>
@@ -4468,18 +4480,6 @@
   
 
           
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api-jdk18/" class="md-nav__link">
-        Java 18 API
-      </a>
-    </li>
-  
-
-          
         </ul>
       </nav>
     </li>
@@ -4611,7 +4611,7 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>The Oracle <code>java.lang.management</code> package includes MBean categories such as <code>Memory</code>, <code>OperatingSystem</code>, and <code>GarbageCollector</code>. The OpenJ9 VM  provides additional MXBeans to extend the monitoring and management capabilities. For example, the <code>OperatingSystemMXBean</code>, which monitors operating system settings such as physical and virtual memory size, processor capacity, and processor utilization.</p>
+<p>The Oracle <code>java.lang.management</code> package includes MBean categories such as <code>Memory</code>, <code>OperatingSystem</code>, and <code>GarbageCollector</code>. The Eclipse OpenJ9&trade; VM  provides additional MXBeans to extend the monitoring and management capabilities. For example, the <code>OperatingSystemMXBean</code>, which monitors operating system settings such as physical and virtual memory size, processor capacity, and processor utilization.</p>
 <p>The <code>OperatingSystemMXBean.getProcessCpuTime()</code> method returns a value in nanoseconds (10<sup>-9</sup> s), for compatibility with the <code>com.sun.management.OperatingSystemMXBean</code> and <code>UnixOperatingSystemMXBean</code> interfaces.</p>
 <p>In earlier VM releases, the return value was in hundreds of nanoseconds. If you want to revert to this behavior, set the <code>-Dcom.ibm.lang.management.OperatingSystemMXBean.isCpuTime100ns</code> property to <code>true</code>.</p>
 <p>The default value for this property is <code>false</code>.</p>

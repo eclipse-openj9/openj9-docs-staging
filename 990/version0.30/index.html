@@ -3896,6 +3896,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../xxperftool/" class="md-nav__link">
+        -XX:[+|-]PerfTool
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../xxportablesharedcache/" class="md-nav__link">
         -XX:[+|-]PortableSharedCache
       </a>
@@ -4500,18 +4512,6 @@
   
 
           
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api-jdk18/" class="md-nav__link">
-        Java 18 API
-      </a>
-    </li>
-  
-
-          
         </ul>
       </nav>
     </li>
@@ -4661,7 +4661,7 @@
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
-<p>OpenJ9 release 0.30.0 supports OpenJDK 8, 11 and 17.</p>
+<p>Eclipse OpenJ9&trade; release 0.30.0 supports OpenJDK 8, 11 and 17.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
 <h3 id="changes-to-the-shared-classes-cache-generation-number">Changes to the shared classes cache generation number</h3>
 <p>The format of classes that are stored in the shared classes cache is changed, which causes the JVM to create a new shared classes cache rather than re-creating or reusing an existing cache. To save space, you can remove all existing shared caches unless they are in use by an earlier release. For more information about the <code>-Xshareclasses</code> option, including the <code>destroy</code> options that you can use to remove caches, see <a href="../xshareclasses/"><code>-Xshareclasses</code></a>.</p>
@@ -4678,7 +4678,7 @@ java -Xdump:java:events=vmstop -XX:+UseCompressedOop -XX:CompressedClassSpaceSiz
 </pre>
 
 <h3 id="new-xx-ensurehashed-option-added">New <code>-XX:[+|-]EnsureHashed</code> option added</h3>
-<p>This option specifies/unspecifies classes of objects that will be hashed and extended with a hash slot upon object creation or first move. This option may improve performance for applications that frequently hash objects of a certain type. See <a href="../xxensurehashed/">-XX:[+|-]EnsureHashed</a> for more details.</p>
+<p>This option specifies the classes whose objects should be assigned hash values or those classes that should be ignored. This option might improve performance for applications that frequently hash objects of a certain type. See <a href="../xxensurehashed/">-XX:[+|-]EnsureHashed</a> for more details.</p>
 <h3 id="redesigned-heap-resizing-for-the-balanced-gc-policy">Redesigned heap resizing for the <code>balanced</code> GC policy</h3>
 <p>Heap resizing heuristics have been redesigned for the <code>balanced</code> GC policy. This includes both total heap resizing including eden and non-eden components independently, and also balancing between these two components when the heap is fully expanded. The heuristics now combine both the CPU overhead (for Partial GCs as well as Global Mark Phase) and the heap occupancy criteria. The balancing between eden and non-eden for fully expanded heaps is far more dynamic (instead of being mostly fixed in the ratio 1:4).</p>
 <p>As a consequence, there should typically be less need for heap sizing tuning options, most notably for eden sizing options <a href="../xmn/">-Xmn, -Xmns, and -Xmnx</a>.</p>
