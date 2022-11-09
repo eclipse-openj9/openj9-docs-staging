@@ -402,8 +402,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#garbage-collector-handles-phantom-references-like-weak-references-in-java-8" class="md-nav__link">
-    Garbage collector handles phantom references like weak references in Java 8
+  <a href="#support-for-changes-to-the-maintenance-specifications-of-jsr-337-in-java-8" class="md-nav__link">
+    Support for changes to the maintenance specifications of JSR 337 in Java 8
   </a>
   
 </li>
@@ -4689,8 +4689,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#garbage-collector-handles-phantom-references-like-weak-references-in-java-8" class="md-nav__link">
-    Garbage collector handles phantom references like weak references in Java 8
+  <a href="#support-for-changes-to-the-maintenance-specifications-of-jsr-337-in-java-8" class="md-nav__link">
+    Support for changes to the maintenance specifications of JSR 337 in Java 8
   </a>
   
 </li>
@@ -4756,7 +4756,7 @@
 <li><a href="#new-options-added-to-encrypt-the-jitserver-exported-metrics">New options added to encrypt the JITServer exported metrics</a></li>
 <li><img alt="Start of content that applies to Java 11 and later" src="../cr/java11plus.png" /> <a href="#xl-c-runtime-16107-or-later-required-on-aix">XL C++ Runtime 16.1.0.7 or later required on AIX</a></li>
 <li><a href="#-xx-jitserverlocalsynccompiles-enabled-by-default"><code>-XX:[+|-]JITServerLocalSyncCompiles</code> enabled by default</a></li>
-<li><a href="#garbage-collector-handles-phantom-references-like-weak-references-in-java-8">Garbage collector handles phantom references like weak references in Java 8</a></li>
+<li><a href="#support-for-changes-to-the-maintenance-specifications-of-jsr-337-in-java-8">Support for changes to the maintenance specifications of JSR 337 in Java 8</a></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
@@ -4787,10 +4787,9 @@
 <p>AIX OpenJ9 builds now require version 16.1.0.7 or later of the <a href="https://www.ibm.com/support/pages/fix-list-xl-cc-runtime-aix#161X">IBM XL C++ Runtime</a>.</p>
 <h3 id="-xx-jitserverlocalsynccompiles-enabled-by-default"><code>-XX:[+|-]JITServerLocalSyncCompiles</code> enabled by default</h3>
 <p>The <code>-XX:[+|-]JITServerLocalSyncCompiles</code> option is now enabled by default in most cases. For more information, see <a href="../xxjitserverlocalsynccompiles/"><code>-XX:[+|-]JITServerLocalSyncCompiles</code></a>.</p>
-<h3 id="garbage-collector-handles-phantom-references-like-weak-references-in-java-8">Garbage collector handles phantom references like weak references in Java 8</h3>
-<p>Phantom reference in Java 8 is now cleared automatically as soon as its <em>referent</em> is identified as not reachable, hence not marked by a GC cycle. The garbage collector behavior for handling the phantom and weak references is similar as it is in Java 11 and later.</p>
-<p>For more information about the processing of weak and phantom references, see <a href="../gc_overview/#weak-reference-processing">Weak reference processing</a>.</p>
-<p>For more information about the other changes to the specification of JSR 337 that OpenJ9 now supports, see the <a href="https://jcp.org/aboutJava/communityprocess/maintenance/jsr337/jsr337-mr4-changes.html">JSR 337 Maintenance Release 4</a> document.</p>
+<h3 id="support-for-changes-to-the-maintenance-specifications-of-jsr-337-in-java-8">Support for changes to the maintenance specifications of JSR 337 in Java 8</h3>
+<p>OpenJ9 now supports changes to the maintenance specifications in Java 8 as listed in the <a href="https://jcp.org/aboutJava/communityprocess/maintenance/jsr337/jsr337-mr4-changes.html">JSR 337 Maintenance Release 4</a> document.</p>
+<p>These changes include the change in the garbage collector behavior for handling the phantom references in Java 8. The garbage collector handles both the phantom as well as the weak references similarly, which is the current behavior in Java 11 and later. For more information, see <a href="../gc_overview/#weak-reference-processing">Weak reference processing</a>.</p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
 <p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.33.1 and v0.35.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.35/0.35.md">Release notes</a>.</p>
 <!-- ==== END OF TOPIC ==== version0.35.md ==== -->
