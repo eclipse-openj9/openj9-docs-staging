@@ -4655,7 +4655,7 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>When the JITServer receives an AOT compilation request, it checks its AOT cache for a compatible compiled method body. If one is not found, the server does the AOT compilation, sends the response to the client JVM, then stores the compiled method in its local AOT cache, for future use. If the JITServer physical memory is low, multiple requests and storing of the compiled methods will consume a lot of memory and degrade the system's overall performance. </p>
+<p>When the JITServer receives an AOT compilation request, it checks its AOT cache for a compatible compiled method body. If one is not found, the server does the AOT compilation, sends the response to the client JVM, then stores the compiled method in its local AOT cache, for future use. If the JITServer physical memory is low, multiple requests and storing of the compiled methods will consume a lot of memory and degrade the system's overall performance.</p>
 <p>You can specify the memory limit for the AOT cache with the <code>-XX:JITServerAOTmx=&lt;size&gt;</code> option, so that when the JITServer reaches that limit, it will not be able to add the new AOT method to its AOT cache. This will limit the amount of memory used for caching the compiled code and hence improve the overall system performance.</p>
 <h2 id="see-also">See also</h2>
 <ul>
