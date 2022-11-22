@@ -4634,7 +4634,7 @@
 
 <h1 id="-xxjitserveraotmx">-XX:JITServerAOTmx</h1>
 <p><strong>(Linux&reg; only)</strong></p>
-<p>This option specifies the maximum memory allocated to the JITServer AOT cache for storing the compiled code and for the associated data structures that are used in the cache's implementation.</p>
+<p>This option specifies the maximum amount of memory allocated to the JITServer AOT cache for storing the compiled code and for the associated data structures that are used in the cache's implementation.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:JITServerAOTmx=&lt;size&gt;
 </code></pre>
@@ -4655,8 +4655,8 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>When the JITServer receives an AOT compilation request, it checks its AOT cache for a compatible compiled method body. If one is not found, the server performs the AOT compilation, sends the response to the client JVM, then stores the compiled method in its local AOT cache, for future use. If the JITServer physical memory is low, multiple requests and storing of the compiled methods can consume a lot of memory and degrade the system's overall performance.</p>
-<p>You can specify the maximum memory limit for the AOT cache with the <code>-XX:JITServerAOTmx=&lt;size&gt;</code> option, so that when the JITServer reaches that limit, it will not be able to add new AOT methods to its AOT cache. This will limit the amount of memory used for caching the compiled code and prevent memory shortages at JITServer that could lead to poor performance or even native out-of-memory events.</p>
+<p>When the JITServer receives an AOT compilation request, it checks its AOT cache for a compatible compiled method body. If one is not found, the server performs the AOT compilation, sends the response to the client JVM, then stores the compiled method in its local AOT cache, for future use. Multiple requests and storing of the compiled methods can use a lot of memory and degrade the system's overall performance.</p>
+<p>You can specify the maximum memory limit for the AOT cache by using the <code>-XX:JITServerAOTmx=&lt;size&gt;</code> option, so that when the JITServer reaches that limit, it will not be able to add new AOT methods to its AOT cache. This will limit the amount of memory used for caching the compiled code and prevent memory shortages at JITServer that could lead to poor performance or even native out-of-memory events.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../jitserver_tuning/#jitserver-aot-cache">JITServer AOT cache</a></li>
