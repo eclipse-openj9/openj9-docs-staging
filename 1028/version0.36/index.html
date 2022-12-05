@@ -4729,7 +4729,7 @@
 <h3 id="changes-to-the-location-of-the-default-directory-for-the-shared-cache-and-snapshot">Changes to the location of the default directory for the shared cache and snapshot</h3>
 <p>On operating systems other than Windows&trade; and z/OS&reg;, the default shared classes cache directory in the user's home directory is changed from <code>javasharedresources</code> to <code>.cache/javasharedresources</code>. This change is to avoid cluttering of the home directory. If you specify <code>-Xshareclasses:groupAccess</code>, the default directory remains <code>/tmp/javasharedresources/</code>.</p>
 <p>If the <code>javasharedresources</code> directory in the user's home directory is empty, the <code>javasharedresources</code> directory can be deleted.</p>
-<p>You can find and remove caches or snapshots in the old default directory on non-Windows and non-z/OS platforms by using the following command-line options:</p>
+<p>You can find and remove caches or snapshots in the old default directory by using the following command-line options:</p>
 <p>For persistent caches:</p>
 <ul>
 <li><code>-Xshareclasses:cacheDir=&lt;HomeDir&gt;/javasharedresources/,listAllCaches</code> to find the caches</li>
