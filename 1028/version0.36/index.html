@@ -4727,7 +4727,7 @@
 <p>This option specifies the maximum amount of memory that can be used by the JITServer AOT cache. Instead of unlimited memory consumption, the maximum amount of memory that all AOT cache instances combined can use at the server is now limited to 300 MB, by default.</p>
 <p>For more information, see <a href="../xxjitserveraotmx/"><code>-XX:JITServerAOTmx</code></a>.</p>
 <h3 id="changes-to-the-location-of-the-default-directory-for-the-shared-cache-and-snapshot">Changes to the location of the default directory for the shared cache and snapshot</h3>
-<p>On non-Windows&trade; and non-z/OS&reg; systems platforms, the default shared classes cache directory in the user's home directory is changed from <code>javasharedresources</code> to <code>.cache/javasharedresources</code>. This change is to avoid cluttering of the home directory. If you specify <code>-Xshareclasses:groupAccess</code>, the default directory remains <code>/tmp/javasharedresources/</code>.</p>
+<p>On operating systems other than Windows&trade; and z/OS&reg;, the default shared classes cache directory in the user's home directory is changed from <code>javasharedresources</code> to <code>.cache/javasharedresources</code>. This change is to avoid cluttering of the home directory. If you specify <code>-Xshareclasses:groupAccess</code>, the default directory remains <code>/tmp/javasharedresources/</code>.</p>
 <p>If the <code>javasharedresources</code> directory in the user's home directory is empty, the <code>javasharedresources</code> directory can be deleted.</p>
 <p>You can find and remove caches or snapshots in the old default directory on non-Windows and non-z/OS platforms by using the following command-line options:</p>
 <p>For persistent caches:</p>
