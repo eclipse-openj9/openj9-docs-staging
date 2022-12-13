@@ -4696,10 +4696,16 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>With the <code>-XX:+JITServerAOTCachePersistence</code> option, the JITServer server periodically saves its AOT caches to files, and then loads these caches from files the first time a client requests a particular named cache. It is useful to improve performance, especially in scenarios, where JITServer instances are started up and shut down regularly.</p>
-<p>To enable this feature, you must specify the <a href="../xxjitserveruseaotcache/"><code>-XX:+JITServerUseAOTCache</code></a> command-line option, both at the server and at the client JVM.</p>
-<p>Use the <a href="xxjitserveraotcachename"><code>-XX:JITServerAOTCacheName=&lt;cache_name&gt;</code></a> option to request for a particular AOT cache. If the requested cache does not exist, server checks if the reusing of AOT caches feature is enabled (<code>-XX:+JITServerAOTCachePersistence</code>), and whether a file for that cache exists. If the AOT cache file does not exist or reuse AOT cache feature is disabled (<code>-XX:-JITServerAOTCachePersistence</code>), the server creates an empty AOT cache and populates it with the compiled methods.</p>
-<p>You can specify a directory in the <a href="../xxjitserveraotcachename/"><code>-XX:JITServerAOTCacheDir=&lt;directory&gt;</code></a> option to load AOT cache file from a particular directory.</p>
+<p>With the <code>-XX:+JITServerAOTCachePersistence</code> option, the JITServer server periodically saves its AOT caches to files, allowing its other JITServer instances to load these caches from files the first time a client requests a particular named cache. It is useful to improve performance, especially in scenarios where JITServer instances are started up and shut down regularly.</p>
+<p>This feature depends on the <a href="../xxjitserveruseaotcache/"><code>-XX:+JITServerUseAOTCache</code></a> command-line option, which is used to enable caching of AOT-compiled methods. You must specify this option both at the client JVM and at the server.</p>
+<p>Use the <a href="xxjitserveraotcachename"><code>-XX:JITServerAOTCacheName=&lt;cache_name&gt;</code></a> option at the client to request for a particular AOT cache. If the requested cache does not exist, server checks if the AOT cache persistence feature is enabled (<code>-XX:+JITServerAOTCachePersistence</code>), and whether a file for that cache exists. If the AOT cache file does not exist or the AOT cache persistence feature is disabled (<code>-XX:-JITServerAOTCachePersistence</code>), the server creates an empty AOT cache and gradually populates it with AOT method bodies it compiles.</p>
+<p>You can use the <a href="../xxjitserveraotcachename/"><code>-XX:JITServerAOTCacheDir=&lt;directory&gt;</code></a> option to specify the directory where the AOT cache must be saved to or loaded from.</p>
+<p>The name of an AOT cache file has the following structure:</p>
+<pre><code>    JITServerAOTCache.&lt;CACHE_NAME&gt;.J&lt;JAVA_VERSION&gt;
+</code></pre>
+<p>where,
+        <code>&lt;CACHE_NAME&gt;</code> is the name of the AOT cache requested by the client, and
+        <code>&lt;JAVA_VERSION&gt;</code> is the version of Java used by JITServer instance (for example, 17 will be used for Java 17)</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xxjitserveraotcachename/"><code>-XX:JITServerAOTCacheName</code></a></li>
