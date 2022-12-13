@@ -4811,7 +4811,7 @@
 <p>The AOT cache was a non-persistent in-memory cache. If the JITServer instance ended, the cache content was lost. Now, with the <code>-XX:+JITServerAOTCachePersistence</code> option, the JITServer server periodically saves its AOT caches to files, and allows its other instances to reuse these caches from files the first time a client requests a particular cache.</p>
 <p>For more information, see <a href="../xxjitserveraotcachepersistence/"><code>-XX:[+|-]JITServerAOTCachePersistence</code></a>.</p>
 <h3 id="new-xxjitserveraotcachedir-option-added">New <code>-XX:JITServerAOTCacheDir</code> option added</h3>
-<p>You can specify the directory for saving the AOT cache files with the <code>-XX:JITServerAOTCacheDir=&lt;directory&gt;</code> option. When the server receives the location of the requested AOT cache file through the <code>-XX:JITServerAOTCacheDir</code> option and a request for a particular cache, the server searches the specified cache directory for a file with that name and loads it, if available.</p>
+<p>You can specify the directory for saving or loading the AOT cache files with the <code>-XX:JITServerAOTCacheDir=&lt;directory&gt;</code> option. If the option is not used, AOT cache files are saved to (or loaded from) the current directory of the JITServer server.</p>
 <p>For more information, see <a href="../xxjitserveraotcachedir/"><code>-XX:JITServerAOTCacheDir</code></a>.</p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
 <p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.35.0 and v0.36.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.36/0.36.md">Release notes</a>.</p>
