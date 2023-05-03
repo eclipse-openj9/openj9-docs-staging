@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../criufeature/" class="md-nav__link">
+      <a href="../criusupport/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1200,7 +1200,7 @@
   
     <li class="md-nav__item">
       <a href="../xrsonrestoresynconrestore/" class="md-nav__link">
-        -Xrs:[onRestore|syncOnRestore]
+        -Xrs:onRestore / -Xrs:syncOnRestore
       </a>
     </li>
   
@@ -5686,14 +5686,17 @@
 -->
 
 <h1 id="-xx-criurestorenonportablemode">-XX:[+|-]CRIURestoreNonPortableMode</h1>
-<p><strong>(Linux&reg; x86, Linux on POWER LE&reg;, and Linux on IBM Z&reg; only)</strong></p>
-<p>This option enables and disables the JIT compiler from generating nonportable compiled code on restore.</p>
+<p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
+<p>This option specifies whether the JIT and AOT compilers generate nonportable compiled code on restore.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
 <ul>
 <li>This option takes effect only when <a href="../xxenablecriusupport/"><code>-XX:+EnableCRIUSupport</code></a> is enabled.</li>
-<li>When this option is disabled, CRIUSECProvider is the only security provider in both checkpoint and restore.</li>
-<li>JITServer is permanently disabled when this option is disabled.</li>
-<li>The VM is limited to portable code for its entire lifetime when this option is disabled (<code>-XX:-CRIURestoreNonPortableMode</code>).</li>
+<li>When you disable this option,<ul>
+<li><code>CRIUSECProvider</code> is the only security provider in both checkpoint and restore.</li>
+<li>JITServer technology is disabled both before you take a checkpoint and after you restore the VM.</li>
+<li>the VM generates only portable code, both before you take a checkpoint and after you restore the VM.</li>
+</ul>
+</li>
 </ul>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]CRIURestoreNonPortableMode
@@ -5720,12 +5723,12 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>JIT compiled code uses the hardware on the system that it is running on, therefore it might include code that is not portable to a different system with different hardware capabilities. This nonportable compiled code might fail if the VM restores from the checkpoint files that include the incompatible nonportable code.</p>
-<p>When the VM detects that CRIU support is enabled and a checkpoint can be taken, it generates only portable compiled code that can run in any environment. The <code>-XX:+CRIURestoreNonPortableMode</code> option is set by default so that on restore the JIT compiler can start generating nonportable compiled code again. Likewise, the VM can also load nonportable AOT code post-restore. Generating the nonportable compiled code also means that no further checkpoints are permitted. When starting the VM, this option indicates to the VM that only a single checkpoint can be taken in the VM's lifetime.</p>
+<p>The JIT compiler can exploit hardware features of the system on which it is running, to generate compiled code. That code might therefore fail if it is included in a checkpoint image that you later restore on a different system. For example, the compiled code might try to exploit a hardware feature that doesn't exist on the new machine, then fail. To avoid this problem, the JIT compiler by default generates code that exploits only basic hardware features, therefore portable to different systems.</p>
+<p>The <code>-XX:+CRIURestoreNonPortableMode</code> option is set by default so that on restore the JIT compiler can start generating nonportable compiled code. Likewise, the VM can also load nonportable AOT code post-restore. Generating the nonportable compiled code also means that no further checkpoints are permitted. Only a single checkpoint can be taken in the VM's lifetime.</p>
 <p>You can use the <code>-XX:-CRIURestoreNonPortableMode</code> option to generate portable JIT compiled code even after the restore if multiple checkpoints are required.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="../criufeature/">CRIU feature</a></li>
+<li><a href="../criusupport/">CRIU support</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxcriurestorenonportablemode.md ==== -->
 

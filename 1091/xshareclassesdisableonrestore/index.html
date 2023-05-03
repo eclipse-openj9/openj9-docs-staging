@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../criufeature/" class="md-nav__link">
+      <a href="../criusupport/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1200,7 +1200,7 @@
   
     <li class="md-nav__item">
       <a href="../xrsonrestoresynconrestore/" class="md-nav__link">
-        -Xrs:[onRestore|syncOnRestore]
+        -Xrs:onRestore / -Xrs:syncOnRestore
       </a>
     </li>
   
@@ -5698,24 +5698,27 @@
 -->
 
 <h1 id="-xshareclassesdisableonrestore">-Xshareclasses:disableOnRestore</h1>
-<p><strong>(Linux&reg; x86, Linux on POWER LE&reg;, and Linux on IBM Z&reg; only)</strong></p>
-<p>The <code>-Xshareclasses</code> option is an existing option and <code>disableOnRestore</code> is its new parameter that can be used if CRIU feature is available. This option is disabled by default.</p>
+<p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
+<p>The <code>-Xshareclasses</code> option is an existing option and <code>disableOnRestore</code> is its new parameter that can be used if the CRIU feature is available. This option is disabled by default.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
 <ul>
 <li>This option takes effect only when the <code>-XX:+EnableCRIUSupport</code> option is enabled.</li>
 <li>This option can be used only on restore.</li>
-<li>If <code>-Xshareclasses:disableOnRestore</code> is specified on startup, the VM will fail to start.</li>
 </ul>
 <h2 id="parameters">Parameters</h2>
 <h3 id="disableonrestore"><code>disableOnRestore</code></h3>
 <pre><code>    -Xshareclasses:disableOnRestore
 </code></pre>
-<p>The VM enables the addition of VM options on restore through the <code>CRIUSupport.registerRestoreEnvVariables</code> and the <code>CRIUSupport.registerRestoreOptionsFile</code> APIs. The <code>-Xshareclasses:disableOnRestore</code> option disables further use of the SCC on restore. SCC API will still be available but the VM will behave as if the SCC is empty. SCC metrics and SCC API would continue to work as normal.</p>
-<p>The <code>-Xshareclasses:disableOnRestore</code> option is similar to the existing <a href="../xshareclasses/#none"><code>-Xshareclasses:none</code></a> option. While the existing option turns off the SCC on VM startup, the new option turns off the SCC on restore.</p>
+<p>The <code>-Xshareclasses:disableOnRestore</code> option disables further use of the shared classes cache (SCC) on restore. You can still use the shared classes utility APIs, for example, to obtain metrics about the cache, however the VM behaves as if the cache is empty.</p>
+<p>The <code>-Xshareclasses:disableOnRestore</code> option is similar to the existing <a href="../xshareclasses/#none"><code>-Xshareclasses:none</code></a> option but with the following differences:</p>
+<ul>
+<li>The <code>-Xshareclasses:none</code> option turns off the cache on the VM startup but the <code>-Xshareclasses:disableOnRestore</code> option turns off the cache on restore. If you turn off the cache on startup, then specifying the <code>-Xshareclasses:disableOnRestore</code> option has no impact because there is no cache existing in the checkpoint image for the option to disable.</li>
+<li>The <code>-Xshareclasses:none</code> option disables the shared classes utility APIs but the <code>-Xshareclasses:disableOnRestore</code> option keeps the utility APIs working.</li>
+</ul>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xshareclasses/">-Xshareclasses</a></li>
-<li><a href="../criufeature/">CRIU feature</a></li>
+<li><a href="../criusupport/">CRIU support</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xsharxshareclassesdisableonrestore.md ==== -->
 

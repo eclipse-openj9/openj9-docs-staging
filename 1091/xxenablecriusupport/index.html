@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../criufeature/" class="md-nav__link">
+      <a href="../criusupport/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1200,7 +1200,7 @@
   
     <li class="md-nav__item">
       <a href="../xrsonrestoresynconrestore/" class="md-nav__link">
-        -Xrs:[onRestore|syncOnRestore]
+        -Xrs:onRestore / -Xrs:syncOnRestore
       </a>
     </li>
   
@@ -5686,14 +5686,24 @@
 -->
 
 <h1 id="-xx-enablecriusupport">-XX:[+|-]EnableCRIUSupport</h1>
-<p><strong>(Linux&reg; x86, Linux on POWER LE&reg;, and Linux on IBM Z&reg; only)</strong></p>
-<p>This option enables and disables the support for Checkpoint Restore in User Space (CRIU) in the VM.</p>
-<p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
+<p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
+<p>This option enables or disables support for Checkpoint/Restore In Userspace (CRIU).</p>
+<p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong> If CRIU support is enabled,</p>
 <ul>
-<li>If the CRIU support is enabled, Java security managers are unsupported. Enabling a security manager with <code>-Djava.security.manager</code>, <code>System.setSecurityManager</code> or other means throws <code>java.lang.UnsupportedOperationException</code>.</li>
-<li>When CRIU support is enabled, CRIUSECProvider is the only security provider in the checkpoint phase until restore.</li>
-<li><code>-Xgcpolicy:balanaced</code> and <code>-Xgcpolicy:metronome</code> are disabled when this option is enabled.</li>
-<li>JITServer is disabled in the checkpoint phase when this option is implicitly enabled on restore.</li>
+<li>you cannot use a Java&trade; security manager. If you try to specify a Java security manager, for example by using the <code>-Djava.security.manager</code> system property on the Java command line or the <code>java.lang.System.setSecurityManager</code> method in your application, the VM throws the <code>java.lang.UnsupportedOperationException</code> error.</li>
+<li><code>CRIUSECProvider</code> is the only security provider that is available in the checkpoint phase until restore.</li>
+<li>JITServer is disabled in the checkpoint phase even if the server exists and you have specified the <code>-XX:+UseJITServer</code> option. When you specify the <code>-XX:+EnableCRIUSupport</code> and <code>-XX:+CRIURestoreNonPortableMode</code> options, the VM enables the JITServer server automatically at the restore point.</li>
+<li>
+<p>you cannot use the <code>balanced</code> and <code>metronome</code> garbage collection (GC) policies. If you use the <code>-Xgcpolicy:balanced</code> or <code>-Xgcpolicy:metronome</code> options to specify those policies, the VM throws the following errors:</p>
+<p><code>JVMJ9GC090E -Xgcpolicy:balanced is currently unsupported with -XX:+EnableCRIUSupport
+  JVMJ9VM007E Command-line option unrecognised: -Xgcpolicy:balanced
+  Error: Could not create the Java Virtual Machine.
+  Error: A fatal exception has occurred. Program will exit.</code></p>
+<p><code>JVMJ9GC090E -Xgcpolicy:metronome is currently unsupported with -XX:+EnableCRIUSupport
+  JVMJ9VM007E Command-line option unrecognised: -Xgcpolicy:metronome
+  Error: Could not create the Java Virtual Machine.
+  Error: A fatal exception has occurred. Program will exit.</code></p>
+</li>
 </ul>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]EnableCRIUSupport
@@ -5720,12 +5730,12 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>When the option is enabled, the VM starts with the support for checkpoint and restore. The VM starts the JIT, GC, Security, and other internal components that make checkpoint and restore feasible. The option enables the use of <code>org.eclipse.openj9.criu.CRIUSupport</code> APIs. With CRIU support, you can take a checkpoint of the VM and restore the checkpointed image. Because a checkpoint can be restored on a different system, when the <code>-XX:+EnableCRIUSupport</code> option is specified, the VM generates only those compiled codes that are portable (see <a href="https://www.eclipse.org/openj9/docs/xxportablesharedcache/"><code>-XX:[+|-]PortableSharedCache</code></a>) to facilitate restoring of the checkpoint image in as many environments as possible. VM does not load any code from the SCC that is nonportable pre-checkpoint.</p>
-<p>Since checkpoint and restore generally happens on different environments with different behaviours, OpenJ9 performs compensations for such differences to ensure successful restore. For example, the VM compensates for the downtime between checkpoint and restore for elasped time sensitive APIs such as <code>System.nanotime()</code> and <code>java.util.Timer</code>.</p>
-<p>For more information about the OpenJ9 compensations and Time APIs, see the Compensation section in the <a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood-part-ii/">OpenJ9 CRIU Support: A look under the hood (part II)</a> blog.</p>
+<p>When you enable the option, the VM starts with the support for checkpoint and restore processes. The VM starts the JIT, GC, Security, and other internal components that make the checkpoint and restore points feasible. The option enables the use of <code>org.eclipse.openj9.criu.CRIUSupport</code> APIs. With CRIU support, you can take a checkpoint of the VM and restore the checkpoint image. When you specify the <code>-XX:+EnableCRIUSupport</code> option, the VM generates only those compiled codes that are portable (see <a href="https://www.eclipse.org/openj9/docs/xxportablesharedcache/"><code>-XX:[+|-]PortableSharedCache</code></a>) to facilitate restoring of the checkpoint image in multiple environments. VM does not load any code from the shared classes cache that is nonportable pre-checkpoint.</p>
+<p>Checkpoint and restore generally happen on different environments with different behaviors. OpenJ9 makes compensations for such differences to ensure successful restore. For example, the VM compensates for the downtime between checkpoint and restore for elapsed time sensitive APIs such as <code>System.nanotime()</code> and <code>java.util.Timer</code>.</p>
+<p>For more information about the OpenJ9 compensations and Time APIs, see the Compensation section in the <a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood-part-ii/">OpenJ9 CRIU Support: A look under the hood (part II)</a> blog post.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="../criufeature/">CRIU feature</a></li>
+<li><a href="../criusupport/">CRIU support</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxenablecriusupport.md ==== -->
 

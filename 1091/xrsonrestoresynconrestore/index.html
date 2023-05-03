@@ -23,7 +23,7 @@
     
     
       
-        <title>-Xrs:[onRestore|syncOnRestore] -  </title>
+        <title>-Xrs:onRestore / -Xrs:syncOnRestore -  </title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xrsonrestoresynconrestore" class="md-skip">
+        <a href="#-xrsonrestore-xrssynconrestore" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -Xrs:[onRestore|syncOnRestore]
+              -Xrs:onRestore / -Xrs:syncOnRestore
             
           </span>
         </div>
@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../criufeature/" class="md-nav__link">
+      <a href="../criusupport/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1209,12 +1209,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          -Xrs:[onRestore|syncOnRestore]
+          -Xrs:onRestore / -Xrs:syncOnRestore
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        -Xrs:[onRestore|syncOnRestore]
+        -Xrs:onRestore / -Xrs:syncOnRestore
       </a>
       
         
@@ -5711,26 +5711,26 @@
 * Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
 -->
 
-<h1 id="-xrsonrestoresynconrestore">-Xrs:[onRestore|syncOnRestore]</h1>
-<p><strong>(Linux&reg; x86, Linux on POWER LE&reg;, and Linux on IBM Z&reg; only)</strong></p>
-<p>The <code>-Xrs</code> option is an existing option and <code>onRestore</code> and <code>syncOnRestore</code> are its new parameters that can be used for controlling the signal handling at the time of restore if the CRIU feature is available.</p>
-<p>If the VM was started with signal handling enabled, then at the time of restore, the signal handling is enabled by default. You can use these options to disable signal handling on restore. These options are required if there are already some active signal handlers including the global signal handlers existing on restore and you want to prevent the addition of new signal handlers.</p>
+<h1 id="-xrsonrestore-xrssynconrestore">-Xrs:onRestore / -Xrs:syncOnRestore</h1>
+<p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
+<p>The <code>-Xrs</code> option is an existing option for disabling signal handling in the VM. CRIU support adds new suboptions <code>onRestore</code> and <code>syncOnRestore</code> for disabling signal handling when you restore a VM.</p>
+<p>If the VM was started with signal handling enabled, then when you restore the VM, the signal handling is enabled by default. It is possible that there are frames with attached signal handlers already on the stack. These frames remain unchanged and their signal handlers remain active. Likewise, some global handlers might not be removed as well. The new options prevent the addition of new signal handlers and force recompilation of Java&trade; methods that make use of the existing signal handlers.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong> This option takes effect only when the <code>-XX:+EnableCRIUSupport</code> option is enabled. This option can be used only on restore.</p>
 <h2 id="parameters">Parameters</h2>
 <h3 id="onrestore"><code>onRestore</code></h3>
 <pre><code>    -Xrs:onRestore
 </code></pre>
-<p>The <code>-Xrs:onRestore</code> option is similar to the <a href="../xrs/"><code>-Xrs</code></a> option. This option is used to turn off the VM signal handlers at restore.</p>
+<p>The <code>-Xrs:onRestore</code> option is similar to the <a href="../xrs/"><code>-Xrs</code></a> option.</p>
 <h3 id="synconrestore"><code>syncOnRestore</code></h3>
 <pre><code>    -Xrs:syncOnRestore
 </code></pre>
-<p>The <code>-Xrs:syncOnRestore</code> option is similar to the <a href="../xrs/#parameters"><code>-Xrs:sync</code></a> option. This option is used to turn off the VM signal handlers at restore for some signals only. The VM continues to handle the <code>SIGQUIT</code> and <code>SIGTERM</code> signals, among others.</p>
+<p>The <code>-Xrs:syncOnRestore</code> option is similar to the <a href="../xrs/#parameters"><code>-Xrs:sync</code></a> option.</p>
 <p>Although there are similarities between the existing options and the new CRIU related options, there are behavioural differences that limits what can be disabled with the existing options at the restore time.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="../criufeature/">CRIU feature</a></li>
+<li><a href="../criusupport/">CRIU support</a></li>
 </ul>
-<!-- ==== END OF TOPIC ==== xsharxshareclassesdisableonrestore.md ==== -->
+<!-- ==== END OF TOPIC ==== xrsonrestoresynconrestore.md ==== -->
 
 
 

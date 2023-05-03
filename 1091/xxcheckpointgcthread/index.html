@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../criufeature/" class="md-nav__link">
+      <a href="../criusupport/" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -1200,7 +1200,7 @@
   
     <li class="md-nav__item">
       <a href="../xrsonrestoresynconrestore/" class="md-nav__link">
-        -Xrs:[onRestore|syncOnRestore]
+        -Xrs:onRestore / -Xrs:syncOnRestore
       </a>
     </li>
   
@@ -5686,11 +5686,11 @@
 -->
 
 <h1 id="-xxcheckpointgcthreads">-XX:CheckpointGCThreads</h1>
-<p><strong>(Linux&reg; x86, Linux on POWER LE&reg;, and Linux on IBM Z&reg; only)</strong></p>
-<p>This option restricts the number of GC threads used at the time of taking checkpoint.</p>
+<p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
+<p>This option restricts the number of threads that the garbage collector uses for parallel operations at the time of taking checkpoint.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong> This option takes effect only when <code>-XX:+EnableCRIUSupport</code> is enabled.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code>    -XX:CheckpointGCThreads=&lt;Number_of_GC_threads&gt;
+<pre><code>    -XX:CheckpointGCThreads=&lt;number&gt;
 </code></pre>
 <table>
 <thead>
@@ -5702,18 +5702,18 @@
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;Number_of_GC_threads&gt;</code></td>
-<td>Greater than 0 and less than or equal to GC threads at VM startup</td>
-<td align="center">4 GC threads</td>
+<td><code>&lt;number&gt;</code></td>
+<td>Greater than 0 and less than or equal to the number of garbage collection (GC) threads at the VM startup</td>
+<td align="center">4</td>
 </tr>
 </tbody>
 </table>
-<p>You can specify the number of GC threads used at the startup with the <code>-xgcthreads</code> option. If a fixed GC thread count is not specified with the <code>xgcthreads</code> option, the VM uses the default GC thread count that is set to <code>n-1</code>, where <code>n</code> is the number of reported CPUs. For more information about the setting of the GC thread count, see the <a href="../xgcthreads/"><code>-Xgcthreads</code></a> topic.</p>
+<p>You can specify the number of GC threads at the startup with the <a href="../xgcthreads/"><code>-Xgcthreads</code></a> option.</p>
 <h2 id="explanation">Explanation</h2>
-<p>When taking a checkpoint, the VM reduces the current number of GC threads that the VM started with to the number of GC threads specified for the checkpoint with the <code>-XX:CheckpointGCThreads</code> option. Reducing the GC thread count minimizes the restore time as restoring threads adds latency to the overall VM restore time. After restoring from the checkpoint, the VM will increase the current GC thread count back to the number of GC threads that VM had at the startup.</p>
+<p>When taking a checkpoint, the VM reduces the number of GC threads that was specified at the startup and makes it equal to the thread count specified in the <code>-XX:CheckpointGCThreads</code> option. Since restoring threads adds latency to the overall VM restore time, you can minimizes the restore time by reducing the GC thread count. After restoring from the checkpoint, the VM increases the GC thread count back to the number of GC threads that the VM had at the startup.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="../criufeature/">CRIU feature</a></li>
+<li><a href="../criusupport/">CRIU support</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxcheckpointgcthread.md ==== -->
 
