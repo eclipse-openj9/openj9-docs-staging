@@ -1144,7 +1144,7 @@
   
     <li class="md-nav__item">
       <a href="../criusupport/" class="md-nav__link">
-        Introduction
+        CRIU support
       </a>
     </li>
   
@@ -5686,7 +5686,7 @@
 -->
 
 <h1 id="-dorgeclipseopenj9criuimmutableenvvars">-Dorg.eclipse.openj9.criu.ImmutableEnvVars</h1>
-<p>This system property enables adding of environmental variables that the VM cannot change on restore.</p>
+<p>This system property specifies the environment variables that the VM can detect on restore.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong> This option takes effect only when the <code>-XX:+EnableCRIUSupport</code> option is enabled. This option can be used only on restore.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -Dorg.eclipse.openj9.criu.ImmutableEnvVars=&lt;environment_variables&gt;
@@ -5699,7 +5699,9 @@
 <li><code>LC_CTYPE</code></li>
 </ul>
 <h2 id="explanation">Explanation</h2>
-<p>The VM does not allow the environment variables to change values between checkpoint and restore. At the time of restore, the VM can identify only the immutable environment variables that were used before checkpoint. Any new environment variables set after the checkpoint and before restore are not visible to the VM. If the VM needs new environment variables on restore, you must add the new immutable variables to the <code>-Dorg.eclipse.openj9.criu.ImmutableEnvVars</code> list that is saved in a file set by <code>CRIUSupport.registerRestoreEnvFile()</code>. The VM reads from the saved files after the process is restored.</p>
+<p>The environment variables are a property of the operating system environment and not the VM. The VM considers these properties as immutable and does not allow the environment variables to change values between checkpoint and restore. Even though the environment variables are always immutable, but with the CRIU support, you can take a checkpoint in one environment and restore in another.</p>
+<p>At the checkpoint time, the VM can detect the environment variables that are in the <code>immutableEnvvars</code> list. You can add any other immutable variables that you want the VM to detect at restore in the <code>immutableEnvvars</code> list with the <code>-Dorg.eclipse.openj9.criu.ImmutableEnvVars</code> option. If an environment variable is not in the list, the VM does not detect that variable even if the underlying system has defined them. These environment variables exist for the entire lifetime of the VM (checkpoint and restore).</p>
+<p>At restore, the VM can also detect the environment variables that are supplied to the VM through the <code>CRIUSupport.registerRestoreEnvVariables</code> API.</p>
 <p>For more information about how environment variables are handled during the checkpoint and restore process, see the Environment Variables section in the <a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood-part-ii/">OpenJ9 CRIU Support: A look under the hood (part II)</a> blog post.</p>
 <h2 id="see-also">See also</h2>
 <ul>

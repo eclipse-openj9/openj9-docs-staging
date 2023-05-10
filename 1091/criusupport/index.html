@@ -23,7 +23,7 @@
     
     
       
-        <title>Introduction -  </title>
+        <title>CRIU support -  </title>
       
     
     
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              CRIU support
             
           </span>
         </div>
@@ -1153,12 +1153,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Introduction
+          CRIU support
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Introduction
+        CRIU support
       </a>
       
         
@@ -1184,11 +1184,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#accessing-the-criu-support-feature" class="md-nav__link">
-    Accessing the CRIU support feature
+  <a href="#configuring-criu-support" class="md-nav__link">
+    Configuring CRIU support
   </a>
   
-    <nav class="md-nav" aria-label="Accessing the CRIU support feature">
+    <nav class="md-nav" aria-label="Configuring CRIU support">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1207,6 +1207,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
   
 </li>
       
@@ -5643,11 +5650,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#accessing-the-criu-support-feature" class="md-nav__link">
-    Accessing the CRIU support feature
+  <a href="#configuring-criu-support" class="md-nav__link">
+    Configuring CRIU support
   </a>
   
-    <nav class="md-nav" aria-label="Accessing the CRIU support feature">
+    <nav class="md-nav" aria-label="Configuring CRIU support">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5666,6 +5673,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
   
 </li>
       
@@ -5711,37 +5725,28 @@
 
 <h1 id="criu-support">CRIU support</h1>
 <p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
-<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2 22.6-22.7zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg></span> <strong>Note:</strong> Support for the Checkpoint/Restore In Userspace (CRIU) tool is currently provided as a technical preview. This preview is supported for use in production environments, however, all APIs and options are subject to change. Eclipse OpenJ9&trade; CRIU is supported when used in container environments.</p>
-<p>In OpenJ9, the CRIU support includes an API that you can use to stop the VM at a checkpoint, save its state, and then run the VM from the point where it was stopped. The period of time between when the VM starts and when the application takes a checkpoint is referred to as the <em>checkpoint phase</em>.</p>
-<p>During the checkpoint phase, all security providers are removed from the system properties and the <code>CRIUSECProvider</code> security provider is added instead. The application writes the VM state that was saved at the checkpoint to one or more image files. The saved state includes memory pages, methods, file systems, processes, and network connections. You can restore the VM from these files multiple times from the same point and in multiple environments.</p>
-<p>During the restore phase, <code>CRIUSECProvider</code> is removed from the security provider list and the other security providers that were removed during the checkpoint phase are added back to the system properties. When the VM starts from the saved point instead of the beginning, the VM startup time improves and hence results in better VM performance.</p>
-<p>For more information about the CRIU tool and OpenJ9 CRIU support, see the following blog posts:</p>
-<ul>
-<li><a href="https://criu.org/Main_Page">CRIU</a></li>
-<li><a href="https://blog.openj9.org/2022/09/26/fast-jvm-startup-with-openj9-criu-support/">Fast JVM startup with OpenJ9 CRIU Support</a></li>
-<li><a href="https://blog.openj9.org/2022/09/26/getting-started-with-openj9-criu-support/">Getting started with OpenJ9 CRIU Support</a></li>
-<li><a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood/">OpenJ9 CRIU Support: A look under the hood</a></li>
-<li><a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood-part-ii/">OpenJ9 CRIU Support: A look under the hood (part II)</a></li>
-</ul>
+<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2 22.6-22.7zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg></span> <strong>Note:</strong> Support for the Checkpoint/Restore In Userspace (CRIU) tool is currently provided as a technical preview in container environments. CRIU support is available for CRIU version that is packaged with the Semeru package. This preview is supported for use in production environments, however, all APIs and command-line options are subject to change.</p>
+<p>In OpenJ9, the CRIU support includes an API that you can use to stop the VM at a checkpoint, save its state, and then run the VM from the point where it was stopped. The period of time between when the VM starts and when the application takes a checkpoint is referred to as the <em>checkpoint phase</em>. The application writes the VM state that was saved at the checkpoint to one or more image files. The saved state includes memory pages, methods, file systems, processes, and network connections. You can restore the VM from these files multiple times from the same point and in multiple environments.</p>
+<p>Because the checkpoint image files have the live state of the VM that is used to restore the VM in different systems, they should not contain cryptographically-sensitive security data. If the image files contain sensitive security data, the security components are vulnerable to exploitation even if you don't move the image files between systems. The CRIU technical preview introduces the <code>CRIUSECProvider</code> security provider, which provides the following limited set of security services: <code>MessageDigest</code> and <code>SecureRandom</code>. When you enable CRIU support, all existing security providers are removed from the security provider list during the checkpoint phase and <code>CRIUSECProvider</code> is added. When you restore the VM in the nonportable restore mode (<a href="../xxcriurestorenonportablemode/"><code>-XX:+CRIURestoreNonPortableMode</code></a>), <code>CRIUSECProvider</code> is removed from the security provider list and the previous security providers are added back again.</p>
+<p>When the VM starts from the saved point instead of the beginning, the VM startup time improves and hence results in better VM performance.</p>
 <h2 id="enabling-criu-support">Enabling CRIU support</h2>
 <p>CRIU support is not enabled by default. You must enable it by specifying the <a href="../xxenablecriusupport/"><code>-XX:+EnableCRIUSupport</code></a> command-line option when you start your application.</p>
-<h2 id="accessing-the-criu-support-feature">Accessing the CRIU support feature</h2>
+<h2 id="configuring-criu-support">Configuring CRIU support</h2>
 <p>You can access the OpenJ9 CRIU support capabilities by specifying different options. The VM enables the addition of VM options on restore through the <code>CRIUSupport.registerRestoreOptionsFile</code> API and environment variables through the <code>CRIUSupport.registerRestoreEnvVariables</code> API. <code>OPENJ9_RESTORE_JAVA_OPTIONS</code> is a special environment variable for adding the VM options on restore.</p>
 <p>There are new options that work at checkpoint as well as at restore and some new options that work at restore only. There are also some existing options that work on restore but some of them behave differently.</p>
 <h3 id="new-options">New options</h3>
-<p>New options that work both at the checkpoint and at restore are:</p>
+<p>You can use the following options only during the checkpoint phase:</p>
 <ul>
 <li><a href="../xxcriurestorenonportablemode/"><code>-XX:[+|-]CRIURestoreNonPortableMode</code></a>: Specifies whether the JIT and AOT compiler generates nonportable compiled code on restore.</li>
 <li><a href="../xxcheckpointgcthread/"><code>-XX:CheckpointGCThreads</code></a>: Reduces the number of garbage collection (GC) threads that exist when you create a checkpoint image, to speed up the later restoration of the checkpoint image.</li>
 <li><a href="../dorgeclipseopenj9criuimmutableenvvars/"><code>-Dorg.eclipse.openj9.criu.ImmutableEnvVars</code></a>: Specifies the environment variables that should not change on restore.</li>
 </ul>
-<p>New options that work only at the restore point are:</p>
+<p>You can use the following options only when you restore a VM. If you specify these options when you start the VM (during the checkpoint phase), the VM does not start:</p>
 <ul>
 <li><a href="../xxignoreunrecognizedrestoreoptions/"><code>-XX:[+|-]IgnoreUnrecognizedRestoreOptions</code></a>: Specifies whether a restored VM ignores unrecognized command-line options and starts anyway or throws a <code>JVMRestoreException</code> error and does not start.</li>
 <li><a href="../xshareclassesdisableonrestore/"><code>-Xshareclasses:disableOnRestore</code></a>: Disables further use of the shared classes cache (SCC) on restore.</li>
 <li><a href="../xrsonrestoresynconrestore/"><code>-Xrs:onRestore</code></a> and <a href="../xrsonrestoresynconrestore/"><code>-Xrs:syncOnRestore</code></a>: Disables signal handling on restore. These options behave in a similar way to the existing <a href="../xrs/"><code>-Xrs</code></a> and <a href="../xrs/#parameters"><code>-Xrs:sync</code></a> options. However, there are differences because some signal handlers might exist when a checkpoint is taken, and remain after restoration.</li>
 </ul>
-<p>If you specify these options on startup, the VM does not start.</p>
 <h3 id="existing-options">Existing options</h3>
 <p>Of the existing command-line options, only the following are supported when you run a restored VM and some of these options have changed behavior:</p>
 <table>
@@ -5754,6 +5759,18 @@
 <tbody>
 <tr>
 <td><a href="../xverbosegclog/"><code>-Xverbosegclog</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../xcompilationthreads/"><code>-XcompilationThreads</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../xsamplingexpirationtime/"><code>-XsamplingExpirationTime</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../xxprintcodecache/"><code>-XX:[+|-]PrintCodeCache</code></a></td>
 <td></td>
 </tr>
 <tr>
@@ -5778,27 +5795,7 @@
 </tr>
 <tr>
 <td><a href="../xjit/"><code>-Xjit</code></a> / <a href="../xaot/"><code>-Xaot</code></a></td>
-<td></td>
-</tr>
-<tr>
-<td><code>count</code></td>
-<td>Applies only to new methods; existing interpreted methods will not have their counts that are updated.</td>
-</tr>
-<tr>
-<td><code>limit</code>, <code>limitFile</code>, <code>exclude</code></td>
-<td>Invalidates the existing compiled methods that do not match the filters. The filters are then enforced for all future JIT and AOT compilations.</td>
-</tr>
-<tr>
-<td><code>loadLimit</code>, <code>loadLimitFile</code>, <code>loadExclude</code></td>
-<td>Applies only to future AOT loads; does not impact existing compiled methods.</td>
-</tr>
-<tr>
-<td><code>verbose</code></td>
-<td>Effective post-restore; does not override verbose options specified pre-checkpoint.</td>
-</tr>
-<tr>
-<td><code>vlog</code></td>
-<td>A vlog file is opened post-restore. If this option was specified pre-checkpoint, the old file is closed first.</td>
+<td>You can specify the following parameters with the <code>-Xjit</code> and <code>-Xaot</code> options when you run a restored VM:<br><code>count</code>: Applies only to new methods; existing interpreted methods will not have their counts that are updated.<br> <code>limit</code>, <code>limitFile</code>, <code>exclude</code>: Invalidates the existing compiled methods that do not match the filters. The filters are then enforced for all future JIT and AOT compilations.<br> <code>loadLimit</code>, <code>loadLimitFile</code>, <code>loadExclude</code>: Applies only to future AOT loads; does not impact existing compiled methods.<br> <code>verbose</code>: Effective post-restore; does not override verbose options specified pre-checkpoint.<br> <code>vlog</code>: A vlog file is opened post-restore. If this option was specified pre-checkpoint, the old file is closed first.</td>
 </tr>
 <tr>
 <td><a href="../xaot/"><code>-Xnoaot</code></a></td>
@@ -5808,27 +5805,24 @@
 <td><a href="../xjit/#syntax"><code>-Xnojit</code></a></td>
 <td>Invalidates all existing compiled methods and prevents JIT compilations; does not prevent AOT compilations and loads.</td>
 </tr>
-<tr>
-<td><a href="../xcompilationthreads/"><code>-XcompilationThreads</code></a></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="../xsamplingexpirationtime/"><code>-XsamplingExpirationTime</code></a></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="../xxprintcodecache/"><code>-XX:[+|-]PrintCodeCache</code></a></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <p>If you specify an unsupported option, the VM throws a <code>JVMRestoreException</code> error by default. If you specify the <code>-XX:+IgnoreUnrecognizedRestoreOptions</code> option, the VM does not throw any exception and just ignores the unsupported option.</p>
+<p>For more more information on CRIU support, see the <code>openj9.criu</code> module in your OpenJ9 JDK version (OpenJDK 11 and later) API documentation.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
 <ul>
 <li>If an <code>-Xtrace</code> or JIT log output file is specified on startup and doesn’t exist on restore, or is modified in any way between checkpoint and restore, the restore operation fails. This limitation will be removed in the future.</li>
 <li>Method tracing might not work consistently if a method is compiled pre-checkpoint.</li>
 <li>The Java&trade; heap is configured at startup. The VM detects the available memory on the system and sizes the heap based on it. With the CRIU support, this means that the size of the Java heap (<a href="../xms/"><code>-Xms</code></a>, <a href="../xms/"><code>-Xmx</code></a>) and the respective heap regions, such as nursery and tenure at checkpoint will be same on restore. If a checkpoint is taken in a container with no memory limits and then restored in a container with memory limits, the restored VM instance does not detect the memory limits.</li>
 <li>There is currently no support for changing locales. A checkpoint must be taken with the intended target locale on restore for it to function properly.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="https://criu.org/Main_Page">CRIU</a></li>
+<li><a href="https://blog.openj9.org/2022/09/26/fast-jvm-startup-with-openj9-criu-support/">Fast JVM startup with OpenJ9 CRIU Support</a></li>
+<li><a href="https://blog.openj9.org/2022/09/26/getting-started-with-openj9-criu-support/">Getting started with OpenJ9 CRIU Support</a></li>
+<li><a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood/">OpenJ9 CRIU Support: A look under the hood</a></li>
+<li><a href="https://blog.openj9.org/2022/10/14/openj9-criu-support-a-look-under-the-hood-part-ii/">OpenJ9 CRIU Support: A look under the hood (part II)</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== criusupport.md ==== -->
 

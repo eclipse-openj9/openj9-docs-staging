@@ -1144,7 +1144,7 @@
   
     <li class="md-nav__item">
       <a href="../criusupport/" class="md-nav__link">
-        Introduction
+        CRIU support
       </a>
     </li>
   
@@ -5687,7 +5687,7 @@
 
 <h1 id="-xxcheckpointgcthreads">-XX:CheckpointGCThreads</h1>
 <p><strong>(Linux&reg; x86, Linux on POWER&reg; (Little Endian), and Linux on IBM Z&reg; only)</strong></p>
-<p>This option restricts the number of threads that the garbage collector uses for parallel operations at the time of taking checkpoint.</p>
+<p>At the VM startup, you can set the number of threads that the garbage collector uses for parallel operations (<a href="../xgcthreads/"><code>-Xgcthreads</code></a>). At the time of taking the checkpoint, the <code>-XX:CheckpointGCThreads</code> option reduces the number of garbage collection (GC) threads that was set at startup.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong> This option takes effect only when <code>-XX:+EnableCRIUSupport</code> is enabled.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:CheckpointGCThreads=&lt;number&gt;
@@ -5703,14 +5703,22 @@
 <tbody>
 <tr>
 <td><code>&lt;number&gt;</code></td>
-<td>Greater than 0 and less than or equal to the number of garbage collection (GC) threads at the VM startup</td>
+<td>Greater than 0 and less than or equal to the number of GC threads at the VM startup</td>
 <td align="center">4</td>
 </tr>
 </tbody>
 </table>
-<p>You can specify the number of GC threads at the startup with the <a href="../xgcthreads/"><code>-Xgcthreads</code></a> option.</p>
+<p>If the <code>&lt;number&gt;</code> is greater than the number of GC threads at startup, the checkpoint fails with a <code>JVMCheckpoint</code> exception.</p>
 <h2 id="explanation">Explanation</h2>
-<p>When taking a checkpoint, the VM reduces the number of GC threads that was specified at the startup and makes it equal to the thread count specified in the <code>-XX:CheckpointGCThreads</code> option. Since restoring threads adds latency to the overall VM restore time, you can minimizes the restore time by reducing the GC thread count. After restoring from the checkpoint, the VM increases the GC thread count back to the number of GC threads that the VM had at the startup.</p>
+<p>When taking a checkpoint, the VM reduces the number of GC threads that was specified at the startup and makes it equal to the thread count specified in the <code>-XX:CheckpointGCThreads</code> option. Since restoring threads adds latency to the overall VM restore time, you can minimize the restore time by reducing the GC thread count. After restoring from the checkpoint, the VM increases the GC thread count. The VM checks the following settings to determine the new GC thread count at the time of restore:</p>
+<ul>
+<li><code>-Xgcthreads</code> set at restore</li>
+<li>Default thread count at restore</li>
+<li>Checkpoint GC threads</li>
+</ul>
+<p>If you have specified the GC thread count at restore in the <code>-Xgcthreads</code> option and the count is greater than the checkpoint GC threads, the VM increases the thread count to the GC thread count set at restore.</p>
+<p>If you have not specified the GC thread count in the <code>-Xgcthreads</code> option or if the thread count is less than the checkpoint GC threads, then the VM determines the default thread count (as explained in the <a href="../xgcthreads/#explanation"><code>-Xgcthreads</code></a> topic) at restore. If the default thread count is greater than the checkpoint thread count, then the VM increases the thread count to the default thread count.</p>
+<p>If the default thread count is lesser than the checkpoint thread count, then the thread count at restore time is same as the checkpoint thread count.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../criusupport/">CRIU support</a></li>

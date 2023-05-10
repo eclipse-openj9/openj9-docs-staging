@@ -1144,7 +1144,7 @@
   
     <li class="md-nav__item">
       <a href="../criusupport/" class="md-nav__link">
-        Introduction
+        CRIU support
       </a>
     </li>
   
@@ -5709,7 +5709,7 @@
 <h3 id="disableonrestore"><code>disableOnRestore</code></h3>
 <pre><code>    -Xshareclasses:disableOnRestore
 </code></pre>
-<p>The <code>-Xshareclasses:disableOnRestore</code> option disables further use of the shared classes cache (SCC) on restore. You can still use the shared classes utility APIs, for example, to obtain metrics about the cache, however the VM behaves as if the cache is empty.</p>
+<p>The <code>-Xshareclasses:disableOnRestore</code> option disables further use of the shared classes cache (SCC) on restore. You can still use the <a href="../shrc/#the-java-shared-classes-utility-api">shared classes utility APIs</a>, for example, to obtain metrics about the shared cache.</p>
 <p>The <code>-Xshareclasses:disableOnRestore</code> option is similar to the existing <a href="../xshareclasses/#none"><code>-Xshareclasses:none</code></a> option but with the following differences:</p>
 <ul>
 <li>The <code>-Xshareclasses:none</code> option turns off the cache on the VM startup but the <code>-Xshareclasses:disableOnRestore</code> option turns off the cache on restore. If you turn off the cache on startup, then specifying the <code>-Xshareclasses:disableOnRestore</code> option has no impact because there is no cache existing in the checkpoint image for the option to disable.</li>
