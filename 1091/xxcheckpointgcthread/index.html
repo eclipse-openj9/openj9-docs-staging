@@ -5708,7 +5708,7 @@
 </tr>
 </tbody>
 </table>
-<p>If the <code>&lt;number&gt;</code> is greater than the number of GC threads at startup, the checkpoint fails with a <code>JVMCheckpoint</code> exception.</p>
+<p>If the <code>&lt;number&gt;</code> is greater than the number of GC threads at startup, the VM ignores this option.</p>
 <h2 id="explanation">Explanation</h2>
 <p>When taking a checkpoint, the VM reduces the number of GC threads that was specified at the startup and makes it equal to the thread count specified in the <code>-XX:CheckpointGCThreads</code> option. Since restoring threads adds latency to the overall VM restore time, you can minimize the restore time by reducing the GC thread count. After restoring from the checkpoint, the VM increases the GC thread count. The VM checks the following settings to determine the new GC thread count at the time of restore:</p>
 <ul>
