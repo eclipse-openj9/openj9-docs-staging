@@ -5713,7 +5713,7 @@
 -->
 
 <h1 id="-xxcodecachetotalmaxrampercentage">-XX:codecachetotalMaxRAMPercentage</h1>
-<p>This option sets a maximum limit for the total memory that the VM can allocate for code caches.</p>
+<p>This option sets the maximum limit for the total JIT code cache size.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:codecachetotalMaxRAMPercentage=&lt;number&gt;
 </code></pre>
@@ -5733,15 +5733,21 @@
 </tr>
 </tbody>
 </table>
-<p>Where <code>&lt;number&gt;</code> is the maximum limit expressed as a percentage of the available physical memory.</p>
-<p>For example, if you specify <code>-XX:codecachetotalMaxRAMPercentage=30</code>, the VM is not allowed to use more than 30% of the available physical memory for the internal code caches.</p>
+<p>Where <code>&lt;number&gt;</code> is the maximum limit that is expressed as a percentage of the available physical memory.</p>
+<p>For example, if you specify <code>-XX:codecachetotalMaxRAMPercentage=30</code>, the VM is not allowed to use more than 30% of the available physical memory for the internal JIT code caches.</p>
 <h2 id="explanation">Explanation</h2>
-<p>In environments with low physical memory availability, the VM might use too much memory for code caches, leaving little memory for the VM or JIT data structures. With the <code>-XX:codecachetotalMaxRAMPercentage</code> option, you can reduce the default total code cache value (the default is set to 256 MB for 64-bit systems and 64 MB for 31 or 32-bit systems). In environments with plenty of memory, the <code>-XX:codecachetotalMaxRAMPercentage</code> setting is ignored.</p>
-<p>If you want to increase the total code cache value, you can use the <a href="../xxcodecachetotal/"><code>-XX:codecachetotal</code></a> or the <a href="../xcodecachetotal/"><code>-Xcodecachetotal</code></a> options.</p>
+<p>The default total size of the JIT code cache is computed as the minimum of the following two limits:</p>
+<ul>
+<li>A platform based limit expressed as an absolute memory value. This limit is set at 256 MB for 64-bit systems and at 64 MB for 31/32-bit systems.</li>
+<li>A percentage of the amount of available physical memory the VM process is allowed to use. By default, the VM is not allowed to use more than 25% of the available physical memory for its code caches.</li>
+</ul>
+<p>For example, in a 64-bit platform, the platform specific code cache limit is 256 MB. If the VM is constrained to less than 1024 MB (say 900 MB), then 25% of physical memory is less than 256 MB (the platform based limit), therefore, the default total size is calculated as a percentage of the amount of available physical memory (225 - minimum of the two limits).</p>
+<p>In environments with low physical memory availability, the VM might use too much of the available memory for code caches, leaving little memory for the VM or JIT data structures. With the <code>-XX:codecachetotalMaxRAMPercentage</code> option, you can reduce the default total size of the JIT code cache.</p>
+<p>If you want to increase the total code cache size as an absolute value (platform based limit), you can use the <a href="../xxcodecachetotal/"><code>-XX:codecachetotal</code></a> or the <a href="../xcodecachetotal/"><code>-Xcodecachetotal</code></a> options.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
 <ul>
 <li>If the <code>-XX:codecachetotal</code> or <code>-Xcodecachetotal</code> option is specified, then the <code>-XX:codecachetotalMaxRAMPercentage</code> option is ignored.</li>
-<li>The percentage of the physical available memory that is specified in the <code>-XX:codecachetotalMaxRAMPercentage</code> option is used only if the calculated total cache value is less than the default total code cache value set for the platform.</li>
+<li>The percentage of the physical available memory that is specified in the <code>-XX:codecachetotalMaxRAMPercentage</code> option is used only if the total cache value thus calculated is less than the default total code cache value set for the platform (minimum of the two limits).</li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxcodecachetotalmaxrampercentage.md ==== -->
 
