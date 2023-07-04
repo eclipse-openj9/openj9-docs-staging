@@ -10,20 +10,20 @@
       
       
       
-        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xxjitservertimeout/">
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xxcodecachetotalmaxrampercentage/">
       
       
-        <link rel="prev" href="../xxjitserversslcert/">
+        <link rel="prev" href="../xxcodecachetotal/">
       
       
-        <link rel="next" href="../xxjitserveruseaotcache/">
+        <link rel="next" href="../xxcompactstrings/">
       
       <link rel="icon" href="../cr/openj9-logo.svg">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
     
     
       
-        <title>-XX:JITServerTimeout -  </title>
+        <title>-XX:codecachetotalMaxRAMPercentage -  </title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xxjitservertimeout" class="md-skip">
+        <a href="#-xxcodecachetotalmaxrampercentage" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -XX:JITServerTimeout
+              -XX:codecachetotalMaxRAMPercentage
             
           </span>
         </div>
@@ -4018,11 +4018,59 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../xxcodecachetotalmaxrampercentage/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          -XX:codecachetotalMaxRAMPercentage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         -XX:codecachetotalMaxRAMPercentage
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    Explanation
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4606,59 +4654,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          -XX:JITServerTimeout
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../xxjitservertimeout/" class="md-nav__link">
         -XX:JITServerTimeout
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    Syntax
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See also
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5667,8 +5667,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    See also
+  <a href="#explanation" class="md-nav__link">
+    Explanation
   </a>
   
 </li>
@@ -5690,7 +5690,7 @@
 
 
 <!--
-* Copyright (c) 2017, 2023 IBM Corp. and others
+* Copyright (c) 2017, 2022 IBM Corp. and others
 *
 * This program and the accompanying materials are made
 * available under the terms of the Eclipse Public License 2.0
@@ -5707,38 +5707,50 @@
 * License, version 2 with the OpenJDK Assembly Exception [2].
 *
 * [1] https://www.gnu.org/software/classpath/license.html
-* [2] https://openjdk.org/legal/assembly-exception.html
+* [2] http://openjdk.java.net/legal/assembly-exception.html
 *
 * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0 OR GPL-2.0-only WITH OpenJDK-assembly-exception-1.0
 -->
 
-<h1 id="-xxjitservertimeout">-XX:JITServerTimeout</h1>
-<p>This option specifies the socket timeout for JITServer communication.</p>
-<p>You can specify this option on both the server and the client sides.</p>
+<h1 id="-xxcodecachetotalmaxrampercentage">-XX:codecachetotalMaxRAMPercentage</h1>
+<p>This option sets the maximum limit for the total JIT code cache size based on the amount of physical memory available to the VM.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code>    -XX:JITServerTimeout=&lt;timeout_ms&gt;
+<pre><code>    -XX:codecachetotalMaxRAMPercentage=&lt;number&gt;
 </code></pre>
 <table>
 <thead>
 <tr>
 <th>Setting</th>
-<th>Effect</th>
+<th>Value</th>
 <th align="center">Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>-XX:JITServerTimeout</code></td>
-<td>Set the timeout value in milliseconds for socket operations</td>
-<td align="center">30000 ms for the JITServer process and 10000 ms when Eclipse OpenJ9&trade; is launched as a client VM</td>
+<td><code>&lt;number&gt;</code></td>
+<td>Between 1 and 100 (fractional numbers are allowed)</td>
+<td align="center">25</td>
 </tr>
 </tbody>
 </table>
-<h2 id="see-also">See also</h2>
+<p>Where <code>&lt;number&gt;</code> is the maximum limit that is expressed as a percentage of the available physical memory.</p>
+<p>For example, if you specify <code>-XX:codecachetotalMaxRAMPercentage=30</code>, the VM is not allowed to use more than 30% of the available physical memory for the internal JIT code caches.</p>
+<h2 id="explanation">Explanation</h2>
+<p>The default total size of the JIT code cache is computed as the minimum of the following two limits:</p>
 <ul>
-<li><a href="../jitserver/">JITServer technology</a></li>
+<li>A platform-based limit that is expressed as an absolute memory value. This limit is set at 256 MB for 64-bit systems and at 64 MB for 31/32-bit systems.</li>
+<li>A percentage of the amount of available physical memory the VM process is allowed to use. By default, the VM is not allowed to use more than 25% of the available physical memory for its code caches.</li>
 </ul>
-<!-- ==== END OF TOPIC ==== xxjitservertimeout.md ==== -->
+<p>In memory constrained environments, the percentage limit is relevant because the code cache size is then based on the available physical memory. The percentage limit prevents the VM from using too much memory for its code caches and thus, leaving too little memory for other VM or JIT data structures.</p>
+<p>For example, on a 64-bit system, the platform-specific code cache limit is 256 MB. If the VM is constrained to less than 1024 MB, say 512 MB, then the code cache limit becomes 128 MB (25% of 512 MB) because the percentage limit is less than the platform limit.</p>
+<p>To fine-tune the code cache size limit for your specific application as a percentage of the available physical memory, you can use the <code>-XX:codecachetotalMaxRAMPercentage</code> option.</p>
+<p>As an alternative, you can use the <a href="../xxcodecachetotal/"><code>-XX:codecachetotal</code></a> or the <a href="../xcodecachetotal/"><code>-Xcodecachetotal</code></a> options to set the code cache size limit as an absolute value (platform-based limit). The absolute value that is specified with these options takes precedence over the percentage that is specified with the <code>-XX:codecachetotalMaxRAMPercentage</code> option.</p>
+<p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32 14.3 32 32 32 32-14.3 32-32z"/></svg></span> <strong>Restrictions:</strong></p>
+<ul>
+<li>If the <code>-XX:codecachetotal</code> or <code>-Xcodecachetotal</code> option is specified, then the <code>-XX:codecachetotalMaxRAMPercentage</code> option is ignored.</li>
+<li>The percentage of the available physical memory that is specified in the <code>-XX:codecachetotalMaxRAMPercentage</code> option is used only if the total cache value thus calculated is less than the default total code cache value set for the platform (minimum of the two limits).</li>
+</ul>
+<!-- ==== END OF TOPIC ==== xxcodecachetotalmaxrampercentage.md ==== -->
 
 
 
