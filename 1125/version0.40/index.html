@@ -382,6 +382,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#support-for-persistent-shared-classes-cache-added-on-zos" class="md-nav__link">
+    Support for persistent shared classes cache added on z/OS
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -444,6 +451,32 @@
   
 
             
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          Earlier releases
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Earlier releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Earlier releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
             
               
@@ -528,32 +561,6 @@
   
 
             
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_12" type="checkbox" id="__nav_5_12" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_5_12">
-          Earlier releases
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Earlier releases" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_12">
-          <span class="md-nav__icon md-icon"></span>
-          Earlier releases
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
           
             
               
@@ -5713,6 +5720,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#support-for-persistent-shared-classes-cache-added-on-zos" class="md-nav__link">
+    Support for persistent shared classes cache added on z/OS
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5770,6 +5784,7 @@
 <li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
 <li><a href="#new-xxcodecachetotalmaxrampercentage-option-added">New <code>-XX:codecachetotalMaxRAMPercentage</code> option added</a></li>
 <li><a href="#vm-starts-with-a-warning-message-after-the-container-detection-fails">VM starts with a warning message after the container detection fails</a></li>
+<li><a href="#support-for-persistent-shared-classes-cache-added-on-zos">Support for persistent shared classes cache added on z/OS</a></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
@@ -5781,6 +5796,8 @@
 <h3 id="vm-starts-with-a-warning-message-after-the-container-detection-fails">VM starts with a warning message after the container detection fails</h3>
 <p>If you mount the <code>/proc</code> file system with the <code>hidepid=2</code> option on Linux® systems and the VM does not have root privileges, it cannot access the <code>/proc</code> file system. In previous releases, the VM exits when it encounters this scenario. From this release, the VM starts with a warning message after the container detection fails.</p>
 <p>For more information, see the <a href="../introduction/#cloud-optimizations">Cloud optimizations</a> topic.</p>
+<h3 id="support-for-persistent-shared-classes-cache-added-on-zos">Support for persistent shared classes cache added on z/OS</h3>
+<p>Persistent shared caches are now supported on z/OS systems. The default cache type on z/OS is still non-persistent. You can use the <a href="../xshareclasses/#persistent"><code>-Xshareclasses:persistent</code></a> option to switch to persistent shared cache.</p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
 <p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.39.0 and v0.40.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.40/0.40.md">Release notes</a>.</p>
 <!-- ==== END OF TOPIC ==== version0.40.md ==== -->
