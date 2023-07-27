@@ -5719,6 +5719,10 @@
 <li>To turn off <strong>CBC</strong>, set <code>-Djdk.nativeCBC=false</code></li>
 <li>To turn off <strong>GCM</strong>, set <code>-Djdk.nativeGCM=false</code></li>
 <li>To turn off <strong>RSA</strong>, set <code>-Djdk.nativeRSA=false</code></li>
+<li>To turn off <strong>ECDH key agreement</strong>, set <code>-Djdk.nativeEC=false</code></li>
+<li>To turn off <strong>EC key generation</strong>, set <code>-Djdk.nativeECKeyGen=false</code></li>
+<li><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> To turn off <strong>XDH key agreement</strong>, set <code>-Djdk.nativeXDHKeyAgreement=false</code></li>
+<li>To turn off <strong>XDH key generation</strong>, set <code>-Djdk.nativeXDHKeyGen=false</code> <img alt="End of content that applies to Java 11 (LTS) and later" src="../cr/java_close_lts.png" /></li>
 </ul>
 <p>You can turn off all the algorithms by setting the following system property on the command line:</p>
 <pre><code>-Djdk.nativeCrypto=false
