@@ -5811,7 +5811,7 @@
 -->
 
 <h1 id="-xxcontinuationcache">-XX:ContinuationCache</h1>
-<p>This option sets the Continuation tier 1 and 2 cache size to optimize virtual thread performance.</p>
+<p><img alt="Start of content that applies to Java 21 (LTS) and later" src="../cr/java21plus.png" /> This option sets the Continuation tier 1 and 2 cache size to optimize virtual thread performance.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:ContinuationCache:t1=&lt;size&gt;,t2=&lt;size&gt;
 </code></pre>
@@ -5840,9 +5840,9 @@
 <p>Tier 1 cache holds data that is not shareable between threads.</p>
 <p>Tier 2 cache holds data that can be shared globally between threads.</p>
 <h2 id="explanation">Explanation</h2>
-<p>Continuation is the underlying structure or object that holds the task or state of a virtual thread. When a virtual thread is created, it is associated with a Continuation object. A virtual thread saves its current state in its continuation object and later resumes from that state, typically on a different thread. When a continuation is implemented, the VM allocates native memory for the continuation to hold the internal data structure. When the continuation implementation is complete, instead of freeing the allocated memory, the VM stores such a memory in a continuation cache. To create a new continuation object, instead of allocating new memory, the VM can directly use the cached structure. When the VM recycles the native continuation structure that is allocated for the virtual thread, the virtual thread creation performance improves.</p>
-<p>The continuation cache is implemented in 2 tiers, tier 1 and tier 2. You can set the maximum size for the 2 tiers with the <code>-XX:ContinuationCache</code> option. If an application uses more than 10000 virtual threads, setting a larger cache size can help to improve performance.</p>
-<p>The size of the cache is a tradeoff between allocation and cache lookup. Increasing the size of the cache reduces the number of allocations but the cache lookup time might increase.</p>
+<p>Continuation is the underlying structure or object that holds the task or state of a virtual thread. When a virtual thread is created, it is associated with a Continuation object, which holds the target task of the virtual thread. When the virtual thread starts, the VM saves the current runtime state in the internal allocated structure that is linked with the Continuation object. The VM can resume execution from that state later, typically on a different thread. When the Continuation task starts, the VM allocates native memory for the continuation to hold the internal data structure. When the Continuation task is complete, instead of freeing the allocated memory, the VM stores such a structure as a continuation cache. New Continuation objects can directly use the cached structure instead of reallocating in memory. When the VM recycles the native continuation structure that is allocated for the virtual thread, the virtual thread creation performance improves.</p>
+<p>The continuation cache is implemented in 2 tiers, tier 1 and tier 2. You can set the maximum size for the 2 tiers with the <code>-XX:ContinuationCache</code> option. If an application uses more than 10000 virtual threads, setting a larger cache size might help to improve performance.</p>
+<p>The size of the cache is a tradeoff between allocation and cache lookup. Increasing the size of the cache reduces the number of allocations but the cache lookup time might increase. <img alt="End of content that applies to Java 21 (LTS) and later" src="../cr/java_close_lts.png" /></p>
 <!-- ==== END OF TOPIC ==== xxcontinuationcache.md ==== -->
 
 
