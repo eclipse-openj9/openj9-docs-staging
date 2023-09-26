@@ -8101,7 +8101,7 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>AIX system adds the <code>zlibNX</code> library location, if available, to the <code>LIBPATH</code> variable by default. But having the <code>zlibNX</code> library directory location in the <code>LIBPATH</code> variable might cause some issues, such as Git clone failing when run from Java&trade;.</p>
+<p>AIX system adds the <code>zlibNX</code> library location, if available, to the <code>LIBPATH</code> variable by default. But having the <code>zlibNX</code> library directory location in the <code>LIBPATH</code> variable might cause some issues. For example, Git clone fails when executed from Java&reg; when <code>zlibNX</code> is on the <code>LIBPATH</code> in the environment.</p>
 <p>You can disable adding of the <code>zlibNX</code> library location to the <code>LIBPATH</code> variable with the <code>-XX:-UseZlibNX</code> option.</p>
 <h2 id="see-also">See also</h2>
 <ul>
