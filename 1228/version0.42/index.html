@@ -8260,7 +8260,7 @@
 <p>Now, the <code>System.gc()</code> call triggers the GC cycle twice internally to clear the unreachable objects that were not identified during the first GC cycle. The call also triggers finalization of the objects in the Finalization queues.</p>
 <p>For more information, see <a href="../gc_overview/">Garbage collection</a>.</p>
 <h3 id="new-xx-iprofileduringstartupphase-option-added">New <code>-XX:[+|-]IProfileDuringStartupPhase</code> option added</h3>
-<p>I-Profiler collects profiling information at the time of JIT compilation. The I-Profiler uses an algorithm to decide whether to collect the information or not during a VM startup. You can overrule the algorithm result and control the collection of the profiling information during the startup phase by using the <a href="../xxiprofileduringstartupphase/"><code>-XX:[+|-]IProfileDuringStartupPhase</code></a> option.</p>
+<p>The VM uses an algorithm and checks the shared classes cache to decide whether to collect the I-Profiler information or not during the VM startup. You can overrule the algorithm result and control the collection of the profiling information during the startup phase by using the <a href="../xxiprofileduringstartupphase/"><code>-XX:[+|-]IProfileDuringStartupPhase</code></a> option.</p>
 <h3 id="new-jdk-21-features"><img alt="Start of content that applies to Java 21 plus" src="../cr/java21plus.png" /> New JDK 21 features</h3>
 <p>The following features are supported by OpenJ9:</p>
 <ul>
