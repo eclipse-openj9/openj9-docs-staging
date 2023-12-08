@@ -8174,7 +8174,7 @@
 -->
 
 <h1 id="-xx-iprofileduringstartupphase">-XX:[+|-]IProfileDuringStartupPhase</h1>
-<p>This option enables or disables the I-Profiler data collection of the profiling information during a VM startup.</p>
+<p>This option enables or disables the data collection by the interpreter profiler during a VM startup.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]IProfileDuringStartupPhase
 </code></pre>
@@ -8197,10 +8197,10 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>The VM collects the I-Profiler information that is used to optimize methods at the time of JIT compilation. This interpreter profiling data is stored in the shared classes cache and improves the VM startup time. The VM uses an algorithm that includes the shared classes cache properties to decide whether to collect the information or not during a VM startup. You can overrule the algorithm result and control the collection of the profiling information during the startup phase by using the <code>-XX:[+|-]IProfileDuringStartupPhase</code> option.</p>
+<p>The VM collects interpreter profiling data that is used to optimize methods at the time of JIT compilation. To reduce the CPU usage of the interpreter profiler during the startup phase, the VM stores such profiling data in the shared classes cache. During startup, the VM uses heuristics to determine when to turn on data collection and when to rely on the data that was collected by a previous VM and stored in the cache. You can overrule the heuristics and control the collection of the profiling information during the startup phase by using the <code>-XX:[+|-]IProfileDuringStartupPhase</code> option.</p>
 <ul>
-<li>If the <code>-XX:+IProfileDuringStartupPhase</code> option is specified, the VM collects the I-Profiler information during startup. Use this option to collect the latest profiling information for optimizing the methods and storing the information in the shared classes cache. By using this option, the optimization levels of methods might increase but might affect performance in the startup phase.</li>
-<li>If the <code>-XX:-IProfileDuringStartupPhase</code> option is specified, the VM does not collect the I-Profiler information during startup. Use this option if the shared classes cache already has the I-Profiler information and therefore, you don't have to collect the new information and affect performance.</li>
+<li>If the <code>-XX:+IProfileDuringStartupPhase</code> option is specified, the VM always collects the latest interpreter profiling information during startup and stores the information in the shared classes cache. By using this option, the quality of the generated code might increase, leading to better long-term throughput. But, this option might increase the startup time of applications.</li>
+<li>If the <code>-XX:-IProfileDuringStartupPhase</code> option is specified, the VM does not collect interpreter profiling information during the startup phase. Use this option if the shared classes cache already contains sufficient interpreter profiling information and therefore, you don't have to collect new information and affect the startup time.</li>
 </ul>
 <h2 id="see-also">See also</h2>
 <ul>
