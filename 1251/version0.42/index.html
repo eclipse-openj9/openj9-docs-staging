@@ -8717,7 +8717,7 @@
 <p>For more information, see <a href="../gc_overview/">Garbage collection</a>.</p>
 <h3 id="new-xx-iprofileduringstartupphase-option-added">New <code>-XX:[+|-]IProfileDuringStartupPhase</code> option added</h3>
 <p>The VM uses heuristics to decide whether to collect interpreter profiling information during the VM startup. You can overrule the heuristics and control the collection of the profiling information during the startup phase by using the <a href="../xxiprofileduringstartupphase/"><code>-XX:[+|-]IProfileDuringStartupPhase</code></a> option.</p>
-<h3 id="new-xx-criusecprovider-option-added"><img alt="Start of content that applies to Java 21 (LTS)" src="../cr/java21plus.png" /> New <code>-XX:[+|-]CRIUSecProvider</code> option added</h3>
+<h3 id="new-xx-criusecprovider-option-added"><img alt="Start of content that applies to Java 21 (LTS)" src="../cr/java21.png" /> New <code>-XX:[+|-]CRIUSecProvider</code> option added</h3>
 <p>When you enable CRIU support, all the existing security providers are removed from the security provider list during the checkpoint phase and <code>CRIUSECProvider</code> is added by default.</p>
 <p>You can now control the use of <code>CRIUSECProvider</code> during the checkpoint phase with the <code>-XX:[+|-]CRIUSecProvider</code> option. You can use all the existing security providers instead of the <code>CRIUSECProvider</code> by specifying the <code>-XX:-CRIUSecProvider</code> option.</p>
 <p>For more information, see <a href="../xxcriusecprovider/"><code>-XX:[+|-]CRIUSecProvider</code></a>. <img alt="End of content that applies to Java 21 (LTS)" src="../cr/java_close_lts.png" /></p>
