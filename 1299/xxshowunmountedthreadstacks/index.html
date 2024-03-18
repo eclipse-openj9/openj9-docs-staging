@@ -8637,7 +8637,7 @@
 
 
 <!--
-* Copyright (c) 2017, 2022 IBM Corp. and others
+* Copyright (c) 2017, 2024 IBM Corp. and others
 *
 * This program and the accompanying materials are made
 * available under the terms of the Eclipse Public License 2.0
@@ -8660,7 +8660,7 @@
 -->
 
 <h1 id="-xx-showunmountedthreadstacks">-XX:[+|-]ShowUnmountedThreadStacks</h1>
-<p><img alt="Start of content that applies to Java 21 (LTS) and later" src="../cr/java21plus.png" /> This option enables or disables the inclusion of the unmounted virtual thread stacks in a core file.</p>
+<p><img alt="Start of content that applies to Java 21 (LTS) and later" src="../cr/java21plus.png" /> This option enables or disables the inclusion of the unmounted virtual thread stacks in a Java&trade; core file.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]ShowUnmountedThreadStacks
 </code></pre>
@@ -8688,9 +8688,9 @@
 <h2 id="explanation">Explanation</h2>
 <p>In a VM, Java&trade; threads are mapped one-to-one to platform threads and each thread is allocated a new native Java stack.</p>
 <p>Virtual threads require platform threads to run because the operating system identifies only platform threads, but these virtual threads are not tied one-to-one to a platform thread. The VM mounts the virtual threads on available platform threads, called carrier threads. When the VM faces a blocking operation on a virtual thread, the thread is unmounted from its carrier thread and hence, the virtual thread is no longer mapped to a platform thread.</p>
-<p>Core file lists stacks of only those threads that are mapped to platform threads. Therefore, the stack of any unmounted virtual thread is not included in the core file and thus, the virtual thread information remains incomplete. The unmounted threads also include the carrier thread if a virtual thread was mounted on it. Unmounting the virtual thread, unmounts the carrier thread itself. The stack of any unmounted carrier thread is also not included in the core file.</p>
-<p>You can use the <code>-XX:+ShowUnmountedThreadStacks</code> option to include all the thread data that a VM is aware of, both regular Java threads and the unmounted threads.</p>
-<p>The <code>-XX:-ShowUnmountedThreadStacks</code> option is the default option because the chance of having issues with unmounted virtual threads is low. Usually the running or mounted threads are what causes failures. Including the unmounted virtual thread information increases the core file size and that might affect performance. <img alt="End of content that applies to Java 21 (LTS) and later" src="../cr/java_close_lts.png" /></p>
+<p>Java core file lists stacks of only those threads that are mapped to platform threads. Therefore, the stack of any unmounted virtual thread is not included in the Java core file and thus, the virtual thread information remains incomplete. The unmounted threads also include the carrier thread if a virtual thread was mounted on it. Unmounting the virtual thread, unmounts the carrier thread itself. The stack of any unmounted carrier thread is also not included in the Java core file.</p>
+<p>You can use the <code>-XX:+ShowUnmountedThreadStacks</code> option to include all the thread data that a VM is aware of, both regular Java threads and the unmounted threads, in the Java core file.</p>
+<p>The <code>-XX:-ShowUnmountedThreadStacks</code> option is the default option because the chance of having issues with unmounted virtual threads is low. Usually the running or mounted threads are what causes failures. Including the unmounted virtual thread information increases the Java core file size and that might affect performance. <img alt="End of content that applies to Java 21 (LTS) and later" src="../cr/java_close_lts.png" /></p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xxshowcarrierframes/"><code>-XX:[+|-]ShowCarrierFrames</code></a></li>
