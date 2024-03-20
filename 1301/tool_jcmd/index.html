@@ -8641,12 +8641,10 @@
 </li>
 <li>
 <p><code>&lt;vmid&gt;</code> is the Attach API virtual machine identifier for the Java VM process. This ID is often, but not always, the same as the operating system pid. One example where the ID might be different is if you specified the system property <code>-Dcom.ibm.tools.attach.id</code> when you started the process. You can use the <a href="../tool_jps/"><code>jps</code></a> command to find the VMID.</p>
-</li>
-</ul>
 <p>You can also specify the full or partial target Java process display name instead of the VMID. The <code>jcmd</code> tool finds the corresponding VMID of the display name and runs the <code>jcmd</code> command.</p>
 <p>You can specify the display name for a target VM through the <a href="../dcomibmtoolsattachdisplayname/"><code>com.ibm.tools.attach.displayName</code></a> system property. If the display name is not set through the system property, then the main class name along with the application arguments, <code>jcmd [pid | main-class] command</code>, is set as the default display name.</p>
 <p>If you specify <code>0</code>, the <code>jcmd</code> command is sent to all Java processes that are detected by the current <code>jcmd</code> command.</p>
-<ul>
+</li>
 <li>
 <p>The available <code>arguments</code> are:</p>
 <ul>
