@@ -8787,7 +8787,7 @@
 <p>You can use the <code>-XX:+ShowUnmountedThreadStacks</code> option to include all the thread data that a VM is aware of, both regular Java threads and the unmounted virtual threads, in a Java core file.</p>
 <p>For more information, see <a href="../xxshowunmountedthreadstacks/"><code>-XX:[+|-]ShowUnmountedThreadStacks</code></a>. <img alt="End of content that applies to Java 21 (LTS)" src="../cr/java_close_lts.png" /></p>
 <h3 id="vmid-query-in-the-jcmd-tool-enhanced">VMID query in the <code>jcmd</code> tool enhanced</h3>
-<p>Earlier in OpenJ9, when sending a <code>jcmd</code> command to a VM, you had to run <code>jcmd -l</code> to retrieve all the pids for all the VMs found on the machine. Then, you had to use <code>jcmd [pid] [command]</code> to send the command to the specific VM.</p>
+<p>Earlier in OpenJ9, when sending a <code>jcmd</code> command to a VM, you had to run <code>jcmd -l</code> to retrieve all the pids for all the VMs found on the machine. Then, you had to use <code>jcmd [vmid] [command]</code> to send the command to the specific VM.</p>
 <p>For OpenJDK compatibility, OpenJ9 now supports direct use of the Java process name, full or partial, as the ID to send the <code>jcmd</code> command.</p>
 <p>The <code>jcmd</code> tool also now supports specifying <code>0</code> as a VMID to target all VMs.</p>
 <p>For more information, see <a href="../tool_jcmd/">Java diagnostic command (<code>jcmd</code>) tool</a>.</p>
