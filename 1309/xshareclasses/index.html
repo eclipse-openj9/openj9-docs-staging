@@ -9734,7 +9734,7 @@
 </ul>
 </dd>
 <dd>
-<p>On AIX&reg;, Linux, macOS, Windows, and z/OS systems, the VM writes persistent cache files directly into the directory specified. Persistent cache files can be safely moved and deleted from the file system.</p>
+<p>On all operating systems, the VM writes persistent cache files directly into the directory specified. Persistent cache files can be safely moved and deleted from the file system.</p>
 </dd>
 <dd>
 <p>Non-persistent caches are stored in shared memory and have control files that describe the location of the memory. Control files are stored in a <code>javasharedresources</code> subdirectory of the <code>cacheDir</code> specified. Do not move or delete control files in this directory. The <code>listAllCaches</code> utility, the <code>destroyAll</code> utility, and the <code>expire</code> suboption work only in the scope of a given <code>cacheDir</code>.</p>
