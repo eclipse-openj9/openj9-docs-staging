@@ -8682,20 +8682,21 @@
 
 <h1 id="-dcomibmtoolsattachfileaccessupdatetime">-Dcom.ibm.tools.attach.fileAccessUpdateTime</h1>
 <p><strong>Linux&reg; only</strong></p>
-<p>This option enables the Attach API to update the control file access times at specific intervals, for long-running applications.</p>
+<p>This option enables Attach API to update the control file access times at specific intervals, for long-running applications.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -Dcom.ibm.tools.attach.fileAccessUpdateTime=&lt;sleep days&gt;
 </code></pre>
-<p>where <code>&lt;sleep days&gt;</code> is the number of interval days after which the Attach API updates the control file access times for long-running applications. The default value for <code>&lt;sleep days&gt;</code> is 8.</p>
+<p>where <code>&lt;sleep days&gt;</code> is the number of interval days after which Attach API updates the control file access times for long-running applications. The default value for <code>&lt;sleep days&gt;</code> is 8.</p>
 <h2 id="explanation">Explanation</h2>
-<p>By default, the Attach API of a VM places its notification files in the system temporary directory, <code>/tmp/.com_ibm_tools_attach</code>. The long-running Attach API uses the notification files to operate. But, the VM does not open, modify, or read from these files after the files are created, if the VM does not attempt to attach to a target VM.</p>
+<p>By default, the Attach API of a VM places its control files in the system temporary directory, <code>/tmp/.com_ibm_tools_attach</code>. The long-running Attach API uses the control files to operate. But, the VM does not open, modify, or read from these files after the files are created, if there is no attempt to attach to a target VM.</p>
 <p>This causes a problem in Linux environments because by default <code>systemd-tmpfiles</code> automatically deletes all files and directories that are stored in the <code>/tmp/</code> folder that are not changed or read within a specific time period. By default, the files in the <code>/tmp/</code> folder are cleaned up after 10 days by <code>systemd-tmpfiles</code>.</p>
-<p>You can prevent Linux <code>systemd-tmpfiles</code> from deleting the files within the <code>/tmp/</code> folder with the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property. You can specify the interval days after which the AttachAPI updates the control file access times with the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property.</p>
+<p>You can prevent Linux <code>systemd-tmpfiles</code> from deleting the Attach API control files within the <code>/tmp/</code> folder with the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property. You can specify the interval days after which Attach API updates the control file access times with the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property.</p>
 <p>If <code>0</code> is specified as the number of <code>&lt;sleep days&gt;</code>, the control file access times are not updated and if <code>systemd-tmpfiles</code> is enabled, it deletes the files in the <code>/tmp/</code> folder.</p>
-<p>You can specify a different location outside of the <code>/tmp/</code> folder to place the Attach API notification files with the <a href="../dcomibmtoolsattachdirectory/"><code>-Dcom.ibm.tools.attach.directory</code></a> system property, if you do not want to use the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property.</p>
+<p>You can specify a different location outside of the <code>/tmp/</code> folder to place the Attach API control files with the <a href="../dcomibmtoolsattachdirectory/"><code>-Dcom.ibm.tools.attach.directory</code></a> system property, if you do not want to use the <code>-Dcom.ibm.tools.attach.fileAccessUpdateTime</code> system property.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../attachapi/">Java&trade; Attach API</a></li>
+<li><a href="../version0.44/#new-system-property-added-to-prevent-the-deletion-of-the-attach-api-control-files-within-the-tmp-folder">What's new in version 0.44.0</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== dcomibmtoolsattachfileaccessupdatetime.md ==== -->
 
