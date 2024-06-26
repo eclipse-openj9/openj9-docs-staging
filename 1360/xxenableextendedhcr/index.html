@@ -8685,19 +8685,19 @@
 <tr>
 <td><code>-XX:+EnableExtendedHCR</code></td>
 <td>Enable</td>
-<td style="text-align: center;"><img alt="Start of content that applies only to Java 8" src="../cr/java8.png" />  <span aria-hidden="true" class="twemoji yes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"/></svg></span><span class="sr-only">yes</span>  <img alt="End of content that applies only to Java 8" src="../cr/java_close_lts.png" /></td>
+<td style="text-align: center;"></td>
 </tr>
 <tr>
 <td><code>-XX:-EnableExtendedHCR</code></td>
 <td>Disable</td>
-<td style="text-align: center;"><img alt="Start of content that applies only to Java 11+ (LTS)" src="../cr/java11plus.png" />   <span aria-hidden="true" class="twemoji yes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"/></svg></span><span class="sr-only">yes</span>   <img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></td>
+<td style="text-align: center;"><span aria-hidden="true" class="twemoji yes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"/></svg></span><span class="sr-only">yes</span></td>
 </tr>
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
 <p>Supporting extended HCR has a maintenance cost and because only few users use this capability, the extended HCR feature is deprecated and will be removed in a future release. From OpenJDK 25 onwards, extended HCR will not be supported. Following that, the extended HCR support will be removed from other earlier OpenJDK versions also.</p>
 <p>If the extended HCR support is disabled (<code>-XX:-EnableExtendedHCR</code>), it might result in a JVMTI failure. In case of such a failure, the following warning message is displayed:</p>
-<pre><code>Warning: Extended HCR is disabled, enable with `-XX:+EnableExtendedHCR`. In the future, this capability will be removed from the JDK.
+<pre><code>Warning: Extended HCR is disabled, enable with -XX:+EnableExtendedHCR. This feature is deprecated. In the future, the extended HCR capability, and the option to enable it, will be completely removed from all versions.
 </code></pre>
 <h2 id="see-also">See also</h2>
 <ul>
