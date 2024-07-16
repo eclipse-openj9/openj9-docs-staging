@@ -8789,9 +8789,9 @@
 <p><strong>Windows&trade; only</strong></p>
 <p>This option specifies the number of times the <code>jcmd</code> tool retries attaching to a running VM when the tool encounters the <code>SocketException</code> error.</p>
 <h2 id="syntax">Syntax</h2>
-<pre><code>    -Dcom.ibm.tools.attach.retry=&lt;number of retries&gt;
+<pre><code>    -Dcom.ibm.tools.attach.retry=&lt;number_of_retries&gt;
 </code></pre>
-<p>The default value for <code>&lt;number of retries&gt;</code> is 3.</p>
+<p>The default value for <code>&lt;number_of_retries&gt;</code> is 3.</p>
 <h2 id="explanation">Explanation</h2>
 <p>When the <code>jcmd</code> tool sends a command to a running VM to force a garbage collection cycle, the command might throw the <code>Socket Exception</code> error if the garbage collection process encounters a deadlock or other memory management issue. Instead of failing the attaching request, you can specify the number of times the tool retries attaching to the target VM with the <code>-Dcom.ibm.tools.attach.retry</code> system property.</p>
 <h2 id="see-also">See also</h2>
