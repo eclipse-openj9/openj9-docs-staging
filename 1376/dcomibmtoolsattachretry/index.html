@@ -8793,7 +8793,7 @@
 </code></pre>
 <p>The default value for <code>&lt;number_of_retries&gt;</code> is 3.</p>
 <h2 id="explanation">Explanation</h2>
-<p>When the <code>jcmd</code> tool sends a command to a running VM to force a garbage collection cycle, the command might throw the <code>Socket Exception</code> error if the garbage collection process encounters a deadlock or other memory management issue. Instead of failing the attaching request, you can specify the number of times the tool retries attaching to the target VM with the <code>-Dcom.ibm.tools.attach.retry</code> system property.</p>
+<p>When the <code>jcmd</code> tool sends a command to a running VM, the command might throw the <code>Socket Exception</code> error in case of issues, such as a network failure or a connection reset. Instead of failing the attaching request, you can specify the number of times the tool retries attaching to the target VM with the <code>-Dcom.ibm.tools.attach.retry</code> system property.</p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../attachapi/">Java&trade; Attach API</a></li>
