@@ -8807,7 +8807,7 @@
 -->
 
 <h1 id="-xx-shareorphans">-XX:[+|-]ShareOrphans</h1>
-<p>This option enables or disables sharing of orphan classes from class loaders that do not implement the OpenJ9 shared class API.</p>
+<p>This option enables or disables sharing of orphan classes from class loaders that do not implement the OpenJ9's <a href="https://eclipse.dev/openj9/docs/api-shrc/">public shared classes cache APIs</a>.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]ShareOrphans
 </code></pre>
@@ -8833,18 +8833,18 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>In the previous versions, OpenJ9 stored only bootstrap classes and hidden classes in the shared classes cache by default, that is <code>-Xshareclasses</code> is not specified by default. When <code>-Xshareclasses</code> was specified, only those class loaders that implemented the OpenJ9's public shared classes cache APIs (and its child class loaders) could store classes to the shared classes cache. For classes from custom class loaders that did not implement shared classes cache APIs, the VM does not have their module or class path information. Such classes were not stored to the shared classes cache.</p>
-<p>You can enable class sharing from all class loaders, irrespective of whether the class loader implements the OpenJ9's public shared classes cache API, with the <code>-XX:+ShareOrphans</code> option. This option automatically turns on <code>-Xshareclasses</code>. When the class sharing from all class loaders is enabled, following is the sharing behavior:</p>
+<p>In the previous versions, OpenJ9 stored only bootstrap classes and hidden classes in the shared classes cache by default, that is the <code>-Xshareclasses</code> option is not specified by default. When the <code>-Xshareclasses</code> option was specified, only those class loaders that implemented the OpenJ9's public shared classes cache APIs (and its child class loaders) could store classes to the shared classes cache. For classes from custom class loaders that did not implement the shared classes cache APIs, the VM does not have their module or class path information. Such classes were not stored to the cache.</p>
+<p>You can enable class sharing from all class loaders, irrespective of whether the class loader implements the cache API, with the <code>-XX:+ShareOrphans</code> option. This option automatically enables the <code>-Xshareclasses</code> option. When the class sharing from all class loaders is enabled, following is the sharing behavior:</p>
 <ul>
 <li>
-<p>For classes from class loaders that implement the OpenJ9 shared class API, they are shared as normal ROM classes, which is same as turning on <code>-Xshareclasses</code>.</p>
+<p>For classes from class loaders that implement the shared class cache API, they are shared as normal ROM classes, which is same as enabling <code>-Xshareclasses</code>.</p>
 </li>
 <li>
-<p>For classes from class loaders that do not implement the OpenJ9 shared class API, the VM won't have their class or module path information. They are shared as orphan ROM classes with other VMs after extra comparisons.</p>
+<p>For classes from class loaders that do not implement the shared class cache API, the VM won't have their class or module path information. They are shared as orphan ROM classes with other VMs after extra comparisons.</p>
 </li>
 </ul>
 <p>Storing additional classes in the cache makes more classes available for Ahead-of-Time (AOT) compilation and therefore might improve startup performance.</p>
-<p>You can disable sharing class as orphans from class loader that does not implement the OpenJ9 shared class API with the <code>-XX:-ShareOrphans</code> option. This option is the default mode.</p>
+<p>You can disable sharing class as orphans from class loader that does not implement the shared class cache API with the <code>-XX:-ShareOrphans</code> option. This option is the default mode.</p>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0-64 0 32 32 0 1 0 64 0z"/></svg></span> <strong>Restrictions:</strong></p>
 <ul>
 <li>Sharing classes as orphans requires more comparison on the classes by the VM. The comparison itself has a negative performance impact. However, the benefits of more AOT generated for the cached class might offset the negative impact.</li>
