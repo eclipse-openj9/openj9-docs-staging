@@ -8898,7 +8898,15 @@
 <td>0.33.0</td>
 </tr>
 <tr>
-<td>On z/OS, when the VM loads an application native library (DLL), it searches for the library in the path that is specified in the <code>-Djava.library.path</code> system property or the <code>LIBPATH</code> environment variable. In Java 11 and earlier versions, the VM searched for the application native libraries by using both the <code>-Djava.library.path</code> system property and the <code>LIBPATH</code> environment variable. From Java 17 onwards, the search is based on only the <code>-Djava.library.path</code> system property value that is obtained when the VM starts. Changing the <code>-Djava.library.path</code> system property value after VM startup doesn't change the search. If the path is set on the command line by using the <code>-Djava.library.path</code> system property, only this path is used for the search. The path specified by the <code>LIBPATH</code> variable is not used to search for the application native libraries. The default value of the  <code>-Djava.library.path</code> system property is still derived from the <code>LIBPATH</code> environment variable.</td>
+<td>On z/OS, when the VM loads an application native library (DLL), it searches for the library in the path that is specified in the <code>-Djava.library.path</code> system property or the <code>LIBPATH</code> environment variable.</td>
+<td></td>
+</tr>
+<tr>
+<td>In Java 11 and earlier versions, the VM searched for the application native libraries by using both the <code>-Djava.library.path</code> system property and the <code>LIBPATH</code> environment variable.</td>
+<td></td>
+</tr>
+<tr>
+<td>From Java 17 onwards, the search is based on only the <code>-Djava.library.path</code> system property value that is obtained when the VM starts. Changing the <code>-Djava.library.path</code> system property value after VM startup doesn't change the search. If the path is set on the command line by using the <code>-Djava.library.path</code> system property, only this path is used for the search. The path specified by the <code>LIBPATH</code> variable is not used to search for the application native libraries. The default value of the  <code>-Djava.library.path</code> system property is still derived from the <code>LIBPATH</code> environment variable.</td>
 <td>0.47.0</td>
 </tr>
 </tbody>
