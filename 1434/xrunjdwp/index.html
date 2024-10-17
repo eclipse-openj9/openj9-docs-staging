@@ -9111,9 +9111,9 @@
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2 22.6-22.7zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg></span> <strong>Notes:</strong></p>
 <ul>
 <li>You can enable JDWP support on Checkpoint/Restore In Userspace (CRIU) restore by specifying either the <code>-Xrunjdwp</code> or the <code>-agentlib:jdwp</code> command-line options pre-checkpoint.</li>
-<li>Instead of specifying <code>-Xrunjdwp</code> or <code>-agentlib:jdwp</code> as command-line options pre-checkpoint, when you restore a checkpoint image, you can add these command-line options by using the <code>CRIUSupport.registerRestoreOptionsFile</code> API.</li>
+<li>Instead of specifying <code>-Xrunjdwp</code> or <code>-agentlib:jdwp</code> as command-line options pre-checkpoint when you restore a checkpoint image, you can add these command-line options by using the <code>CRIUSupport.registerRestoreOptionsFile</code> API.</li>
 <li>The <code>-Xrunjdwp</code> option is available both for OpenJDK 5 and later and for versions before OpenJDK 5.</li>
-<li>The <code>-agentlib:jdwp</code> option is available for OpenJDK 5 and later. Although both the options are available for OpenJDK 5 and later, the <code>-agentlib:jdwp</code> option is preferable because the JDWP agent in OpenJDK 5 and later uses the JVMTI interface to the VM rather than the older JVMDI interface.</li>
+<li>The <code>-agentlib:jdwp</code> option is available for OpenJDK 5 and later only. Although both the <code>-Xrunjdwp</code> and <code>-agentlib:jdwp</code> options are available for OpenJDK 5 and later, the <code>-agentlib:jdwp</code> option is preferable because the JDWP agent in OpenJDK 5 and later uses the Java Virtual Machine Tool Interface (JVMTI) interface to the VM rather than the older Java Virtual Machine Debug Interface (JVMDI) interface.</li>
 </ul>
 <h2 id="parameters">Parameters</h2>
 <h3 id="address"><code>address</code></h3>
@@ -9164,7 +9164,7 @@
 <pre><code>    -Xrunjdwp:suspendOnRestore=[y|n]
 </code></pre>
 <dl>
-<dd>If <code>suspendOnRestore=y</code>, the VM suspends the application on CRIU restore and debugging of the application does not happen. If <code>suspendOnRestore=n</code>, the VM does not suspend the application on restore, and the debug session continues.</dd>
+<dd>If <code>suspendOnRestore=y</code>, the VM suspends the application on CRIU restore and debugging of the application does not happen. If <code>suspendOnRestore=n</code>, the VM does not suspend the application on restore, and the debug session is enabled.</dd>
 <dd>If <a href="#suspend"><code>suspend=y</code></a> is set pre-checkpoint, the VM suspends the application pre-checkpoint, and on restore. The application remains suspended when you restore the VM even if you specify <code>suspend=n</code> pre-checkpoint. Therefore, to ensure that the application is not suspended on restore, you can use the <code>suspendOnRestore=n</code> setting to enable debugging after restore as well.</dd>
 <dd>The <code>suspendOnRestore</code> parameter is also useful if there is no debugging pre-checkpoint, but the debugging is enabled on restore.
 The debugger registers the post-restore event, receives notification upon CRIU restore, and suspends the target VM application unless <code>suspendOnRestore=n</code> is specified.</dd>
@@ -9180,7 +9180,7 @@ The debugger registers the post-restore event, receives notification upon CRIU r
 <pre><code>    -Xrunjdwp:transport=&lt;value&gt;
 </code></pre>
 <dl>
-<dd>Specifies the name of the transport to use in connecting to the debugger application. Transport refers to a method of communication between a debugger and the VM that is being debugged. <value> can be <code>dt_socket</code> or <code>dt_shmem</code>. <code>dt_socket</code> or the socket transport relies on TCP sockets that listen on a port for debugger connections, and uses that connection to transfer the debug session packets. This transport mechanism enables debugging remote target VM application. <code>dt_shmem</code> or the shared memory transport uses shared memory to send and receive packets. This transport mechanism enables debugging only locally running applications.</dd>
+<dd>Specifies the name of the transport to use in connecting to the debugger application. Transport refers to a method of communication between a debugger and the VM that is being debugged. <code>&lt;value&gt;</code> can be <code>dt_socket</code> or <code>dt_shmem</code>. <code>dt_socket</code> or the socket transport relies on TCP sockets that listen on a port for debugger connections, and uses that connection to transfer the debug session packets. This transport mechanism enables debugging remote target VM application. <code>dt_shmem</code> or the shared memory transport uses shared memory to send and receive packets. This transport mechanism enables debugging only locally running applications.</dd>
 </dl>
 <h2 id="see-also">See also</h2>
 <ul>
