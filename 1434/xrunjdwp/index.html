@@ -9116,10 +9116,12 @@
 <li><code>-Xrunjdwp</code></li>
 <li><code>-agentlib:jdwp</code></li>
 <li><code>-agentpath:/path/to/libjdwp.so</code></li>
-<li>In OpenJ9, instead of specifying <code>-Xrunjdwp</code>, <code>-agentlib:jdwp</code>, or <code>-agentpath:/path/to/libjdwp.so</code> as command-line options pre-checkpoint, you can add these command-line options in a restore option file and specify it by using the <code>CRIUSupport.registerRestoreOptionsFile</code> API when you restore a checkpoint image.</li>
-<li>Although both the <code>-Xrunjdwp</code> and <code>-agentlib:jdwp</code> options are available, the <code>-agentlib:jdwp</code> option is preferable because the JDWP agent uses the Java Virtual Machine Tool Interface (JVMTI) interface to the VM rather than the older Java Virtual Machine Debug Interface (JVMDI) interface.</li>
 </ul>
 </li>
+<li>
+<p>In OpenJ9, instead of specifying <code>-Xrunjdwp</code>, <code>-agentlib:jdwp</code>, or <code>-agentpath:/path/to/libjdwp.so</code> as command-line options pre-checkpoint, you can add these command-line options in a restore option file and specify it by using the <code>CRIUSupport.registerRestoreOptionsFile</code> API when you restore a checkpoint image.</p>
+</li>
+<li>Although both the <code>-Xrunjdwp</code> and <code>-agentlib:jdwp</code> options are available, the <code>-agentlib:jdwp</code> option is preferable because the JDWP agent uses the Java Virtual Machine Tool Interface (JVMTI) interface to the VM rather than the older Java Virtual Machine Debug Interface (JVMDI) interface.</li>
 </ul>
 <h2 id="parameters">Parameters</h2>
 <p>These parameters are applicable for both the <code>-Xrunjdwp</code> and <code>-agentlib:jdwp</code> options.</p>
