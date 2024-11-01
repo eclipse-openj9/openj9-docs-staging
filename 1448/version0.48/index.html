@@ -8988,6 +8988,7 @@
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
 <p>Eclipse OpenJ9&trade; release 0.48.0 supports OpenJDK 8, 11, 17, 21, and 23.</p>
+<p>macOS 11 is out of support. macOS 11 and earlier versions are removed from the list of supported platforms.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
 <h3 id="loading-of-the-zlibnx-library-on-aix-is-disabled-by-default">Loading of the <code>zlibnx</code> library on AIX is disabled by default</h3>
 <p>From release 0.25.0 onwards, <code>zlibNX</code> hardware-accelerated data compression and decompression was enabled by default on AIX&reg;. From this release onwards, loading of the <code>zlibnx</code> library on AIX is disabled by default because using <code>zlibNX</code> might cause a <code>ClassNotFoundException</code> error. You can enable adding of the <code>zlibNX</code> library by using the <code>-XX:+UseZlibNX</code> option.</p>
