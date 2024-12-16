@@ -10219,7 +10219,7 @@ case, the VM continues without using shared classes.</dd>
 <pre><code>    -Xshareclasses:extraStartupHints=&lt;number&gt;
 </code></pre>
 <dl>
-<dd>where, \&lt;number&gt; is greater than or equal to 0.</dd>
+<dd>where, <code>&lt;number&gt;</code> is greater than or equal to 0.</dd>
 <dd>Adjusts the number of startup hints that can be stored in a shared cache. By default, you can store only up to 64 startup hints in a shared cache. This count decrements by 1 each time a startup hint is stored. After the count reaches 0, no more hints can be added to the cache. You can use <code>-Xshareclasses:extraStartupHints=&lt;number&gt;</code> to adjust this count as needed. For example, <code>-Xshareclasses:extraStartupHints=0</code> prevents any new hints to be stored and <code>-Xshareclasses:extraStartupHints=10</code> allows 10 more new hints in addition to the default number of 64 startup hints.</dd>
 </dl>
 <p>You can use <a href="#printstats-cache-utility"><code>-Xshareclasses:printStats=startuphint</code></a> to check how many startup hints are already stored in the shared cache or <code>-Xshareclasses:printDetails</code> to check how many more hints can be stored in the cache.</p>
