@@ -9971,21 +9971,21 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 </code></pre>
 <dl>
 <dd>Sets the commit size of the heap that is used for compressed references. The default size is 50 MB.</dd>
-<dd>You can use this option with all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorincrementsize"><code>suballocatorIncrementSize</code></h3>
 <pre><code>    -Xgc:suballocatorIncrementSize=&lt;bytes&gt;
 </code></pre>
 <dl>
 <dd>Sets the reservation increment size of the heap that is used for compressed references. When the memory of the current heap space is exhausted, the increment size determines the amount of additional memory to reserve. The default size is 8 MB for all platforms except AIX. The default size for AIX is 256 MB.</dd>
-<dd>You can use this option with all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorinitialsize"><code>suballocatorInitialSize</code></h3>
 <pre><code>    -Xgc:suballocatorInitialSize=&lt;bytes&gt;
 </code></pre>
 <dl>
 <dd>Sets the initial size of the heap that is used for compressed references. The default size is 200 MB.</dd>
-<dd>You can use this option with all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorquickallocdisable"><code>suballocatorQuickAllocDisable</code></h3>
 <p><strong>Linux only</strong></p>
@@ -9993,7 +9993,7 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 </code></pre>
 <dl>
 <dd>Disables mmap-based allocation for compressed references.</dd>
-<dd>You can use this option with all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorquickallocenable"><code>suballocatorQuickAllocEnable</code></h3>
 <p><strong>Linux only</strong></p>
@@ -10001,7 +10001,7 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 </code></pre>
 <dl>
 <dd>Enables mmap-based allocation for compressed references. This option is enabled by default.</dd>
-<dd>You can use this option with all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="synchronousgconoom"><code>synchronousGCOnOOM</code></h3>
 <pre><code>    -Xgc:synchronousGCOnOOM
