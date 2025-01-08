@@ -9967,32 +9967,36 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 <dd>This option is not supported with the balanced GC policy (<code>-Xgcpolicy:balanced</code>) or metronome GC policy (<code>-Xgcpolicy:metronome</code>).</dd>
 </dl>
 <h3 id="suballocatorcommitsize"><code>suballocatorCommitSize</code></h3>
-<pre><code>    -Xgc:suballocatorCommitSize=&lt;bytes&gt;
+<pre><code>    -Xgc:suballocatorCommitSize=&lt;size&gt;
 </code></pre>
 <dl>
-<dd>Sets the commit size of the heap that is used for compressed references. The default size is 50 MB.</dd>
+<dd>For more information about the <code>&lt;size&gt;</code> parameter, see <a href="../x_jvm_commands/">Using -X command-line options</a>.</dd>
+<dd>Sets the commit size of the area in memory that is reserved within the lowest 4 GB memory areafor any native classes, monitors, and threads that are used by compressed references. The default size is 50 MB.</dd>
 <dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorincrementsize"><code>suballocatorIncrementSize</code></h3>
-<pre><code>    -Xgc:suballocatorIncrementSize=&lt;bytes&gt;
+<pre><code>    -Xgc:suballocatorIncrementSize=&lt;size&gt;
 </code></pre>
 <dl>
-<dd>Sets the reservation increment size of the heap that is used for compressed references. When the memory of the current heap space is exhausted, the increment size determines the amount of additional memory to reserve. The default size is 8 MB for all platforms except AIX. The default size for AIX is 256 MB.</dd>
+<dd>For more information about the <code>&lt;size&gt;</code> parameter, see <a href="../x_jvm_commands/">Using -X command-line options</a>.</dd>
+<dd>Sets the reservation increment size of the area in memory that is reserved within the lowest 4 GB memory area for any native classes, monitors, and threads that are used by compressed references. When the memory of the current space is exhausted, the increment size determines the amount of additional memory to reserve. The default size is 8 MB for all platforms except AIX. The default size for AIX is 256 MB.</dd>
 <dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorinitialsize"><code>suballocatorInitialSize</code></h3>
-<pre><code>    -Xgc:suballocatorInitialSize=&lt;bytes&gt;
+<pre><code>    -Xgc:suballocatorInitialSize=&lt;size&gt;
 </code></pre>
 <dl>
-<dd>Sets the initial size of the heap that is used for compressed references. The default size is 200 MB.</dd>
+<dd>For more information about the <code>&lt;size&gt;</code> parameter, see <a href="../x_jvm_commands/">Using -X command-line options</a>.</dd>
+<dd>Sets the initial size of the area in memory that is reserved within the lowest 4 GB memory area for any native classes, monitors, and threads that are used by compressed references. The default size is 200 MB.</dd>
 <dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
+<dd>The <code>-Xgc:suballocatorInitialSize</code> option overrides the <a href="../xmcrs/"><code>-Xmcrs</code></a> option irrespective of the order of the options on the command line. If the <code>-Xmcrs</code> option is thus overridden, the <code>-Xmcrs</code> output of <code>-verbose:sizes</code> shows the <code>suballocatorInitialSize</code> value.</dd>
 </dl>
 <h3 id="suballocatorquickallocdisable"><code>suballocatorQuickAllocDisable</code></h3>
 <p><strong>Linux only</strong></p>
 <pre><code>    -Xgc:suballocatorQuickAllocDisable
 </code></pre>
 <dl>
-<dd>Disables mmap-based allocation for compressed references.</dd>
+<dd>Disables mmap-based allocation of an area in memory that is reserved within the lowest 4 GB memory area for any native classes, monitors, and threads that are used by compressed references.</dd>
 <dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="suballocatorquickallocenable"><code>suballocatorQuickAllocEnable</code></h3>
@@ -10000,7 +10004,7 @@ the dynamic compaction triggers that look at heap occupancy. This option works o
 <pre><code>    -Xgc:suballocatorQuickAllocEnable
 </code></pre>
 <dl>
-<dd>Enables mmap-based allocation for compressed references. This option is enabled by default.</dd>
+<dd>Enables mmap-based allocation of an area in memory that is reserved within the lowest 4 GB memory area for any native classes, monitors, and threads that are used by compressed references. This option is enabled by default.</dd>
 <dd>This option is supported by all OpenJ9 GC policies. The option affects only those builds that use compressed references.</dd>
 </dl>
 <h3 id="synchronousgconoom"><code>synchronousGCOnOOM</code></h3>
