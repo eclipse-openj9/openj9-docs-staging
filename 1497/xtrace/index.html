@@ -5779,6 +5779,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="maxstringlength">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -9080,6 +9095,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="maxstringlength">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -9328,7 +9358,7 @@ The following table lists the parameters for `-Xtrace` that provide usage and co
 </tr>
 <tr>
 <td><a href="#maxstringlength"><code>-Xtrace:maxstringlength=[&lt;length&gt;]</code></a></td>
-<td>Records the string arguments sent to and the values that are returned from the methods as strings instead of string object addresses</td>
+<td>Records the string arguments sent to and the values that are returned from the methods as strings in addition to the string object addresses</td>
 </tr>
 <tr>
 <td><a href="#methods"><code>-Xtrace:methods=&lt;method_specification&gt;</code></a></td>
@@ -10230,19 +10260,23 @@ yyyymmdd* format (for example, <code>traceout.20181025.trc</code>):</p>
 <p>(<strong>Added in the 0.50.0 release</strong>)</p>
 <pre><code>-Xtrace:maxstringlength=[&lt;length&gt;]
 </code></pre>
-<p>Use to print the string arguments sent to and the values that are returned from the methods as strings instead of addresses in a trace output. The range of the maximum string length that can be set is 0-128. If the length is not specified, 32 characters of the strings are printed by default. If <code>maxstringlength=0</code>, the string addresses are printed instead.</p>
-<p>This parameter is used with other method tracing options, such as <code>-Xtrace:methods={java/lang/String.concat'()'}</code>. While using such method tracing options, the argument is passed to this function as a string and the value is returned as a string. Without this parameter, you cannot capture the contents of the string arguments and return values. Only the address of the string object is displayed. If you want to see the string that is passed to and returned from a method for debugging purposes, use the <code>maxstringlength</code> parameter.</p>
-<p>For example, without <code>maxstringlength</code>, following is the trace output of <code>-Xtrace:methods={java/lang/String.concat'()'},print=mt</code>:</p>
-<pre><code>...
-11:19:45.789 0x8aff00              mt.18            - this: java/lang/String@00000000DFFF3D68 method arguments: (java/lang/String@00000000DFFF3D90)
-11:21:37.654 0x8aff00              mt.28           - return value: java/lang/String@00000000FFF2C408
-...
+<p>Use to print the string arguments sent to and the values that are returned from the methods as strings in a trace output. This parameter affects only those tracing operations where addresses are printed for string arguments and return values. The range of the maximum string length that can be set is 0-128. If the length is not specified, 32 characters of the strings are printed by default along with the addresses. If <code>maxstringlength=0</code>, only the string addresses are printed instead.</p>
+<p>This parameter is used with other method tracing options, such as <code>-Xtrace:methods={java/lang/String.concat'()'}</code>. When using such method tracing options, the argument is passed to this function as a string and the value is returned as a string. Earlier, you could not capture the contents of the string arguments and return values. Only the address of the string object was displayed. Now, both the actual strings as well as the addresses can be printed.</p>
+<h4 id="examples">Examples</h4>
+<p>Default behavior - Address and 32 string characters</p>
+<p><code>-Xtrace:methods={java/lang/String.concat'()'},print=mt</code></p>
+<pre><code>12:31:00.323 0x25a00              mt.18       - this: java/lang/String@00000006049B84B8 method arguments: ((String)&quot;Lorem ipsum dolor sit amet, cons&quot;...)
+12:31:00.323 0x25a00              mt.28       - return value: java/lang/String@00000007FFF92A80 - (String)&quot;HelloLorem ipsum dolor sit amet,&quot;...
 </code></pre>
-<p>With <code>-Xtrace:methods={java/lang/String.concat'()'},print=mt,maxstringlength=32</code>, following is the trace output:</p>
-<pre><code>...
-11:19:45.789 0x8aff00              mt.18       - this: java/lang/String@00000000DFFF3D68 method arguments: ((String)&quot;Lorem ipsum dolor sit amet, cons&quot;...)
-11:21:37.654 0x8aff00              mt.28       - return value: (String)&quot;Hello Lorem ipsum dolor sit amet&quot;...
-...
+<p><code>maxstringlength</code> set to <code>0</code> - Address only</p>
+<p><code>-Xtrace:methods={java/lang/String.concat'()'},print=mt,maxstringlength=0</code></p>
+<pre><code>12:35:58.213 0x25a00              mt.18       - this: java/lang/String@00000006049B84B8 method arguments: (java/lang/String@00000006049B84E0)
+12:35:58.213 0x25a00              mt.28       - return value: java/lang/String@00000007FFF92AD8
+</code></pre>
+<p><code>maxstringlength</code> set to custom value - Address and custom number of string characters</p>
+<p><code>-Xtrace:methods={java/lang/String.concat'()'},print=mt,maxstringlength=80</code></p>
+<pre><code>12:37:52.935 0x25a00              mt.18       - this: java/lang/String@00000006049B84B8 method arguments: ((String)&quot;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula &quot;...)
+12:37:52.935 0x25a00              mt.28       - return value: java/lang/String@00000007FFF92AE0 - (String)&quot;HelloLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo li&quot;...
 </code></pre>
 <h3 id="methods"><code>methods</code></h3>
 <p>Using method trace provides a complete and potentially large diagnosis of code paths inside your application and the system classes. Use wild cards and filtering to control method trace so that you can focus on the sections of code that interest you. Note that method trace is powerful but it also has a cost. Application throughput is affected by method trace.</p>
