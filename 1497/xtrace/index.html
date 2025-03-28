@@ -10273,7 +10273,7 @@ yyyymmdd* format (for example, <code>traceout.20181025.trc</code>):</p>
 <pre><code>12:35:58.213 0x25a00              mt.18       - this: java/lang/String@00000006049B84B8 method arguments: (java/lang/String@00000006049B84E0)
 12:35:58.213 0x25a00              mt.28       - return value: java/lang/String@00000007FFF92AD8
 </code></pre>
-<p><code>maxstringlength</code> set to custom value - Address and custom number of string characters</p>
+<p><code>maxstringlength</code> set to a custom value - Address and custom number of string characters (<code>80</code> in this example)</p>
 <p><code>-Xtrace:methods={java/lang/String.concat'()'},print=mt,maxstringlength=80</code></p>
 <pre><code>12:37:52.935 0x25a00              mt.18       - this: java/lang/String@00000006049B84B8 method arguments: ((String)&quot;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula &quot;...)
 12:37:52.935 0x25a00              mt.28       - return value: java/lang/String@00000007FFF92AE0 - (String)&quot;HelloLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo li&quot;...
