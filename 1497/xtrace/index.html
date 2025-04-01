@@ -9358,7 +9358,7 @@ The following table lists the parameters for `-Xtrace` that provide usage and co
 </tr>
 <tr>
 <td><a href="#maxstringlength"><code>-Xtrace:maxstringlength=[&lt;length&gt;]</code></a></td>
-<td>Specifies the length of the string arguments and the values of the methods that are printed in addition to the string object addresses in a trace output</td>
+<td>Specifies the length of the string arguments and the return values of the methods that are printed in addition to the string object addresses in a trace output</td>
 </tr>
 <tr>
 <td><a href="#methods"><code>-Xtrace:methods=&lt;method_specification&gt;</code></a></td>
@@ -10261,7 +10261,7 @@ yyyymmdd* format (for example, <code>traceout.20181025.trc</code>):</p>
 <pre><code>-Xtrace:maxstringlength=[&lt;length&gt;]
 </code></pre>
 <p>Use to specify the length of the string arguments and return values that are printed in a trace output. The range of the maximum string length that can be set is 0-128. If the length is not specified, 32 characters of the strings are printed by default along with the addresses. If <code>maxstringlength=0</code>, only the string addresses are printed instead.</p>
-<p>This parameter is used with other method tracing options, such as <code>-Xtrace:methods={java/lang/String.concat'()'}</code> and affects only those tracing operations where addresses are printed for string arguments and return values. When using such method tracing options, the argument is passed to the function as a string and the value is returned as a string. Earlier, you could not capture the contents of the string arguments and return values. Only the address of the string object was printed. Now, both the actual strings as well as the addresses can be printed.</p>
+<p>This parameter is used with other method tracing options, such as <code>-Xtrace:methods={java/lang/String.concat'()'}</code> and affects only those tracing operations where addresses are printed for string arguments and return values. When using such method tracing options, the argument is passed to the function as a string and the value is returned as a string. Earlier, you could not capture the contents of the string arguments and return values, only the address of the string object was printed. Now, both the actual strings as well as the addresses can be printed.</p>
 <h4 id="examples">Examples</h4>
 <p>Default behavior - Address and 32 string characters</p>
 <p><code>-Xtrace:methods={java/lang/String.concat'()'},print=mt</code></p>
