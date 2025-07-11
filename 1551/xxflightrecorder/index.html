@@ -9116,10 +9116,9 @@
 </code></pre>
 <p><span aria-hidden="true" class="twemoji warn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7.2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8.2-40.1l216-368C228.7 39.5 241.8 32 256 32m0 128c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24m32 224a32 32 0 1 0-64 0 32 32 0 1 0 64 0"/></svg></span> <strong>Limitations:</strong></p>
 <ul>
-<li>
-<p>JFR produces only the following events:</p>
-<p>```
-- ClassLoadingStatistics
+<li>JFR produces only the following events:</li>
+</ul>
+<pre><code>- ClassLoadingStatistics
 - CPUInformation
 - CPULoad
 - ExecutionSample
@@ -9143,9 +9142,12 @@
 - ThreadStart
 - ThreadStatistics
 - VirtualizationInformation
-- YoungGenerationConfig</p>
-<p>```
-- Support for the following functions is not available:</p>
+- YoungGenerationConfig
+
+</code></pre>
+<ul>
+<li>
+<p>Support for the following functions is not available:</p>
 </li>
 <li>
 <p><code>-XX:StartFlightRecording</code> and <code>-XX:FlightRecorderOptions</code></p>
