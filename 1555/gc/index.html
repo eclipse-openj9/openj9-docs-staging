@@ -9781,7 +9781,7 @@
 </ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>You can diagnose problems with garbage collection operations by turning on verbose GC logging. By default, the information is printed to STDERR but can be redirected to a file by specifying the <code>-Xverbosegclog</code> option. The log files contain detailed information about all operations, including initialization, STW processing, finalization, reference processing, and allocation failures.</p>
-<p>From the 0.53.0 release, the verbose GC logs include the following information:</p>
+<p>From the 0.53.0 release onwards, the verbose GC logs include the following information:</p>
 <ul>
 <li>The <code>&lt;initialized&gt;</code> XML element will indicate that Offheap is used and how large it is.</li>
 <li>Each GC cycle will show how many Offheap live objects are at GC start, how many have been allocated since the previous GC, how many have died this cycle, and how many live is left at GC end.</li>
