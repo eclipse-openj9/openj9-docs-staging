@@ -361,6 +361,10 @@
          <lastmod>2025-09-08</lastmod>
     </url>
     <url>
+         <loc>https://www.eclipse.org/openj9/docs/migrating21to25/</loc>
+         <lastmod>2025-09-08</lastmod>
+    </url>
+    <url>
          <loc>https://www.eclipse.org/openj9/docs/migrating8to11/</loc>
          <lastmod>2025-09-08</lastmod>
     </url>
@@ -610,6 +614,10 @@
     </url>
     <url>
          <loc>https://www.eclipse.org/openj9/docs/version0.54/</loc>
+         <lastmod>2025-09-08</lastmod>
+    </url>
+    <url>
+         <loc>https://www.eclipse.org/openj9/docs/version0.55/</loc>
          <lastmod>2025-09-08</lastmod>
     </url>
     <url>
