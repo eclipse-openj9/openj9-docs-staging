@@ -9422,16 +9422,14 @@
 <p>A new system property, <code>-Djava.security.propertiesList</code> is added to configure a superset of profile files in different java.security property files. Instead of putting those different profiles into a single java.security file, you can now specify a list of java.security property files that have the profiles that you want to use.</p>
 <p>For more information, see <a href="../djavasecuritypropertieslist/"><code>-Djava.security.propertiesList</code></a>.</p>
 <h3 id="the-format-of-the-javavmversion-system-property-value-is-updated-to-be-compatible-with-the-runtimeversion-parser">The format of the <code>java.vm.version</code> system property value is updated to be compatible with the Runtime.Version parser</h3>
-<p>The format of the <code>java.vm.version</code> system property value is modified from the previous releases. The new format of the value is standardized and structured and is parse-able by the <code>java.lang.Runtime.Version</code> class. The OpenJ9 version is at the end of the optional component. This modification also changes the <code>-version</code> output, whereby <code>build openj9-0.55.0</code> changes to <code>build 25+36-openj9-0.55.0</code>.</p>
-<p>The sytax of the format is <code>&lt;feature&gt;[.&lt;interim&gt;[.&lt;update&gt;]][+&lt;build&gt;][-&lt;optional&gt;]</code>.</p>
-<p>With this new structured format, the <code>java.lang.Runtime.Version</code> class parses the value and you can extract the following information, as shown with the help of the sample value, <code>java.vm.version = 25+36-openj9-0.55.0</code>:</p>
+<p>The format of the <code>java.vm.version</code> system property value is modified from the previous releases. The new format of the value is standardized and structured and is parse-able by the <code>java.lang.Runtime.Version</code> class. This modification also changes the <code>-version</code> output. For example, <code>build openj9-0.55.0</code> changes to <code>build 25+36-openj9-0.55.0</code>. The OpenJ9 version, <code>openj9-0.55.0</code> in the example, is at the end of the optional component.</p>
+<p>With this new structured format, the <code>java.lang.Runtime.Version</code> class parses the value and you can extract specific information that is related to the VM version. For example, following information can be extracted from <code>java.vm.version = 25+36-openj9-0.55.0</code>:</p>
 <ul>
-<li><code>&lt;feature&gt;</code> - Feature version of the VM - <code>25</code></li>
-<li><code>&lt;interim&gt;</code> - Interim version of the VM</li>
-<li><code>&lt;update&gt;</code> - Security update version</li>
-<li><code>&lt;build&gt;</code> - Build number of the VM (Optional) - <code>36</code></li>
-<li><code>&lt;optional&gt;</code> - Additional build information (Optional) - <code>openj9-0.55.0</code></li>
+<li><code>25</code> - Feature version of the VM</li>
+<li><code>36</code> - Build number of the VM</li>
+<li><code>openj9-0.55.0</code> - Additional build information</li>
 </ul>
+<p>For more information, see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Runtime.Version.html">Class Runtime.Version</a>.</p>
 <h3 id="new-jdk-25-features"><img alt="Start of content that applies to Java 25 and later" src="../cr/java25plus.png" /> New JDK 25 features</h3>
 <p>The following features are supported by OpenJ9:</p>
 <ul>
