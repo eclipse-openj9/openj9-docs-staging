@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/xss/">
+        <link rel="canonical" href="https://www.eclipse.org/openj9/docs/version0.56/">
       
       
-        <link rel="prev" href="../xint/">
+        <link rel="prev" href="../openj9_releases/">
       
       
-        <link rel="next" href="../xjit/">
+        <link rel="next" href="../version0.55/">
       
       
       <link rel="icon" href="../cr/openj9-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>-Xiss / -Xss / -Xssi -  </title>
+        <title>Version 0.56.0 -  </title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#-xiss-xss-xssi" class="md-skip">
+        <a href="#whats-new-in-version-0560" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              -Xiss / -Xss / -Xssi
+              Version 0.56.0
             
           </span>
         </div>
@@ -319,18 +319,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -346,7 +348,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -380,10 +382,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../version0.56/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Version 0.56.0
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -394,6 +418,68 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features and changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binaries-and-supported-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binaries and supported environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-in-the-getcpuload-method-return-value-based-on-the-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change in the getCpuLoad() method return value based on the platform
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-problems-and-full-release-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Known problems and full release information
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3066,20 +3152,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
         
           
           <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
@@ -3095,7 +3179,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             Command-line options
@@ -4325,20 +4409,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_5" >
         
           
           <label class="md-nav__link" for="__nav_18_5" id="__nav_18_5_label" tabindex="0">
@@ -4354,7 +4436,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_18_5">
             <span class="md-nav__icon md-icon"></span>
             JVM -X options
@@ -5193,32 +5275,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    -Xiss / -Xss / -Xssi
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../xss/" class="md-nav__link">
         
   
   
@@ -5229,44 +5289,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
-    <span class="md-ellipsis">
-      Syntax
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      See also
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -9290,18 +9312,42 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#syntax" class="md-nav__link">
+  <a href="#features-and-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      Syntax
+      Features and changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binaries-and-supported-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binaries and supported environments
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#change-in-the-getcpuload-method-return-value-based-on-the-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change in the getCpuLoad() method return value based on the platform
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#known-problems-and-full-release-information" class="md-nav__link">
     <span class="md-ellipsis">
-      See also
+      Known problems and full release information
     </span>
   </a>
   
@@ -9346,47 +9392,23 @@
 * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0 OR GPL-2.0-only WITH OpenJDK-assembly-exception-1.0
 -->
 
-<h1 id="-xiss-xss-xssi">-Xiss / -Xss / -Xssi</h1>
-<p>Sets the stack size and increment for Java&trade; threads.</p>
-<p>If you exceed the maximum Java thread stack size, a <code>java/lang/OutOfMemoryError</code> message is reported.</p>
-<p>You can use the <code>-verbose:sizes</code> option to find out the values that the VM is currently using.</p>
-<p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"/></svg></span> <strong>Note:</strong> Java methods and native methods run on two different stacks and the VM handles switching between them for JNI calls. Each stack is sized using separate options; these options apply to the Java stack only. For the native stack option, see the link in the <a href="#see-also">See also</a> section.</p>
-<h2 id="syntax">Syntax</h2>
-<table>
-<thead>
-<tr>
-<th>Setting</th>
-<th>Effect</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-Xiss&lt;size&gt;</code></td>
-<td>Set initial Java thread stack size</td>
-<td>2 KB</td>
-</tr>
-<tr>
-<td><code>-Xss&lt;size&gt;</code></td>
-<td>Set maximum Java thread stack size</td>
-<td>320 KB (31/32-bit); 1024 KB (64-bit)</td>
-</tr>
-<tr>
-<td><code>-Xssi&lt;size&gt;</code></td>
-<td>Set Java thread stack size increment</td>
-<td>16 KB</td>
-</tr>
-</tbody>
-</table>
-<p>See <a href="../x_jvm_commands/">Using -X command-line options</a> for more information about the <code>&lt;size&gt;</code> parameter.  </p>
-<p>See <a href="../openj9_defaults/">Default settings for the Eclipse OpenJ9&trade; VM</a> for more about default values.</p>
-<h2 id="see-also">See also</h2>
+<h1 id="whats-new-in-version-0560">What's new in version 0.56.0</h1>
+<p>The following new features and notable changes since version 0.55.0 are included in this release:</p>
 <ul>
-<li><a href="../xmso/"><code>-Xmso</code></a> (Native stack size for operating system threads)</li>
+<li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
+<li><a href="#change-in-the-getcpuload-method-return-value-based-on-the-platform">Change in the <code>getCpuLoad()</code> method return value based on the platform</a></li>
 </ul>
-<!-- ==== END OF TOPIC ==== xss.md ==== -->
-<!-- ==== END OF TOPIC ==== xssi.md ==== -->
-<!-- ==== END OF TOPIC ==== xiss.md ==== -->
+<h2 id="features-and-changes">Features and changes</h2>
+<h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
+<p>Eclipse OpenJ9&trade; release 0.56.0 supports OpenJDK 8, 11, 17, 21, and 25.</p>
+<p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
+<h3 id="change-in-the-getcpuload-method-return-value-based-on-the-platform">Change in the <code>getCpuLoad()</code> method return value based on the platform</h3>
+<p>In all platforms except z/OS&reg;, the <code>getCpuLoad()</code> method now collects two internal samples so that a valid CPU usage value can be returned instead of <code>0</code> return value on the first call.</p>
+<p>On z/OS, the CPU load that is reported by the <code>getCpuLoad</code> method is obtained directly from the system control blocks, without the need to collect samples. The <code>-XX:[+|-]CpuLoadCompatibility</code> option has no effect on z/OS, and a valid CPU usage value is always returned whatever be the setting of this option.</p>
+<p>For more information, <a href="../xxcpuloadcompatibility/"><code>-XX:[+|-]CpuLoadCompatibility</code></a>.</p>
+<h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
+<p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.55.0 and v0.56.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.56/0.56.md">Release notes</a>.</p>
+<!-- ==== END OF TOPIC ==== version0.56.md ==== -->
 
 
 
