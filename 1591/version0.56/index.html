@@ -9403,7 +9403,7 @@
 <p>Eclipse OpenJ9&trade; release 0.56.0 supports OpenJDK 8, 11, 17, 21, and 25.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
 <h3 id="change-in-the-getcpuload-method-return-value-based-on-the-platform">Change in the <code>getCpuLoad()</code> method return value based on the platform</h3>
-<p>In all platforms except z/OS&reg;, the <code>getCpuLoad()</code> method now collects two internal samples so that a valid CPU usage value can be returned instead of <code>0</code> return value on the first call.</p>
+<p>In all platforms except z/OS&reg;, if the <code>-XX:+CpuLoadCompatibility</code> option is set to enable the <code>getProcessCpuLoad()</code> and <code>getCpuLoad()</code> methods in OpenJ9, the <code>getCpuLoad()</code> method now collects two internal samples so that a valid CPU usage value can be returned instead of <code>0</code> return value on the first call.</p>
 <p>On z/OS, the CPU load that is reported by the <code>getCpuLoad</code> method is obtained directly from the system control blocks, without the need to collect samples. The <code>-XX:[+|-]CpuLoadCompatibility</code> option has no effect on z/OS, and a valid CPU usage value is always returned whatever be the setting of this option.</p>
 <p>For more information, <a href="../xxcpuloadcompatibility/"><code>-XX:[+|-]CpuLoadCompatibility</code></a>.</p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
