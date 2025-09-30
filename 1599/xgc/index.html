@@ -10155,9 +10155,9 @@
 </code></pre>
 <dl>
 <dd>This option disables the processing of various allocation and free memory statistics and the calculation of the macro fragmentation estimate. It also disables the reporting of the estimates of the macro fragmentation, as reported by Verbose GC, if the verbose garbage collection (GC) is enabled, at the end of Scavenge GCs.</dd>
+<dd>Macro fragmented memory is a part of free tenure memory that is estimated to be unusable when accounting for recent allocation patterns. The estimate can be used for tuning, such as preventing too late Concurrent Global GC kickoff.</dd>
+<dd>You can enable the calculation and reporting of the macro fragmentation estimates by using the <a href="#enableestimatefragmentation"><code>-Xgc:enableEstimateFragmentation</code></a> option.</dd>
 </dl>
-<p>Macro fragmented memory is a part of free tenure memory that is estimated to be unusable when accounting for recent allocation patterns. The estimate can be used for tuning, such as preventing too late Concurrent Global GC kickoff.</p>
-<p>You can enable the calculation and reporting of the macro fragmentation estimates by using the <a href="#enableestimatefragmentation"><code>-Xgc:enableEstimateFragmentation</code></a> option.</p>
 <h3 id="dnssexpectedtimeratiomaximum"><code>dnssExpectedTimeRatioMaximum</code></h3>
 <pre><code>    -Xgc:dnssExpectedTimeRatioMaximum=&lt;value&gt;
 </code></pre>
@@ -10227,14 +10227,18 @@
 </code></pre>
 <dl>
 <dd>This option enables the processing of various allocation and free memory statistics and the calculation of the macro fragmentation estimate. It also enables the reporting of the estimates of the macro fragmentation, as reported by Verbose GC (if the Verbose GC is enabled) at the end of Scavenge GCs.</dd>
-</dl>
-<p>For example,</p>
-<pre><code>&lt;gc-end id=&quot;13623&quot; type=&quot;scavenge&quot;....
+<dd>For example,</dd>
+<dt><pre><code>&lt;gc-end id=&quot;13623&quot; type=&quot;scavenge&quot;....
 ....
     &lt;mem type=&quot;tenure&quot; free=&quot;407392216&quot; total=&quot;2147483648&quot; percent=&quot;18&quot; macro-fragmented=&quot;171732064&quot;&gt;
-</code></pre>
+</code></pre></dt>
+<dd>
 <p>Macro fragmented memory is a part of free tenure memory that is estimated to be unusable when accounting for recent allocation patterns. The estimate can be used for tuning, such as preventing too late Concurrent Global GC kickoff.</p>
+</dd>
+<dd>
 <p>This option is enabled by default. You can disable the calculation and reporting of the macro fragmentation estimates by using the <a href="#disableestimatefragmentation"><code>-Xgc:disableEstimateFragmentation</code></a> option.</p>
+</dd>
+</dl>
 <h3 id="excessivegcratio"><code>excessiveGCratio</code></h3>
 <pre><code>    -Xgc:excessiveGCratio=&lt;value&gt;
 </code></pre>
