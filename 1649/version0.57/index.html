@@ -526,10 +526,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-signal-handler-optimization-feature-is-disabled-temporarily" class="md-nav__link">
+  <a href="#a-signal-handler-optimization-feature-is-temporarily-disabled" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A signal handler optimization feature is disabled temporarily
+        A signal handler optimization feature is temporarily disabled
       
     </span>
   </a>
@@ -11357,10 +11357,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-signal-handler-optimization-feature-is-disabled-temporarily" class="md-nav__link">
+  <a href="#a-signal-handler-optimization-feature-is-temporarily-disabled" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A signal handler optimization feature is disabled temporarily
+        A signal handler optimization feature is temporarily disabled
       
     </span>
   </a>
@@ -11429,7 +11429,7 @@
 <li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
 <li><a href="#the-zlib-library-bundled-on-all-linux-platforms-except-linux-on-ibm-z">The <code>zlib</code> library bundled on all Linux platforms except Linux on IBM Z</a></li>
 <li><a href="#the-signaling-process-id-and-process-name-are-recorded-and-reported-in-tracepoints-and-javacore">The signaling process ID and process name are recorded and reported in tracepoints and javacore</a></li>
-<li><a href="#a-signal-handler-optimization-feature-is-disabled-temporarily">A signal handler optimization feature is disabled temporarily</a></li>
+<li><a href="#a-signal-handler-optimization-feature-is-temporarily-disabled">A signal handler optimization feature is temporarily disabled</a></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
@@ -11442,7 +11442,7 @@
 <p>On all platforms except Windows&trade;, when an asynchronous signal <code>SIGABRT</code>, <code>SIGQUIT</code>, or <code>SIGUSR2</code> occurs, the process ID (pid) and the name of the process that sent the signal is recorded and reported in a tracepoint and in the javacore.</p>
 <p>The <code>SIGINT</code>, <code>SIGHUP</code>, and <code>SIGTERM</code> signals create a tracepoint that includes the pid but these signals do not create javacore files.</p>
 <p>For more information, see <a href="../openj9_signals/">Signal handling</a>.</p>
-<h3 id="a-signal-handler-optimization-feature-is-disabled-temporarily">A signal handler optimization feature is disabled temporarily</h3>
+<h3 id="a-signal-handler-optimization-feature-is-temporarily-disabled">A signal handler optimization feature is temporarily disabled</h3>
 <p>On the Windows platform, a feature that uses the x86-64 hardware and signal handler for improving the performance of null object checks and integer division overflows is temporarily disabled by default.</p>
 <p>Recent VM crashes that were observed on Windows 11 and Windows Server 2022 are suspected to be related to an interaction between the Windows control flow guard feature and the VM's signal handling mechanism. Disabling this signal handling optimization feature is a temporary measure while the root cause of the problem is determined. A reliable workaround cannot be recommended until the root cause is known.</p>
 <p>Depending on the workload, performance degradation from 0-10% on Windows was observed with this feature disabled.</p>
