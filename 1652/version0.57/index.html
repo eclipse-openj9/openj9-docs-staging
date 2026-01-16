@@ -11471,7 +11471,7 @@
 <p>Depending on the workload, performance degradation from 0-10% on Windows was observed with this feature disabled.</p>
 <h3 id="a-new-nio-selector-provider-implementation-is-available-for-aix"><img alt="Start of content that applies to Java 11 (LTS)" src="../cr/java11.png" /> A new NIO selector provider implementation is available for AIX</h3>
 <p>A New Input/Output (NIO) channel selector provider, which is based on the pollset system facility, is implemented on AIX. The new implementation provides significant performance benefits when reading from, writing to, or managing multiple network sockets.</p>
-<p>This feature is enabled by default. You can configure it by specifying the new value <code>sun.nio.ch.PollsetSelectorProvider</code> in the <code>java.nio.channels.spi.SelectorProvider</code> system property on the command line.</p>
+<p>This feature is not enabled by default. You can configure it by specifying the new value <code>sun.nio.ch.PollsetSelectorProvider</code> in the <code>java.nio.channels.spi.SelectorProvider</code> system property on the command line.</p>
 <p>For more information, see <a href="../configuring/#configuring-the-nio-selector-provider-aix-only">Configuring the NIO selector provider (AIX only)</a>.</p>
 <p><img alt="End of content that applies to Java 11 (LTS)" src="../cr/java_close.png" /></p>
 <h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
