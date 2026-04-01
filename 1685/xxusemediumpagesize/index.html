@@ -11543,7 +11543,7 @@
 </table>
 <h2 id="explanation">Explanation</h2>
 <p>On AIX systems, by default the Java launcher sets the <code>LDR_CNTRL</code> environment variable as <code>TEXTPSIZE=64K@DATAPSIZE=64K@STACKPSIZE=64K@SHMPSIZE=64K</code> to specify medium page sizes (64 KB) for the text, data, stack, and shared memory segments. This default setting is used to improve performance.</p>
-<p>You can use <code>-XX:-UseMediumPageSize</code> to disable the default setting of the <code>LDR_CNTRL</code> environment variable. When this option is used, the Java launcher uses the default AIX page sizes (Standard page size - 4 KB).</p>
+<p>You can use <code>-XX:-UseMediumPageSize</code> to disable the default setting of the <code>LDR_CNTRL</code> environment variable. When this option is used, the Java launcher uses the default AIX page sizes (4 KB).</p>
 <p>You can re-enable the default setting with the <code>-XX:+UseMediumPageSize</code> option.</p>
 <h2 id="see-also">See also</h2>
 <ul>
