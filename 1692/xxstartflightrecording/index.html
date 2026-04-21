@@ -11561,10 +11561,10 @@
 <p><code>filename=&lt;file_name_with_path&gt;</code> specifies the name of the file and its location where the recording is saved. The file name should have a <code>.jfr</code> extension. If a file name is not specified, the recording is saved in the <code>defaultJ9recording.jfr</code> file in the process working directory by default.</p>
 </li>
 <li>
-<p><code>duration=&lt;time_with_unit_of_time&gt;</code> specifies the duration of the recording. Units of time are <code>ns</code> (nanoseconds), <code>us</code> (microseconds), <code>ms</code> (milliseconds), <code>s</code> (seconds), <code>m</code> (minutes), <code>h</code> (hours), and <code>d</code> (days). You can specify only one unit of time, for example, 54s, 12m, 1h, or 2d. If the duration is not specified, the tool continues to record until the recording is manually stopped or the VM is shut down.</p>
+<p><code>duration=&lt;time_with_unit_of_time&gt;</code> specifies the duration of the recording. Units of time are <code>ns</code> (nanoseconds), <code>us</code> (microseconds), <code>ms</code> (milliseconds), <code>s</code> (seconds), <code>m</code> (minutes), <code>h</code> (hours), and <code>d</code> (days). You can specify only one unit of time, for example, 54s, 12m, 1h, or 2d. If the duration is not specified, the tool continues to record until the VM is shut down.</p>
 </li>
 <li>
-<p><code>delay=&lt;time_with_unit_of_time&gt;</code> specifies the delay in the start of the recording. The VM waits for that amount of time before starting the flight recording. Units of time are <code>ns</code> (nanoseconds), <code>us</code> (microseconds), <code>ms</code> (milliseconds), <code>s</code> (seconds), <code>m</code> (minutes), <code>h</code> (hours), and <code>d</code> (days). You can specify only one unit of time, for example, 54s, 12m, 1h, or 2d. If the delay is not specified, the tool starts the recording as soon as the VM starts, that is <code>0s</code> is the default delay time.</p>
+<p><code>delay=&lt;time_with_unit_of_time&gt;</code> specifies the delay in the start of the recording. The VM waits for that amount of time before starting the flight recording. Units of time are <code>ns</code> (nanoseconds), <code>us</code> (microseconds), <code>ms</code> (milliseconds), <code>s</code> (seconds), <code>m</code> (minutes), <code>h</code> (hours), and <code>d</code> (days). You can specify only one unit of time, for example, 54s, 12m, 1h, or 2d. If the delay is not specified, the default value of <code>0s</code> is used. The recording then starts immediately when the VM starts.</p>
 </li>
 </ul>
 <h2 id="explanation">Explanation</h2>
@@ -11576,7 +11576,7 @@
 <p><img alt="End of content that applies to Java 11 (LTS) and later" src="../cr/java_close_lts.png" /></p>
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="../version0.59/#new--xxstartflightrecording-command-line-option-is-added">What's new in version 0.59.0</a></li>
+<li><a href="../version0.59/#new-xxstartflightrecording-command-line-option-is-added">What's new in version 0.59.0</a></li>
 <li><a href="../xxflightrecorder/"><code>-XX:[+|-]FlightRecorder</code></a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxstartflightrecording.md ==== -->
