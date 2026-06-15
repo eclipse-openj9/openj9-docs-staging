@@ -419,6 +419,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../version0.60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version 0.60.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../version0.59/" class="md-nav__link">
         
   
@@ -931,10 +959,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_21" >
         
           
-          <label class="md-nav__link" for="__nav_5_20" id="__nav_5_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_21" id="__nav_5_21_label" tabindex="0">
             
   
   
@@ -952,8 +980,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_20">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_21">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -11706,7 +11734,7 @@
 </tr>
 <tr>
 <td><a href="#dump"><code>dump</code></a></td>
-<td>Checks the operating system for settings that might truncate system dumps. (AIX&reg; and Linux&reg; only)</td>
+<td>Checks the operating system for settings that might truncate system dumps.</td>
 </tr>
 <tr>
 <td><a href="#gc"><code>gc</code></a></td>
@@ -11733,7 +11761,6 @@
 <dd>Checks the classpath and reports errors such as a missing directory or JAR file.</dd>
 </dl>
 <h3 id="dump"><code>dump</code></h3>
-<p><strong>AIX and Linux only</strong></p>
 <pre><code>    -Xcheck:dump
 </code></pre>
 <dl>
@@ -11781,10 +11808,10 @@
 </dd>
 </dl>
 <p><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> <strong>z/OS only</strong></p>
-<p>From the 0.60.0 release onwards, the <code>-Xcheck:dump</code> option is enhanced on z/OS systems to trigger extra checking for the <code>-Xdump:system</code> agents. The VM now validates dataset names specified in the <code>-Xdump:system</code> options. This validation allows earlier detection of improper VM options and prevents deployment of misconfigured applications. You can correct the invalid datasets as soon as they are identified, and when the system dump is triggered, your diagnostic dumps will be created successfully.</p>
-<p>If the <code>-Xcheck:dump</code> option is not used, then the invalid datasets remain undetected. If and when the system dump is triggered, it fails silently and critical diagnostic data will be lost.</p>
+<p>From the 0.60.0 release onwards, the <code>-Xcheck:dump</code> option is enhanced on z/OS systems to trigger extra checking for the <code>-Xdump:system</code> agents. When this option is used, the VM now validates dataset names specified in the <code>-Xdump:system</code> options. This validation allows earlier detection of improper VM options and prevents deployment of misconfigured applications. You can correct the invalid datasets as soon as they are identified, and when the system dump is triggered, your diagnostic dumps will be created successfully.</p>
+<p>If the <code>-Xcheck:dump</code> option is not used, then the invalid datasets remain undetected. If and when the system dump is triggered, the dump with the improper dataset names fails silently and critical diagnostic data will be lost.</p>
 <p>Examples:</p>
-<p>No change to the message output when all dataset names are valid (as is the case with the defaults):</p>
+<p>No change when all dataset names are valid (as is the case with the defaults):</p>
 <pre><code>$ java -Xcheck:dump -version
 java version &quot;21.0.11-internal&quot; 2026-04-21
 IBM Semeru Runtime Certified Edition for z/OS (build 21.0.11-internal-adhoc.JENKINS.BuildJDK21s390xzosPersonal)
@@ -11797,7 +11824,7 @@ JCL      - 166e9d03068 based on jdk-21.0.11+10)
 <p>When the <code>-Xcheck:dump</code> option is not used, the VM reports the invalid dataset name if and when the dump is triggered and the normal message output is omitted:</p>
 <pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -version
 </code></pre>
-<p>When the <code>-Xcheck:dump</code> option is used, the VM reports the problematic <code>-Xdump</code> options in the same format that is used by <code>-Xdump:what</code> and does not proceed with the dump:</p>
+<p>When the <code>-Xcheck:dump</code> option is used, the VM reports the problematic <code>-Xdump</code> options in the same format that is used by <code>-Xdump:what</code> and the VM fails to start:</p>
 <pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -Xcheck:dump -version
 JVMJ9VM268E The following -Xdump:system options contain invalid dsn specifications:
 -Xdump:system:
@@ -11809,7 +11836,7 @@ request=serial
 Error: Could not create the Java Virtual Machine.
 Error: A fatal exception has occurred. Program will exit.
 </code></pre>
-<p>If the dump support is disabled, <code>-Xcheck:dump</code> is also disabled. The VM proceeds normally except for an additional message. The normal message output is omitted in this case also.</p>
+<p>If the dump support is disabled, <code>-Xcheck:dump</code> is also disabled. The VM proceeds normally except for an additional message.</p>
 <pre><code>$ java -Xdump:none -Xcheck:dump -version
 JVMJ9VM063W seekDumpAgent requires j9dmp29
 </code></pre>
