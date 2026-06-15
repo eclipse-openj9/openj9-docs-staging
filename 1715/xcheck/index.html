@@ -11805,27 +11805,23 @@
 <dl>
 <dd>This message indicates that the Linux <code>/proc/sys/kernel/core_pattern</code> option is set to rename system dumps. The tokens that are used in the operating system dump name might interfere with the VM's system dump file processing, in particular with file names specified in the VM <code>-Xdump</code> options. If problems occur when generating system dumps from the VM, consider changing the <code>/proc/sys/kernel/core_pattern</code> setting to the default value of <code>core</code>.</dd>
 </dl>
-</dd>
-</dl>
 <p><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> <strong>z/OS only</strong></p>
 <p>From the 0.60.0 release onwards, the <code>-Xcheck:dump</code> option is enhanced on z/OS systems to trigger extra checking for the <code>-Xdump:system</code> agents. When this option is used, the VM now validates dataset names specified in the <code>-Xdump:system</code> options. This validation allows earlier detection of improper VM options and prevents deployment of misconfigured applications. You can correct the invalid datasets as soon as they are identified, and when the system dump is triggered, your diagnostic dumps will be created successfully.</p>
 <p>If the <code>-Xcheck:dump</code> option is not used, then the invalid datasets remain undetected. If and when the system dump is triggered, the dump with the improper dataset names fails silently and critical diagnostic data will be lost.</p>
 <p>Examples:</p>
 <p>No change when all dataset names are valid (as is the case with the defaults):</p>
-<pre><code>$ java -Xcheck:dump -version
-java version &quot;21.0.11-internal&quot; 2026-04-21
+<p><code>$ java -Xcheck:dump -version
+java version "21.0.11-internal" 2026-04-21
 IBM Semeru Runtime Certified Edition for z/OS (build 21.0.11-internal-adhoc.JENKINS.BuildJDK21s390xzosPersonal)
 IBM J9 VM (build 21.0.11-internal-adhoc.JENKINS.BuildJDK21s390xzosPersonal-dsntest-5de00868719, JRE 21 z/OS s390x-64-Bit Compressed References 20260429_3867 (JIT enabled, AOT enabled)
 OpenJ9   - 5de00868719
 OMR      - 4a4463e1977
 IBM      - 764a44bc845
-JCL      - 166e9d03068 based on jdk-21.0.11+10)
-</code></pre>
+JCL      - 166e9d03068 based on jdk-21.0.11+10)</code></p>
 <p>When the <code>-Xcheck:dump</code> option is not used, the VM reports the invalid dataset name if and when the dump is triggered and the normal message output is omitted:</p>
-<pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -version
-</code></pre>
+<p><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -version</code></p>
 <p>When the <code>-Xcheck:dump</code> option is used, the VM reports the problematic <code>-Xdump</code> options in the same format that is used by <code>-Xdump:what</code> and the VM fails to start:</p>
-<pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -Xcheck:dump -version
+<p><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -Xcheck:dump -version
 JVMJ9VM268E The following -Xdump:system options contain invalid dsn specifications:
 -Xdump:system:
 events=user,
@@ -11834,12 +11830,12 @@ range=1..0,
 priority=999,
 request=serial
 Error: Could not create the Java Virtual Machine.
-Error: A fatal exception has occurred. Program will exit.
-</code></pre>
+Error: A fatal exception has occurred. Program will exit.</code></p>
 <p>If the dump support is disabled, <code>-Xcheck:dump</code> is also disabled. The VM proceeds normally except for an additional message.</p>
-<pre><code>$ java -Xdump:none -Xcheck:dump -version
-JVMJ9VM063W seekDumpAgent requires j9dmp29
-</code></pre>
+<p><code>$ java -Xdump:none -Xcheck:dump -version
+JVMJ9VM063W seekDumpAgent requires j9dmp29</code></p>
+</dd>
+</dl>
 <p><img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></p>
 <h3 id="gc"><code>gc</code></h3>
 <pre><code>    -Xcheck:gc[:help][:&lt;scan options&gt;][:&lt;verify options&gt;][:&lt;misc options&gt;]
