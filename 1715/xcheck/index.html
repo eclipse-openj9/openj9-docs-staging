@@ -11820,37 +11820,41 @@
 </dd>
 <dd>
 <p>No change when all dataset names are valid (as is the case with the defaults):</p>
-<p><code>$ java -Xcheck:dump -version
-java version "21.0.11-internal" 2026-04-21
+</dd>
+<dt><pre><code>$ java -Xcheck:dump -version
+java version &quot;21.0.11-internal&quot; 2026-04-21
 IBM Semeru Runtime Certified Edition for z/OS (build 21.0.11-internal-adhoc.JENKINS.BuildJDK21s390xzosPersonal)
 IBM J9 VM (build 21.0.11-internal-adhoc.JENKINS.BuildJDK21s390xzosPersonal-dsntest-5de00868719, JRE 21 z/OS s390x-64-Bit Compressed References 20260429_3867 (JIT enabled, AOT enabled)
 OpenJ9   - 5de00868719
 OMR      - 4a4463e1977
 IBM      - 764a44bc845
-JCL      - 166e9d03068 based on jdk-21.0.11+10)</code></p>
-</dd>
+JCL      - 166e9d03068 based on jdk-21.0.11+10)
+</code></pre></dt>
 <dd>
 <p>When the <code>-Xcheck:dump</code> option is not used, the VM reports the invalid dataset name if and when the dump is triggered and the normal message output is omitted:</p>
-<p><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -version</code></p>
 </dd>
+<dt><pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -version
+</code></pre></dt>
 <dd>
 <p>When the <code>-Xcheck:dump</code> option is used, the VM reports the problematic <code>-Xdump</code> options in the same format that is used by <code>-Xdump:what</code> and the VM fails to start:</p>
-<p><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -Xcheck:dump -version
+</dd>
+<dt><pre><code>$ java -Xdump:system:events=user,dsn='BAD..NAME.X&amp;DS' -Xcheck:dump -version
 JVMJ9VM268E The following -Xdump:system options contain invalid dsn specifications:
 -Xdump:system:
-events=user,
-dsn=BAD..NAME.X&amp;DS,
-range=1..0,
-priority=999,
-request=serial
+    events=user,
+    dsn=BAD..NAME.X&amp;DS,
+    range=1..0,
+    priority=999,
+    request=serial
 Error: Could not create the Java Virtual Machine.
-Error: A fatal exception has occurred. Program will exit.</code></p>
-</dd>
+Error: A fatal exception has occurred. Program will exit.
+</code></pre></dt>
 <dd>
 <p>If dump support is disabled, <code>-Xcheck:dump</code> is also disabled. The VM proceeds normally except for an additional message.</p>
-<p><code>$ java -Xdump:none -Xcheck:dump -version
-JVMJ9VM063W seekDumpAgent requires j9dmp29</code></p>
 </dd>
+<dt><pre><code>$ java -Xdump:none -Xcheck:dump -version
+JVMJ9VM063W seekDumpAgent requires j9dmp29
+</code></pre></dt>
 <dd>
 <p><img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></p>
 </dd>
