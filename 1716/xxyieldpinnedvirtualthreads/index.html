@@ -11630,13 +11630,14 @@
 <p>In some scenarios, such as executing native code or some VM internal operations, the continuation is <em>pinned</em>. When pinned, a virtual thread cannot unmount its carrier thread even if it encounters a blocking operation. It also holds onto CPU time, thus preventing other virtual threads from using that carrier thread.</p>
 <p>A VM maintains a limited pool of carrier threads. Virtual threads are supposed to unmount when blocked, freeing carriers for other virtual threads to use. You can use the <code>-XX:+YieldPinnedVirtualThreads</code> option to enable the pinned virtual thread to yield CPU time to OS scheduler. A pinned virtual thread cannot unmount its carrier thread but the yielding option helps by at least allowing sharing of CPU time even when carrier thread sharing is impossible.</p>
 <p>You can use the <code>-XX:-YieldPinnedVirtualThreads</code> option to disable this yielding of CPU time feature.</p>
+<p>For more information about pinning of virtual threads, see <a href="https://openjdk.java.net/jeps/491">JEP 491</a>: Synchronize Virtual Threads without Pinning.</p>
 <p><img alt="End of content that applies to Java 24 and later" src="../cr/java_close.png" /></p>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xxshowcarrierframes/"><code>-XX:[+|-]ShowCarrierFrames</code></a></li>
 <li><a href="../xxcontinuationcache/"><code>-XX:ContinuationCache</code></a></li>
 <li><a href="../xxshowunmountedthreadstacks/"><code>-XX:[+|-]ShowUnmountedThreadStacks</code></a></li>
-<li><a href="../version0.60/#new-xx-yieldpinnedvirtualthreads-command-line-option-is-added">What's new in version 0.60.0</a></li>
+<li><a href="../version0.54/#new-xx-yieldpinnedvirtualthreads-command-line-option-is-added">What's new in version 0.54.0</a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxyieldpinnedvirtualthreads.md ==== -->
 
