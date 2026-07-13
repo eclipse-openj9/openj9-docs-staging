@@ -12542,7 +12542,7 @@
 <p>This option is used to add the specified headroom on top of the automatic concurrent kickoff calculation to trigger the concurrent global GC cycle earlier than the GC heuristic computed kickoff point.</p>
 </dd>
 <dd>
-<p>The GC heuristic computes a kickoff point based on steady-state metrics, such as allocation rate and marking speed, to determine when the concurrent global GC cycle should start. The default headroom is added to this kickoff point: 10% when concurrent scavenge is enabled (<a href="#concurrentscavenge"><code>-Xgc:concurrentScavenge</code></a>), or 2% for stop-the-world (STW) scavenge. With the <code>concurrentKickoffTenuringHeadroom</code> option, you can override the default headroom.</p>
+<p>The GC heuristic computes a kickoff point based on steady-state metrics, such as allocation rate and marking speed, to determine when the concurrent global GC cycle should start. The default headroom is added to this kickoff point: 10% when concurrent scavenge is enabled (<a href="#concurrentscavenge"><code>-Xgc:concurrentScavenge</code></a>), or 2% for stop-the-world scavenge. With the <code>concurrentKickoffTenuringHeadroom</code> option, you can override the default headroom.</p>
 </dd>
 <dd>
 <p>For example, if concurrent scavenge is enabled and the heuristic determines that kickoff should occur when 8% of tenure memory is free, the concurrent global GC cycle starts when 18% of tenure memory is free, where 18% = 8% (heuristically based value) + 10% (default headroom for concurrent scavenge).</p>
