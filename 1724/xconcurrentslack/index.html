@@ -11641,9 +11641,9 @@
 <dd>See <a href="../x_jvm_commands/">Using -X command-line options</a> for more information about the <code>&lt;size&gt;</code> parameter.</dd>
 </dl>
 <h2 id="explanation">Explanation</h2>
-<p>Concurrent GC needs time to complete. If the VM waits too long to start concurrent GC, application allocation can keep consuming memory while GC is still marking or reclaiming objects. In that case, the amount of free space can fall too far before the concurrent cycle finishes. Then, the VM might have to use a more urgent collection path, such as stop-the-world GC, which can mean longer pause and reduced application response.</p>
-<p>By specifying this option, the VM starts concurrent GC operations earlier to try to keep free heap space available.</p>
-<p>Starting concurrent GC operations earlier can reduce pause times, but it can also lengthen concurrent cycles and reduce total throughput.</p>
+<p>Ideally, concurrent GC needs to complete its operation before application consumes all free memory. Otherwise, GC will transition into the stop-the-world (STW) mode, which means longer pauses. Due to fluctuations in application characteristics such as allocation rate, object survival rate, CPU utilization, GC might mis-predict the concurrent GC kickoff point, and start it too late or progress too slowly.</p>
+<p>To compensate for such fluctuations, you can specify this option so that the VM starts concurrent GC operations earlier to try to keep free heap space available.</p>
+<p>Starting concurrent GC operations earlier can reduce pause times, but it might increase frequency because of suboptimal use of free memory.</p>
 <p>The default value is <code>0</code>, which is optimal for most applications.</p>
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M36.4 353.2c4.1-14.6 11.8-27.9 22.6-38.7l181.2-181.2 33.9-33.9 104 104 33.9 33.9-33.9 33.9-181.2 181.2c-10.7 10.7-24.1 18.5-38.7 22.6L30.4 510.6c-8.3 2.3-17.3 0-23.4-6.2S-1.4 489.3.9 481zm55.6-3.7c-4.4 4.7-7.6 10.4-9.3 16.6L58.6 453l86.9-24.1c6.4-1.8 12.2-5.1 17-9.7l-70.6-69.7zm354-146.1-104-104-34-33.9 44.9-44.9C366.4 7 384.8-.6 404-.6s37.6 7.6 51.1 21.2l35.7 35.7c13.6 13.6 21.2 32 21.2 51.1s-7.6 37.6-21.2 51.1l-44.9 44.9z"/></svg></span> <strong>Note:</strong> This option is not supported by the following GC policies:</p>
 <ul>
@@ -11660,13 +11660,13 @@
 <p>Because the concurrent GC kickoff heuristic monitors tenure space rather than nursery space, the <code>&lt;size&gt;</code> value does not map directly to the free space seen by allocating threads.</p>
 <p>Therefore, in <code>gencon</code> policy, the amount of headroom is calculated as follows:</p>
 <blockquote>
-<p>Headroom = (<code>&lt;size&gt;</code> ÷ Average promotion rate) × Average nursery allocation size</p>
+<p>Headroom = (<code>&lt;size&gt;</code> ÷ Average promotion rate) × Average application allocation rate</p>
 </blockquote>
 <p>where:</p>
 <ul>
 <li><strong><code>&lt;size&gt;</code></strong> is the free memory in tenure space that is specified in the <code>-Xconcurrentslack</code> option.</li>
 <li><strong>Average promotion rate</strong> is the average rate at which objects are promoted from nursery space into tenure space.</li>
-<li><strong>Average nursery allocation size</strong> is the average amount of memory that is allocated in nursery space by application threads.</li>
+<li><strong>Average application allocation rate</strong> is the average amount of memory that is allocated in nursery space by application threads.</li>
 </ul>
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M36.4 353.2c4.1-14.6 11.8-27.9 22.6-38.7l181.2-181.2 33.9-33.9 104 104 33.9 33.9-33.9 33.9-181.2 181.2c-10.7 10.7-24.1 18.5-38.7 22.6L30.4 510.6c-8.3 2.3-17.3 0-23.4-6.2S-1.4 489.3.9 481zm55.6-3.7c-4.4 4.7-7.6 10.4-9.3 16.6L58.6 453l86.9-24.1c6.4-1.8 12.2-5.1 17-9.7l-70.6-69.7zm354-146.1-104-104-34-33.9 44.9-44.9C366.4 7 384.8-.6 404-.6s37.6 7.6 51.1 21.2l35.7 35.7c13.6 13.6 21.2 32 21.2 51.1s-7.6 37.6-21.2 51.1l-44.9 44.9z"/></svg></span> <strong>Note:</strong> Because the average promotion rate and average nursery allocation size must usually be derived from verbose GC logs, <code>-Xconcurrentslack</code> can be difficult to calibrate for <code>gencon</code>. Therefore, in the case <code>gencon</code> policy, use the <a href="../xgc/#concurrentkickofftenuringheadroom"><code>-Xgc:concurrentKickoffTenuringHeadroom</code></a> option for ease.</p>
 <h2 id="see-also">See also</h2>
