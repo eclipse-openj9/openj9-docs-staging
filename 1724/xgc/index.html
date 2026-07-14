@@ -12554,7 +12554,10 @@
 <p>The typical scenario where this option is useful is to compensate for spikes in tenuring that would otherwise fill the tenure space faster than the concurrent GC can finish. The headroom triggers the concurrent cycle early enough to absorb those spikes.</p>
 </dd>
 <dd>
-<p>This option applies only to the <code>gencon</code> GC policy.</p>
+<p>This option was added in the <a href="../version0.15/#new-xgc-parameter-related-to-concurrent-kickoff-calculation-is-added">0.15.0 release</a> and applies only to the <code>gencon</code> GC policy.</p>
+</dd>
+<dd>
+<p>Even though the <code>-Xconcurrentslack</code> option is also used to add headroom but in the case of <code>gencon</code> GC policy, use the <code>concurrentKickoffTenuringHeadroom</code> option.</p>
 </dd>
 <dd>
 <p>For more information about headroom, see <a href="../xconcurrentslack/"><code>-Xconcurrentslack</code></a>.</p>
