@@ -12173,7 +12173,7 @@
   &lt;object-monitors candidates=&quot;132&quot; cleared=&quot;0&quot;  /&gt;
 &lt;/gc-op&gt;
 </code></pre>
-<p>The <code>&lt;memory-copied&gt;</code> element indicates that 5.75 MB (6,027,440B) of reachable objects were moved by the scavenge operation from the allocate space to the survivor space in the nursery area, and 0.54 MB(562,848 B) were moved to the tenure area.</p>
+<p>The <code>&lt;memory-copied&gt;</code> element indicates that 5.75 MB (6,027,440B) of reachable objects were moved by the scavenge operation from the allocate space to the survivor space in the nursery area, and 0.54 MB (562,848 B) were moved to the tenure area.</p>
 <p>The <code>&lt;scavenger-info&gt;</code> element shows that the <em>tenure age</em> is set to <code>7</code>. Any object in the allocate space with an age less than or equal to <code>7</code> is copied to the survivor space during this <code>scavenge</code>operation. Any object that is copied between the allocate and survivor areas more than <code>7</code> times is moved to the tenure area.</p>
 <p>For more information about how the scavenge operation acts on the Java object heap, see <a href="../gc/#gc-processing">GC processing</a>.</p>
 <p>The end of the increment is recorded with <code>&lt;gc-end&gt;</code> and provides another snapshot of memory allocation on the heap, similar to <code>&lt;gc-start&gt;</code>.</p>
