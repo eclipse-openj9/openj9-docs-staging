@@ -421,6 +421,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../version0.62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version 0.62.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../version0.61/" class="md-nav__link">
         
   
@@ -525,17 +553,6 @@
     <span class="md-ellipsis">
       
         Binaries and supported environments
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zip64-extension-support-is-added-for-64-bit-platforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ZIP64 extension support is added for 64-bit platforms
       
     </span>
   </a>
@@ -1141,10 +1158,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_22" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_23" >
         
           
-          <label class="md-nav__link" for="__nav_5_22" id="__nav_5_22_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_23" id="__nav_5_23_label" tabindex="0">
             
   
   
@@ -1162,8 +1179,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_22_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_22">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_23">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -11647,17 +11664,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#zip64-extension-support-is-added-for-64-bit-platforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ZIP64 extension support is added for 64-bit platforms
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#the-xcheckdump-option-is-enhanced-on-zos-systems" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11772,7 +11778,6 @@
 <p>The following new features and notable changes since version 0.59.0 are included in this release:</p>
 <ul>
 <li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
-<li><a href="#zip64-extension-support-is-added-for-64-bit-platforms">ZIP64 extension support is added for 64-bit platforms</a></li>
 <li><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> <a href="#the-xcheckdump-option-is-enhanced-on-zos-systems">The <code>-Xcheck:dump</code> option is enhanced on z/OS systems</a> <img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></li>
 <li><a href="#compiler-changes-for-linux-aarch64-64-bit">Compiler changes for Linux AArch64 64-bit</a></li>
 <li><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> <a href="#new-jdk-flight-recorder-jfr-events-are-added-in-this-release">New JDK Flight Recorder (JFR) events are added in this release</a> <img alt="End of content that applies only to Java 11 and later" src="../cr/java_close.png" /></li>
@@ -11782,13 +11787,6 @@
 <h2 id="features-and-changes">Features and changes</h2>
 <h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
 <p>Eclipse OpenJ9&trade; release 0.60.0 supports OpenJDK 8, 11, 17, 21, 25, and 26.</p>
-<p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
-<h3 id="zip64-extension-support-is-added-for-64-bit-platforms">ZIP64 extension support is added for 64-bit platforms</h3>
-<p>On 64-bit platforms, the OpenJ9 VM now supports ZIP files that use ZIP64 extensions for bootstrap class loading and shared classes cache operations.</p>
-<p>This enhancement enables the VM to overcome the 4 GB size limitation of the standard ZIP files and work with large JAR or ZIP files.</p>
-<p>The VM automatically detects and handles ZIP files that contain ZIP64 extensions. The VM works with both standard ZIP files and ZIP files that use ZIP64 extensions.</p>
-<p>For more information about shared classes cache, see <a href="../shrc/">Introduction to class data sharing</a>.
-RHEL 9.4 is out of Extended Update Support (EUS) and is removed from the list of supported platforms. RHEL 9.6 is the new minimum operating system level.</p>
 <p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
 <h3 id="the-xcheckdump-option-is-enhanced-on-zos-systems"><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> The <code>-Xcheck:dump</code> option is enhanced on z/OS systems</h3>
 <p>The <code>-Xcheck:dump</code> option is enhanced on z/OS systems to trigger extra checking for <code>-Xdump:system</code> agents. When this option is used, the VM now validates dataset names that are specified in <code>-Xdump:system</code> options. This validation allows earlier detection of improper VM options and prevents deployment of misconfigured applications. You can ensure that when system dumps are triggered, your diagnostic dumps will be created successfully and will not fail because of invalid dataset names.</p>
