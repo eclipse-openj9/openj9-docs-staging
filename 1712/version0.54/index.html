@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../cr/openj9-logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -421,6 +421,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../version0.61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version 0.61.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../version0.60/" class="md-nav__link">
         
   
@@ -676,6 +704,17 @@
     <span class="md-ellipsis">
       
         New JDK Flight Recorder (JFR) events are added in this release
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-xx-yieldpinnedvirtualthreads-command-line-option-is-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New -XX:[+|-]YieldPinnedVirtualThreads command-line option is added
       
     </span>
   </a>
@@ -1069,10 +1108,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_21" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_22" >
         
           
-          <label class="md-nav__link" for="__nav_5_21" id="__nav_5_21_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_22" id="__nav_5_22_label" tabindex="0">
             
   
   
@@ -1090,8 +1129,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_21_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_21">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_22">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -7689,14 +7728,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../xtunevirtualized/" class="md-nav__link">
+      <a href="../xtune/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    -Xtune:virtualized
+    -Xtune
   
 
     
@@ -10705,6 +10744,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xxyieldpinnedvirtualthreads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    -XX:[+|-]YieldPinnedVirtualThreads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11415,14 +11482,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-jdk26/" class="md-nav__link">
+      <a href="../api-jdk27/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Java 26 API
+    Java 27 API
   
 
     
@@ -11558,6 +11625,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#new-xx-yieldpinnedvirtualthreads-command-line-option-is-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New -XX:[+|-]YieldPinnedVirtualThreads command-line option is added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#new-jdk-24-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11629,6 +11707,7 @@
 <ul>
 <li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
 <li><img alt="Start of content that applies to Java 11 (LTS) and later" src="../cr/java11plus.png" /> <a href="#new-jdk-flight-recorder-jfr-events-are-added-in-this-release">New JDK Flight Recorder (JFR) events are added in this release</a> <img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></li>
+<li><img alt="Start of content that applies to Java 24 and later" src="../cr/java24plus.png" /> <a href="#new-xx-yieldpinnedvirtualthreads-command-line-option-is-added">New <code>-XX:[+|-]YieldPinnedVirtualThreads</code> command-line option is added</a> <img alt="End of content that applies to Java 24 and later" src="../cr/java_close.png" /></li>
 <li><img alt="Start of content that applies to Java 24 and later" src="../cr/java24plus.png" /> <a href="#new-jdk-24-features">New JDK 24 features</a> <img alt="End of content that applies to Java 24 and later" src="../cr/java_close.png" /></li>
 </ul>
 <h2 id="features-and-changes">Features and changes</h2>
@@ -11643,6 +11722,9 @@
 <li>ModuleRequires</li>
 </ul>
 <p>For more information, see <a href="../xxflightrecorder/"><code>-XX:[+|-]FlightRecorder</code></a>. <img alt="End of content that applies only to Java 11 and later" src="../cr/java_close_lts.png" /></p>
+<h3 id="new-xx-yieldpinnedvirtualthreads-command-line-option-is-added"><img alt="Start of content that applies to Java 24 and later" src="../cr/java24plus.png" /> New <code>-XX:[+|-]YieldPinnedVirtualThreads</code> command-line option is added</h3>
+<p>You can use the <code>-XX:+YieldPinnedVirtualThreads</code> option to enable the pinned virtual thread to <em>yield</em> CPU time to OS scheduler. A pinned virtual thread cannot unmount its carrier thread but the yielding option helps by at least allowing sharing of CPU time even when carrier thread sharing is impossible.</p>
+<p>For more information, see <a href="../xxyieldpinnedvirtualthreads/"><code>-XX:[+|-]YieldPinnedVirtualThreads</code></a>. <img alt="End of content that applies to Java 24 and later" src="../cr/java_close.png" /></p>
 <h3 id="new-jdk-24-features"><img alt="Start of content that applies to Java 24 and later" src="../cr/java24plus.png" /> New JDK 24 features</h3>
 <p>The following features are supported by OpenJ9:</p>
 <ul>
@@ -11824,7 +11906,7 @@ Any remaining features that are listed either do not apply to OpenJ9 or are not 
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 2.0}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascripts/oj9.js"></script>
       
