@@ -11661,6 +11661,7 @@
 -->
 
 <h1 id="-xx-memorydisclaim">-XX:[+|-]MemoryDisclaim</h1>
+<p><strong>Linux&reg; only</strong></p>
 <p>This option enables or disables the return of unused physical memory pages back to the operating system while still keeping the virtual address space reserved.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:[+|-]MemoryDisclaim
@@ -11687,12 +11688,13 @@
 </tbody>
 </table>
 <h2 id="explanation">Explanation</h2>
-<p>With the <code>-XX:+MemoryDisclaim</code> option, OpenJ9 can <em>disclaim</em> the physical memory for data structures, such as data caches, interpreter profiler, and runtime assumptions, when it estimates that these data structures are rarely used. The operating system can use the physical memory that is released immediately without waiting for a full garbage collection sweep.</p>
-<p>For each of these data structures, there is a corresponding <code>-Xjit</code> option that are used internally to disable disclaiming of their memory. Any <code>-Xjit</code> options which affect memory disclaiming take priority over the <code>-XX:[-|+]MemoryDisclaim</code> option.</p>
+<p>With the <code>-XX:+MemoryDisclaim</code> option, OpenJ9 can <em>disclaim</em> the physical memory for data structures, such as data caches, interpreter profiler, and runtime assumptions, when it estimates that these data structures are unlikely to be used soon. The operating system can immediately reuse the released physical memory.</p>
+<p>For each of these data structures, there is a corresponding internal <code>-Xjit</code> option that can be used to disable disclaiming for that specific data structure. Any such <code>-Xjit</code> options that affect memory disclaiming take precedence over the <code>-XX:[-|+]MemoryDisclaim</code> option.</p>
 <p><span aria-hidden="true" class="twemoji note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M36.4 353.2c4.1-14.6 11.8-27.9 22.6-38.7l181.2-181.2 33.9-33.9 104 104 33.9 33.9-33.9 33.9-181.2 181.2c-10.7 10.7-24.1 18.5-38.7 22.6L30.4 510.6c-8.3 2.3-17.3 0-23.4-6.2S-1.4 489.3.9 481zm55.6-3.7c-4.4 4.7-7.6 10.4-9.3 16.6L58.6 453l86.9-24.1c6.4-1.8 12.2-5.1 17-9.7l-70.6-69.7zm354-146.1-104-104-34-33.9 44.9-44.9C366.4 7 384.8-.6 404-.6s37.6 7.6 51.1 21.2l35.7 35.7c13.6 13.6 21.2 32 21.2 51.1s-7.6 37.6-21.2 51.1l-44.9 44.9z"/></svg></span> <strong>Notes:</strong></p>
 <ul>
 <li>If <code>-XX:-MemoryDisclaim</code> is specified, then all forms of memory disclaiming are disabled.</li>
-<li>If <code>-XX:+MemoryDisclaim</code> is specified after the last instance of <code>-XX:-MemoryDisclaim</code>, then default settings are restored.</li>
+<li>If <code>-XX:+MemoryDisclaim</code> is specified after the last occurrence of <code>-XX:-MemoryDisclaim</code>, then default memory disclaiming settings are restored.</li>
+<li>Memory disclaiming and therefore the <code>-XX:[+|-]MemoryDisclaim</code> option applies only to Linux operating system. For all other operating systems, disclaiming is disabled and this option has no effect.</li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxmemorydisclaim.md ==== -->
 
