@@ -8198,6 +8198,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../xxdisclaimdir/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    -XX:DisclaimDir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../xxdisclaimjitscratch/" class="md-nav__link">
         
   
@@ -9533,6 +9561,17 @@
     <span class="md-ellipsis">
       
         Explanation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
       
     </span>
   </a>
@@ -11620,6 +11659,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -11694,7 +11744,12 @@
 <ul>
 <li>If <code>-XX:-MemoryDisclaim</code> is specified, then all forms of memory disclaiming are disabled.</li>
 <li>If <code>-XX:+MemoryDisclaim</code> is specified after the last occurrence of <code>-XX:-MemoryDisclaim</code>, then default memory disclaiming settings are restored.</li>
+<li>The data of the physical memory pages that are disclaimed are stored in backing files. The data is restored from these backing files. For more information, see <a href="../xxdisclaimdir/"><code>-XX:DisclaimDir</code></a>.</li>
 <li>Memory disclaiming and therefore the <code>-XX:[+|-]MemoryDisclaim</code> option applies only to Linux operating system. For all other operating systems, disclaiming is disabled and this option has no effect.</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../xxdisclaimdir/"><code>-XX:DisclaimDir</code></a></li>
 </ul>
 <!-- ==== END OF TOPIC ==== xxmemorydisclaim.md ==== -->
 

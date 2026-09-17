@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://eclipse.dev/openj9/docs/version0.62/">
+        <link rel="canonical" href="https://eclipse.dev/openj9/docs/xxdisclaimdir/">
       
       
-        <link rel="prev" href="../openj9_releases/">
+        <link rel="prev" href="../xxdisableexplicitgc/">
       
       
-        <link rel="next" href="../version0.61/">
+        <link rel="next" href="../xxdisclaimjitscratch/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Version 0.62.0 -  </title>
+        <title>-XX:DisclaimDir -  </title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#whats-new-in-version-0620" class="md-skip">
+        <a href="#-xxdisclaimdir" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Version 0.62.0
+              -XX:DisclaimDir
             
           </span>
         </div>
@@ -341,20 +341,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -375,7 +373,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -418,37 +416,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Version 0.62.0
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../version0.62/" class="md-nav__link">
         
   
   
@@ -464,87 +435,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#features-and-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Features and changes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Features and changes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binaries-and-supported-environments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Binaries and supported environments
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zip64-extension-support-is-added" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ZIP64 extension support is added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-jdk-27-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        New JDK 27 features
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#known-problems-and-full-release-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Known problems and full release information
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3953,18 +3843,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" checked>
         
           
           <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
@@ -3985,7 +3877,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             
@@ -7862,18 +7754,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18_6" checked>
         
           
           <label class="md-nav__link" for="__nav_18_6" id="__nav_18_6_label" tabindex="0">
@@ -7894,7 +7788,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_18_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_18_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -8301,10 +8195,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../xxdisclaimdir/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    -XX:DisclaimDir
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -8320,6 +8241,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -11664,60 +11638,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#features-and-changes" class="md-nav__link">
+  <a href="#syntax" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Features and changes
+        Syntax
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Features and changes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binaries-and-supported-environments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Binaries and supported environments
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zip64-extension-support-is-added" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ZIP64 extension support is added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-jdk-27-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        New JDK 27 features
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#known-problems-and-full-release-information" class="md-nav__link">
+  <a href="#explanation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Known problems and full release information
+        Explanation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
       
     </span>
   </a>
@@ -11764,42 +11710,62 @@
 * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0 OR GPL-2.0-only WITH OpenJDK-assembly-exception-1.0
 -->
 
-<h1 id="whats-new-in-version-0620">What's new in version 0.62.0</h1>
-<p>The following new features and notable changes since version 0.61.0 are included in this release:</p>
+<h1 id="-xxdisclaimdir">-XX:DisclaimDir</h1>
+<p><strong>(Linux&reg; only)</strong></p>
+<p>This option specifies the directory for storing the backing files that are required by the memory disclaim mechanism. The backing files hold the data of the physical memory pages that were disclaimed.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>    -XX:DisclaimDir=&lt;directory&gt;
+</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>OpenJ9's memory disclaiming mechanism releases physical memory pages that are occupied by internal data structures, such as data caches and interpreter profiler, back to the operating system when they are unlikely to be needed soon. However, the VM still reserves the virtual address space of the data structures if the VM needs to access that data later. Instead of consuming actual physical memory, the data is moved to a temporary backing file located in the specified directory, while retaining the virtual address. The physical memory that was released is marked as free and other processes or the operating system can immediately take over that physical memory for other tasks.</p>
+<p>When the VM accesses the virtual address of the disclaimed memory page, the operating system loads the stored data back into the physical memory for the VM to use.</p>
+<p>If the option is not specified, the VM selects a location automatically in either of the following ways:</p>
 <ul>
-<li><a href="#binaries-and-supported-environments">New binaries and changes to supported environments</a></li>
-<li><a href="#zip64-extension-support-is-added">ZIP64 extension support is added</a></li>
-<li><img alt="Start of content that applies to Java 27 and later" src="../cr/java27plus.png" /> <a href="#new-jdk-27-features">New JDK 27 features</a> <img alt="End of content that applies to Java 27 and later" src="../cr/java_close.png" /></li>
+<li>Swap space, if available</li>
+<li><code>/tmp</code> directory, if swap cannot be used</li>
 </ul>
-<h2 id="features-and-changes">Features and changes</h2>
-<h3 id="binaries-and-supported-environments">Binaries and supported environments</h3>
-<p>Eclipse OpenJ9&trade; release 0.62.0 supports OpenJDK 27.</p>
-<p>OpenJDK 27 with Eclipse OpenJ9 is <em>not</em> a long term support (LTS) release.</p>
-<p>To learn more about support for OpenJ9 releases, including OpenJDK levels and platform support, see <a href="../openj9_support/">Supported environments</a>.</p>
-<h3 id="zip64-extension-support-is-added">ZIP64 extension support is added</h3>
-<p>OpenJ9 VM now supports ZIP files that use ZIP64 extensions for bootstrap class loading and shared classes cache operations.</p>
-<p>This enhancement enables the VM to eliminate the 4 GB size limitation of standard ZIP files and work with large JAR or ZIP files.</p>
-<p>The VM automatically detects and handles ZIP files that contain ZIP64 extensions. The VM works with both standard ZIP files and ZIP files that use ZIP64 extensions.</p>
-<p>For more information about shared classes cache, see <a href="../shrc/">Introduction to class data sharing</a>.</p>
-<h3 id="new-jdk-27-features"><img alt="Start of content that applies to Java 27 and later" src="../cr/java27plus.png" /> New JDK 27 features</h3>
-<p>The following features are supported by OpenJ9:</p>
+<p>The status of the directory that is specified for the backing files affects the memory disclaiming process status as explained in the following table.</p>
+<table>
+<thead>
+<tr>
+<th>Status of the specified directory</th>
+<th>VM behavior</th>
+<th>Memory disclaiming status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Does not exist or is not a directory</td>
+<td>VM terminates (fatal startup error)</td>
+<td>Process exits</td>
+</tr>
+<tr>
+<td>Exists, but not writeable</td>
+<td>VM continues running</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Exists, but has less than 1 GB free space</td>
+<td>VM continues running</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Directory is on a remote or network file system, such as NFS</td>
+<td>VM continues running</td>
+<td>Disabled (to avoid high network I/O latency)</td>
+</tr>
+<tr>
+<td>Directory is backed by RAM or memory-based file system, such as ramfs, tmpfs</td>
+<td>VM continues running</td>
+<td>Disabled (storing disclaimed memory pages in RAM defeats the purpose of freeing physical memory)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="see-also">See also</h2>
 <ul>
-<li><a href="https://openjdk.java.net/jeps/537">JEP 537</a>: Vector API (Twelfth Incubator)</li>
+<li><a href="../xxmemorydisclaim/">-XX:[+|-]MemoryDisclaim</a></li>
 </ul>
-<p>The following features are implemented in OpenJDK and available in any build of OpenJDK 27 with OpenJ9:</p>
-<ul>
-<li><a href="https://openjdk.java.net/jeps/527">JEP 527</a>: Post-Quantum Hybrid Key Exchange for TLS 1.3</li>
-<li><a href="https://openjdk.java.net/jeps/531">JEP 531</a>: Lazy Constants (Third Preview)</li>
-<li><a href="https://openjdk.java.net/jeps/532">JEP 532</a>: Primitive Types in Patterns, instanceof, and switch
-(Fifth Preview)</li>
-<li><a href="https://openjdk.java.net/jeps/533">JEP 533</a>: Structured Concurrency (Seventh Preview)</li>
-<li><a href="https://openjdk.java.net/jeps/538">JEP 538</a>: PEM Encodings of Cryptographic Objects (Third Preview)</li>
-</ul>
-<p>You can find the full list of features for JDK 27 at the <a href="https://openjdk.org/projects/jdk/27/">OpenJDK project</a>.
-Any remaining features that are listed either do not apply to OpenJ9 or are not implemented and hence not applicable to OpenJ9 in this release. <img alt="End of content that applies to Java 27 and later" src="../cr/java_close.png" /></p>
-<h2 id="known-problems-and-full-release-information">Known problems and full release information</h2>
-<p>To see known problems and a complete list of changes between Eclipse OpenJ9 v0.61.0 and v0.62.0 releases, see the <a href="https://github.com/eclipse-openj9/openj9/blob/master/doc/release-notes/0.62/0.62.md">Release notes</a>.</p>
-<!-- ==== END OF TOPIC ==== version0.62.md ==== -->
+<!-- ==== END OF TOPIC ==== xxdisclaimdir.md ==== -->
 
 
 
