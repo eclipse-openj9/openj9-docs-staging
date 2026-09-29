@@ -11712,55 +11712,17 @@
 
 <h1 id="-xxdisclaimdir">-XX:DisclaimDir</h1>
 <p><strong>(Linux&reg; only)</strong></p>
-<p>This option specifies the directory for storing the backing files that are required by the memory disclaim mechanism. The backing files hold the data of the physical memory pages that were disclaimed.</p>
+<p>This option specifies the directory that is used to store some files that are required by OpenJ9's memory disclaiming mechanism.</p>
 <h2 id="syntax">Syntax</h2>
 <pre><code>    -XX:DisclaimDir=&lt;directory&gt;
 </code></pre>
 <h2 id="explanation">Explanation</h2>
-<p>OpenJ9's memory disclaiming mechanism releases physical memory pages that are occupied by internal data structures, such as data caches and interpreter profiler, back to the operating system when they are unlikely to be needed soon. However, the VM still reserves the virtual address space of the data structures if the VM needs to access that data later. Instead of consuming actual physical memory, the data is moved to a temporary backing file located in the directory specified in the <code>-XX:DisclaimDir</code> option, while retaining the virtual address. The physical memory that was released is marked as free and other processes or the operating system can immediately take over that physical memory for other tasks.</p>
-<p>When the VM accesses the virtual address of the disclaimed memory page, the operating system loads the stored data back into the physical memory for the VM to use.</p>
-<p>If the option is not specified, the VM selects a location automatically in either of the following ways:</p>
+<p>When OpenJ9's memory disclaiming mechanism releases physical memory pages, the files that are required in the future by this mechanism are stored in the directory that is specified by the <code>-XX:DisclaimDir</code> option.</p>
+<p>If the option is not specified, the VM selects a location automatically by using either of the following ways:</p>
 <ul>
 <li>Swap space, if available</li>
-<li><code>/tmp</code> directory, if swap cannot be used</li>
+<li><code>/tmp</code> directory, if a suitable swap space is not available</li>
 </ul>
-<p>The status of the directory that is specified for the backing files affects the memory disclaiming process status as explained in the following table.</p>
-<table>
-<thead>
-<tr>
-<th>Status of the specified directory</th>
-<th>VM behavior</th>
-<th>Memory disclaiming status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Does not exist or is not a directory</td>
-<td>VM terminates (fatal startup error)</td>
-<td>Process exits</td>
-</tr>
-<tr>
-<td>Exists, but not writeable</td>
-<td>VM continues running</td>
-<td>Disabled</td>
-</tr>
-<tr>
-<td>Exists, but has less than 1 GB free space</td>
-<td>VM continues running</td>
-<td>Disabled</td>
-</tr>
-<tr>
-<td>Directory is on a remote or network file system, such as NFS</td>
-<td>VM continues running</td>
-<td>Disabled (to avoid high network I/O latency)</td>
-</tr>
-<tr>
-<td>Directory is backed by RAM or memory-based file system, such as ramfs, tmpfs</td>
-<td>VM continues running</td>
-<td>Disabled (storing disclaimed memory pages in RAM defeats the purpose of freeing physical memory)</td>
-</tr>
-</tbody>
-</table>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="../xxmemorydisclaim/">-XX:[+|-]MemoryDisclaim</a></li>
