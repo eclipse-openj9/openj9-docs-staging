@@ -172,7 +172,7 @@ Colour added by enabling attr_list under markdown_extensions: in mkdocs.yml, and
 }
 
 .eclipse-image {
-  margin-left: calc(100% - 5rem);
+  margin-left: calc(100% - 100px);
 }
 
 .footer-link {
